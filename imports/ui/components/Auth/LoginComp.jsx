@@ -71,7 +71,7 @@ export default class LoginComp extends Component {
           });
         }
       } else {
-        this.props.history.push('/main/welcome');
+        this.props.history.push('/main/client_info');
       }
     });
   }

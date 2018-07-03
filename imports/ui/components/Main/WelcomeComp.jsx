@@ -1,4 +1,5 @@
 import React from 'react';
+import ModalTester from '../ClientsInfo/ModalTester'
 
 const WelcomeComp = (props) => {
   const currentUser = Meteor.user();
@@ -12,9 +13,12 @@ const WelcomeComp = (props) => {
   }
   console.log('currentUser:',currentUser);
   return (
-    <h1 className="text-center">
-      Welcome {userFirstName} {userLastName}
-    </h1>
+    <div>
+      <h1 className="text-center">
+        Welcome {userFirstName} {userLastName}
+      </h1>
+      <ModalTester />
+    </div>
   );
 };
 

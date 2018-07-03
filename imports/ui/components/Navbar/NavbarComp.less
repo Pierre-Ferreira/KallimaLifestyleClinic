@@ -1,7 +1,26 @@
 #navbar-comp {
   font-size: x-large;
   .navbar-brand {
-    font-size: -webkit-xxx-large;
+    @media(min-width:0px) {
+      color: purple;
+      font-size: 23px;
+    }
+    @media(min-width:576px) {
+      color: red;
+      font-size: 40px;
+    }
+    @media(min-width:768px) {
+      color: blue;
+      font-size: 55px;
+    }
+    @media(min-width:992px) {
+      color: green;
+      font-size: 55px;
+    }
+    @media(min-width:1200px) {
+      color: yellow;
+      font-size: 55px;
+    }
     padding: 12px 0px;
     line-height: 20px;
   }

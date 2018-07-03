@@ -30,11 +30,13 @@ export default class NavbarComp extends Component {
         <Navbar inverse fluid id="navbar-comp">
           <Navbar.Header>
             <Navbar.Brand>
-              Crypto Learning Club
+              Kallima Lifestyle Center
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
-          { renderNavigationLinks(this.props.authenticated) }
+          <Navbar.Collapse>
+            { renderNavigationLinks(this.props.authenticated) }
+          </Navbar.Collapse>
         </Navbar>
       </div>
     );

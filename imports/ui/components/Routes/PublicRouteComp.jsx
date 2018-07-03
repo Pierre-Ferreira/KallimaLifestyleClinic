@@ -13,7 +13,7 @@ const PublicRouteComp = ({
       const authenticated = !loggingIn && !!Meteor.userId();
       return !authenticated ?
       (React.createElement(component, { ...props, loggingIn, authenticated })) :
-      (<Redirect to="/main/welcome" />);
+      (<Redirect to="/main/client_info" />);
     }}
   />
 );

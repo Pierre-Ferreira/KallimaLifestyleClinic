@@ -1,7 +1,18 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Alert, Button, ButtonToolbar, OverlayTrigger, Popover, Form, FormGroup, Col, FormControl, ControlLabel } from 'react-bootstrap';
+import {
+  Alert,
+  Button,
+  ButtonToolbar,
+  OverlayTrigger,
+  Popover,
+  Form,
+  FormGroup,
+  Col,
+  FormControl,
+  ControlLabel,
+} from 'react-bootstrap';
 import moment from 'moment/moment'
 import './ClientPersonalInfoComp.less';
 
@@ -9,10 +20,20 @@ export default class ClientPersonalInfoComp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      feedbackMessage: '',
+      feedbackMessageType: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleSurnameChange = this.handleSurnameChange.bind(this);
+    this.handleCellnoChange = this.handleCellnoChange.bind(this);
+    this.handleWorknoChange = this.handleWorknoChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleMarriedChange = this.handleMarriedChange.bind(this);
+    this.handleChildrenChange = this.handleChildrenChange.bind(this);
+    this.handleHobbiesChange = this.handleHobbiesChange.bind(this);
+    this.handleOccupationChange = this.handleOccupationChange.bind(this);
+    this.handleOtherInfoChange = this.handleOtherInfoChange.bind(this);
   }
 
   handleNameChange(e) {
@@ -29,6 +50,55 @@ export default class ClientPersonalInfoComp extends Component {
     });
   }
 
+  handleCellnoChange(e) {
+    console.log('handleCellnoChange:', e.target.value)
+    this.setState({
+      cellNo: e.target.value,
+    });
+  }
+  handleWorknoChange(e) {
+    console.log('handleWorknoChange:', e.target.value)
+    this.setState({
+      workNo: e.target.value,
+    });
+  }
+  handleEmailChange(e) {
+    console.log('handleEmailChange:', e.target.value)
+    this.setState({
+      email: e.target.value,
+    });
+  }
+  handleMarriedChange(e) {
+    console.log('handleMarriedChange:', e.target.value)
+    this.setState({
+      married: e.target.value,
+    });
+  }
+  handleChildrenChange(e) {
+    console.log('handleChildrenChange:', e.target.value)
+    this.setState({
+      children: e.target.value,
+    });
+  }
+  handleHobbiesChange(e) {
+    console.log('handleHobbiesChange:', e.target.value)
+    this.setState({
+      hobbies: e.target.value,
+    });
+  }
+  handleOccupationChange(e) {
+    console.log('handleOccupationChange:', e.target.value)
+    this.setState({
+      occupation: e.target.value,
+    });
+  }
+  handleOtherInfoChange(e) {
+    console.log('handleOtherInfoChange:', e.target.value)
+    this.setState({
+      otherInfo: e.target.value,
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.setState({
@@ -38,28 +108,61 @@ export default class ClientPersonalInfoComp extends Component {
     const { clientID } = this.props.match.params;
     const clientPersonalInfo = {
       name: this.state.name,
+      surname: this.state.surname,
+      cellno: this.state.cellno,
+      workno: this.state.workno,
+      email: this.state.email,
+      married: this.state.married,
+      children: this.state.children,
+      hobbies: this.state.hobbies,
+      occupation: this.state.occupation,
+      otherInfo: this.state.otherInfo,
     };
-    Meteor.call('client_personal_info.create', clientPersonalInfo, (err, result) => {
-      if (err) {
-        this.setState({
-          feedbackMessage: `ERROR: ${err.reason}`,
-          feedbackMessageType: 'danger',
-          clientID: '',
-        });
-      } else {
-        this.setState({
-          feedbackMessage: 'Player Analysis Info Saved!',
-          feedbackMessageType: 'success',
-          clientID: result,
-        });
-        setTimeout(() => {
+    if (clientID = 'new') {
+      Meteor.call('client_personal_info.create', clientPersonalInfo, (err, result) => {
+        if (err) {
           this.setState({
-            feedbackMessage: '',
-            feedbackMessageType: '',
+            feedbackMessage: `ERROR: ${err.reason}`,
+            feedbackMessageType: 'danger',
+            clientID: 'new',
           });
-        }, 3000);
-      }
-    });
+        } else {
+          this.setState({
+            feedbackMessage: 'Player Analysis Info Saved!',
+            feedbackMessageType: 'success',
+            clientID: result,
+          });
+          setTimeout(() => {
+            this.setState({
+              feedbackMessage: '',
+              feedbackMessageType: '',
+            });
+          }, 3000);
+        }
+      });
+    } else {
+      Meteor.call('client_personal_info.update', clientPersonalInfo, (err, result) => {
+        if (err) {
+          this.setState({
+            feedbackMessage: `ERROR: ${err.reason}`,
+            feedbackMessageType: 'danger',
+            clientID: '',
+          });
+        } else {
+          this.setState({
+            feedbackMessage: 'Player Analysis Info Saved!',
+            feedbackMessageType: 'success',
+            clientID: result,
+          });
+          setTimeout(() => {
+            this.setState({
+              feedbackMessage: '',
+              feedbackMessageType: '',
+            });
+          }, 3000);
+        }
+      });
+    }
   }
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
@@ -72,6 +175,11 @@ export default class ClientPersonalInfoComp extends Component {
           <Button bsSize="large" block>
             New Client
           </Button>
+          {(feedbackMessage) ?
+            <Alert bsStyle={feedbackMessageType}>
+              {feedbackMessage}
+            </Alert>
+          : null }
         </div>
         <Form horizontal>
           <div className="middle-tier-area">
@@ -155,13 +263,16 @@ export default class ClientPersonalInfoComp extends Component {
               <Col mdOffset={1} md={3}>
                 <ControlLabel>Married:</ControlLabel>
               </Col>
-              <Col md={7}>
+              <Col md={3}>
                 <FormControl
-                  type="text"
-                  placeholder="Married"
+                  componentClass="select"
                   value={this.state.married}
                   onChange={this.handleMarriedChange}
-                />
+                >
+                  <option value="">...</option>
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option>
+                </FormControl>
               </Col>
             </FormGroup>
             <FormGroup
@@ -170,13 +281,25 @@ export default class ClientPersonalInfoComp extends Component {
               <Col mdOffset={1} md={3}>
                 <ControlLabel>Children:</ControlLabel>
               </Col>
-              <Col md={7}>
+              <Col md={3}>
                 <FormControl
-                  type="text"
-                  placeholder="Children"
+                  componentClass="select"
                   value={this.state.children}
                   onChange={this.handleChildrenChange}
-                />
+                >
+                  <option value="">...</option>
+                  <option value="0">None</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </FormControl>
               </Col>
             </FormGroup>
             <FormGroup
@@ -219,7 +342,7 @@ export default class ClientPersonalInfoComp extends Component {
                 <FormControl
                   componentClass="textarea"
                   placeholder="Other info"
-                  value={this.state.otherinfo}
+                  value={this.state.otherInfo}
                   onChange={this.handleOtherInfoChange}
                 />
               </Col>
@@ -228,7 +351,12 @@ export default class ClientPersonalInfoComp extends Component {
           <div className="bottom-tier-area">
             <FormGroup>
               <Col sm={12}>
-                <Button bsStyle="primary" bsSize="large" block>
+                <Button
+                  bsStyle="primary"
+                  bsSize="large"
+                  block
+                  onClick={this.handleSubmit}
+                >
                   Save
                 </Button>
               </Col>

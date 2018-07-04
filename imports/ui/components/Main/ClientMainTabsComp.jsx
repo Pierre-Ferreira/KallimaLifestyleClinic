@@ -1,12 +1,13 @@
 import React from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
-import './ClientInfoCaptureComp.less';
+import './ClientMainTabsComp.less';
+import ClientPersonalInfoComp from '../TabsComponents/ClientPersonalInfoComp';
 
-const ClientInfoCaptureComp = () => {
+const ClientMainTabsComp = () => {
   return (
     <Tabs defaultActiveKey={1} id="client-main-tabs">
       <Tab eventKey={1} title="Client Info">
-        CLIENT INFO
+        <ClientPersonalInfoComp />
       </Tab>
       <Tab eventKey={2} title="Client Consent">
         SIGNATURE AREA
@@ -24,8 +25,4 @@ const ClientInfoCaptureComp = () => {
   );
 };
 
-// WelcomeComp.propTypes = {
-//
-// };
-
-export default ClientInfoCaptureComp;
+export default ClientMainTabsComp;

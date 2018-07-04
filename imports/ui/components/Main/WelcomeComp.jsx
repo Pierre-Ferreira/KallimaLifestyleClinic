@@ -1,5 +1,5 @@
 import React from 'react';
-import ModalTester from '../ClientsInfo/ModalTester'
+import ModalTester from '../TabsComponents/ModalTester'
 
 const WelcomeComp = (props) => {
   const currentUser = Meteor.user();

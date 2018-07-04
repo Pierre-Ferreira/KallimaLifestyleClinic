@@ -1,17 +1,24 @@
 import React from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
+import './ClientInfoCaptureComp.less';
 
 const ClientInfoCaptureComp = () => {
   return (
-    <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
-      <Tab eventKey={1} title="Tab 1">
-        Tab 1 content
+    <Tabs defaultActiveKey={1} id="client-main-tabs">
+      <Tab eventKey={1} title="Client Info">
+        CLIENT INFO
       </Tab>
-      <Tab eventKey={2} title="Tab 2">
-        Tab 2 content
+      <Tab eventKey={2} title="Client Consent">
+        SIGNATURE AREA
       </Tab>
-      <Tab eventKey={3} title="Tab 3" disabled>
-        Tab 3 content
+      <Tab eventKey={3} title="Weight Info">
+        WEIGHT INFO
+      </Tab>
+      <Tab eventKey={4} title="Payment Info">
+        PAYMENT INFO
+      </Tab>
+      <Tab eventKey={5} title="Pics" disabled>
+        BEFORE AND AFTER PICS.
       </Tab>
     </Tabs>
   );

@@ -1,5 +1,8 @@
 #navbar-comp {
   font-size: x-large;
+  .container-fluid {
+    display: block;
+  }
   .navbar-brand {
     @media(min-width:0px) {
       color: purple;
@@ -11,15 +14,15 @@
     }
     @media(min-width:768px) {
       color: blue;
-      font-size: 55px;
+      font-size: 40px;
     }
     @media(min-width:992px) {
       color: green;
-      font-size: 55px;
+      font-size: 45px;
     }
     @media(min-width:1200px) {
       color: yellow;
-      font-size: 55px;
+      font-size: 45px;
     }
     padding: 12px 0px;
     line-height: 20px;
@@ -29,5 +32,7 @@
   }
   .navbar-nav {
     display: -webkit-inline-box;
+    float: right;
+    padding-top: 6px;
   }
 }

@@ -13,7 +13,7 @@ const AuthenticatedRouteComp = ({
       const authenticated = !loggingIn && !!Meteor.userId();
       return authenticated ?
       (React.createElement(component, { ...props, loggingIn, authenticated })) :
-      (<Redirect to="/" />);
+      (<Redirect to="/main/client_info" />);
     }}
   />
 );

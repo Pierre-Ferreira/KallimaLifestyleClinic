@@ -12,18 +12,6 @@ function mapStateToProps(state) {
   console.log('REDUX STATE:', state)
   return {
     clientPersonalInfoRedux: state.clientPersonalInfo,
-    // clientPersonalInfoRedux = state
-    // clientID: state.clientID,
-    // name: state.name,
-    // surname: state.surname,
-    // cellNo: state.cellNo,
-    // workNo: state.workNo,
-    // email: state.email,
-    // married: state.married,
-    // children: state.children,
-    // hobbies: state.hobbies,
-    // occupation: state.occupation,
-    // otherInfo: state.otherInfo,
   };
 }
 

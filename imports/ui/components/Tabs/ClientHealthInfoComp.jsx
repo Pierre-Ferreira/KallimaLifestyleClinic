@@ -23,28 +23,26 @@ export default class ClientHealthInfoComp extends Component {
     this.state = {
       feedbackMessage: '',
       feedbackMessageType: '',
-      // clientID: '',
-      name: '',
-      surname: '',
-      cellNo: '',
-      workNo: '',
-      email: '',
-      married: '',
-      children: '',
-      hobbies: '',
-      occupation: '',
+      clientID: '',
+      height: '',
+      currentWeight: '',
+      goalWeight: '',
+      allergies: '',
+      operations: '',
+      alcohol: '',
+      favouriteFoods: '',
+      health: '',
       otherInfo: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleSurnameChange = this.handleSurnameChange.bind(this);
-    this.handleCellnoChange = this.handleCellnoChange.bind(this);
-    this.handleWorknoChange = this.handleWorknoChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleMarriedChange = this.handleMarriedChange.bind(this);
-    this.handleChildrenChange = this.handleChildrenChange.bind(this);
-    this.handleHobbiesChange = this.handleHobbiesChange.bind(this);
-    this.handleOccupationChange = this.handleOccupationChange.bind(this);
+    this.handleHeightChange = this.handleHeightChange.bind(this);
+    this.handleCurrentWeightChange = this.handleCurrentWeightChange.bind(this);
+    this.handleGoalWeightChange = this.handleGoalWeightChange.bind(this);
+    this.handleAllergiesChange = this.handleAllergiesChange.bind(this);
+    this.handleOperationsChange = this.handleOperationsChange.bind(this);
+    this.handleAlcoholChange = this.handleAlcoholChange.bind(this);
+    this.handleFavouriteFoodsChange = this.handleFavouriteFoodsChange.bind(this);
+    this.handleHealthChange = this.handleHealthChange.bind(this);
     this.handleOtherInfoChange = this.handleOtherInfoChange.bind(this);
     this.createNewButton = this.createNewButton.bind(this);
   }
@@ -73,74 +71,67 @@ export default class ClientHealthInfoComp extends Component {
     if (this.props.clientID !== prevProps.clientID) {
       this.setState({
         // clientID: this.props.clientID,
-        name: this.props.clientHealthInfoRedux.name,
-        surname: this.props.clientHealthInfoRedux.surname,
-        cellNo: this.props.clientHealthInfoRedux.cellNo,
-        workNo: this.props.clientHealthInfoRedux.workNo,
-        email: this.props.clientHealthInfoRedux.email,
-        married: this.props.clientHealthInfoRedux.married,
-        children: this.props.clientHealthInfoRedux.children,
-        hobbies: this.props.clientHealthInfoRedux.hobbies,
-        occupation: this.props.clientHealthInfoRedux.occupation,
+        height: this.props.clientHealthInfoRedux.height,
+        currentWeight: this.props.clientHealthInfoRedux.currentWeight,
+        goalWeight: this.props.clientHealthInfoRedux.goalWeight,
+        allergies: this.props.clientHealthInfoRedux.allergies,
+        operations: this.props.clientHealthInfoRedux.operations,
+        alcohol: this.props.clientHealthInfoRedux.alcohol,
+        favouriteFoods: this.props.clientHealthInfoRedux.favouriteFoods,
+        health: this.props.clientHealthInfoRedux.health,
         otherInfo: this.props.clientHealthInfoRedux.otherInfo,
       });
     }
   }
 
-  handleNameChange(e) {
-    console.log('handleNameChange:', e.target.value)
+  handleHeightChange(e) {
+    console.log('handleHeightChange:', e.target.value)
     this.setState({
-      name: e.target.value,
+      height: e.target.value,
     });
   }
 
-  handleSurnameChange(e) {
-    console.log('handleSurnameChange:', e.target.value)
+  handleCurrentWeightChange(e) {
+    console.log('handleCurrentWeightChange:', e.target.value)
     this.setState({
-      surname: e.target.value,
+      currentWeight: e.target.value,
     });
   }
 
-  handleCellnoChange(e) {
-    console.log('handleCellnoChange:', e.target.value)
+  handleGoalWeightChange(e) {
+    console.log('handleGoalWeightChange:', e.target.value)
     this.setState({
-      cellNo: e.target.value,
+      goalWeight: e.target.value,
     });
   }
-  handleWorknoChange(e) {
-    console.log('handleWorknoChange:', e.target.value)
+  handleAllergiesChange(e) {
+    console.log('handleAllergiesChange:', e.target.value)
     this.setState({
-      workNo: e.target.value,
+      allergies: e.target.value,
     });
   }
-  handleEmailChange(e) {
-    console.log('handleEmailChange:', e.target.value)
+  handleOperationsChange(e) {
+    console.log('handleOperationsChange:', e.target.value)
     this.setState({
-      email: e.target.value,
+      operations: e.target.value,
     });
   }
-  handleMarriedChange(e) {
-    console.log('handleMarriedChange:', e.target.value)
+  handleAlcoholChange(e) {
+    console.log('handleAlcoholChange:', e.target.value)
     this.setState({
-      married: e.target.value,
+      alcohol: e.target.value,
     });
   }
-  handleChildrenChange(e) {
-    console.log('handleChildrenChange:', e.target.value)
+  handleFavouriteFoodsChange(e) {
+    console.log('handleFavouriteFoodsChange:', e.target.value)
     this.setState({
-      children: e.target.value,
+      favouriteFoods: e.target.value,
     });
   }
-  handleHobbiesChange(e) {
-    console.log('handleHobbiesChange:', e.target.value)
+  handleHealthChange(e) {
+    console.log('handleHealthChange:', e.target.value)
     this.setState({
-      hobbies: e.target.value,
-    });
-  }
-  handleOccupationChange(e) {
-    console.log('handleOccupationChange:', e.target.value)
-    this.setState({
-      occupation: e.target.value,
+      health: e.target.value,
     });
   }
   handleOtherInfoChange(e) {
@@ -162,15 +153,14 @@ export default class ClientHealthInfoComp extends Component {
     });
 
     const clientHealthInfoObj = {
-      name: this.state.name,
-      surname: this.state.surname,
-      cellNo: this.state.cellNo,
-      workNo: this.state.workNo,
-      email: this.state.email,
-      married: this.state.married,
-      children: this.state.children,
-      hobbies: this.state.hobbies,
-      occupation: this.state.occupation,
+      height: this.state.height,
+      currentWeight: this.state.currentWeight,
+      goalWeight: this.state.goalWeight,
+      allergies: this.state.allergies,
+      operations: this.state.operations,
+      alcohol: this.state.alcohol,
+      favouriteFoods: this.state.favouriteFoods,
+      health: this.state.health,
       otherInfo: this.state.otherInfo,
     };
     console.log('clientHealthInfoObj:', clientHealthInfoObj)
@@ -241,39 +231,38 @@ export default class ClientHealthInfoComp extends Component {
         </div>
         <Form horizontal>
           <div className="middle-tier-area">
-            <FormGroup controlId="name-formgroup">
+            <FormGroup controlId="height-formgroup">
               <Col mdOffset={1} md={3}>
-                <ControlLabel>Name:</ControlLabel>
+                <ControlLabel>Height:</ControlLabel>
               </Col>
               <Col md={7}>
                 <FormControl
-                  className=""
                   type="text"
-                  placeholder="Name"
-                  value={this.state.name}
-                  onChange={this.handleNameChange}
+                  placeholder="Height"
+                  value={this.state.height}
+                  onChange={this.handleHeightChange}
                   disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
             <FormGroup
-              controlId="surname-formgroup"
+              controlId="currentWeight-formgroup"
             >
               <Col mdOffset={1} md={3}>
-                <ControlLabel>Surname:</ControlLabel>
+                <ControlLabel>Current Weight:</ControlLabel>
               </Col>
               <Col md={7}>
                 <FormControl
                   type="text"
-                  placeholder="Surname"
-                  value={this.state.surname}
-                  onChange={this.handleSurnameChange}
+                  placeholder="Current Weight"
+                  value={this.state.currentWeight}
+                  onChange={this.handleCurrentWeightChange}
                   disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
             <FormGroup
-              controlId="cellno-formgroup"
+              controlId="goalWeight-formgroup"
             >
               <Col mdOffset={1} md={3}>
                 <ControlLabel>Cell No:</ControlLabel>
@@ -282,14 +271,14 @@ export default class ClientHealthInfoComp extends Component {
                 <FormControl
                   type="text"
                   placeholder="Cell No"
-                  value={this.state.cellNo}
-                  onChange={this.handleCellnoChange}
+                  value={this.state.goalWeight}
+                  onChange={this.handleGoalWeightChange}
                   disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
             <FormGroup
-              controlId="workno-formgroup"
+              controlId="allergies-formgroup"
             >
               <Col mdOffset={1} md={3}>
                 <ControlLabel>Work No:</ControlLabel>
@@ -298,103 +287,72 @@ export default class ClientHealthInfoComp extends Component {
                 <FormControl
                   type="text"
                   placeholder="Work No"
-                  value={this.state.workNo}
-                  onChange={this.handleWorknoChange}
+                  value={this.state.allergies}
+                  onChange={this.handleAllergiesChange}
                   disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
             <FormGroup
-              controlId="email-formgroup"
+              controlId="operations-formgroup"
             >
               <Col mdOffset={1} md={3}>
-                <ControlLabel>Email:</ControlLabel>
+                <ControlLabel>Operations:</ControlLabel>
               </Col>
               <Col md={7}>
                 <FormControl
                   type="text"
-                  placeholder="Email"
-                  value={this.state.email}
-                  onChange={this.handleEmailChange}
+                  placeholder="Operations"
+                  value={this.state.operations}
+                  onChange={this.handleOperationsChange}
                   disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
             <FormGroup
-              controlId="married-formgroup"
+              controlId="alcohol-formgroup"
             >
               <Col mdOffset={1} md={3}>
-                <ControlLabel>Married:</ControlLabel>
+                <ControlLabel>Alcohol:</ControlLabel>
               </Col>
               <Col md={3}>
                 <FormControl
-                  componentClass="select"
-                  value={this.state.married}
-                  onChange={this.handleMarriedChange}
+                  type="text"
+                  placeholder="Alcohol"
+                  value={this.state.alcohol}
+                  onChange={this.handleAlcoholChange}
                   disabled={disableInputsFlag}
-                >
-                  <option value="">...</option>
-                  <option value="No">No</option>
-                  <option value="Yes">Yes</option>
-                </FormControl>
+                />
               </Col>
             </FormGroup>
             <FormGroup
-              controlId="children-formgroup"
+              controlId="favouriteFoods-formgroup"
             >
               <Col mdOffset={1} md={3}>
-                <ControlLabel>Children:</ControlLabel>
+                <ControlLabel>Favourite Foods:</ControlLabel>
               </Col>
               <Col md={3}>
                 <FormControl
-                  componentClass="select"
-                  value={this.state.children}
-                  onChange={this.handleChildrenChange}
+                  type="text"
+                  placeholder="Favourite Foods"
+                  value={this.state.favouriteFoods}
+                  onChange={this.handleFavouriteFoodsChange}
                   disabled={disableInputsFlag}
-                >
-                  <option value="">...</option>
-                  <option value="0">None</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </FormControl>
+                />
               </Col>
             </FormGroup>
             <FormGroup
-              controlId="hobbies-formgroup"
+              controlId="health-formgroup"
             >
               <Col mdOffset={1} md={3}>
-                <ControlLabel>Hobbies:</ControlLabel>
+                <ControlLabel>Health:</ControlLabel>
               </Col>
               <Col md={7}>
                 <FormControl
                   componentClass="textarea"
-                  placeholder="Hobbies"
-                  value={this.state.hobbies}
-                  onChange={this.handleHobbiesChange}
-                  disabled={disableInputsFlag}
-                />
-              </Col>
-            </FormGroup>
-            <FormGroup
-              controlId="occupation-formgroup"
-            >
-              <Col mdOffset={1} md={3}>
-                <ControlLabel>Occupation:</ControlLabel>
-              </Col>
-              <Col md={7}>
-                <FormControl
-                  type="text"
-                  placeholder="Occupation"
-                  value={this.state.occupation}
-                  onChange={this.handleOccupationChange}
+                  placeholder="Health"
+                  value={this.state.health}
+                  onChange={this.handleHealthChange}
                   disabled={disableInputsFlag}
                 />
               </Col>

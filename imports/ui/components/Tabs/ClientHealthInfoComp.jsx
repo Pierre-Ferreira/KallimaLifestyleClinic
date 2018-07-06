@@ -15,9 +15,9 @@ import {
   ControlLabel,
 } from 'react-bootstrap';
 // import moment from 'moment/moment'
-import './ClientPersonalInfoComp.less';
+import './ClientHealthInfoComp.less';
 
-export default class ClientPersonalInfoComp extends Component {
+export default class ClientHealthInfoComp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,16 +73,16 @@ export default class ClientPersonalInfoComp extends Component {
     if (this.props.clientID !== prevProps.clientID) {
       this.setState({
         // clientID: this.props.clientID,
-        name: this.props.clientPersonalInfoRedux.name,
-        surname: this.props.clientPersonalInfoRedux.surname,
-        cellNo: this.props.clientPersonalInfoRedux.cellNo,
-        workNo: this.props.clientPersonalInfoRedux.workNo,
-        email: this.props.clientPersonalInfoRedux.email,
-        married: this.props.clientPersonalInfoRedux.married,
-        children: this.props.clientPersonalInfoRedux.children,
-        hobbies: this.props.clientPersonalInfoRedux.hobbies,
-        occupation: this.props.clientPersonalInfoRedux.occupation,
-        otherInfo: this.props.clientPersonalInfoRedux.otherInfo,
+        name: this.props.clientHealthInfoRedux.name,
+        surname: this.props.clientHealthInfoRedux.surname,
+        cellNo: this.props.clientHealthInfoRedux.cellNo,
+        workNo: this.props.clientHealthInfoRedux.workNo,
+        email: this.props.clientHealthInfoRedux.email,
+        married: this.props.clientHealthInfoRedux.married,
+        children: this.props.clientHealthInfoRedux.children,
+        hobbies: this.props.clientHealthInfoRedux.hobbies,
+        occupation: this.props.clientHealthInfoRedux.occupation,
+        otherInfo: this.props.clientHealthInfoRedux.otherInfo,
       });
     }
   }
@@ -161,7 +161,7 @@ export default class ClientPersonalInfoComp extends Component {
       feedbackMessageType: 'success',
     });
 
-    const clientPersonalInfoObj = {
+    const clientHealthInfoObj = {
       name: this.state.name,
       surname: this.state.surname,
       cellNo: this.state.cellNo,
@@ -173,7 +173,7 @@ export default class ClientPersonalInfoComp extends Component {
       occupation: this.state.occupation,
       otherInfo: this.state.otherInfo,
     };
-    console.log('clientPersonalInfoObj:', clientPersonalInfoObj)
+    console.log('clientHealthInfoObj:', clientHealthInfoObj)
     const { clientID } = this.props;
     if (clientID === '') {
       this.setState({
@@ -181,7 +181,7 @@ export default class ClientPersonalInfoComp extends Component {
         feedbackMessageType: 'danger',
       });
     } else if (clientID === 'new') {
-      Meteor.call('client_personal_info.create', clientPersonalInfoObj, (err, result) => {
+      Meteor.call('client_health_info.create', clientHealthInfoObj, (err, result) => {
         if (err) {
           this.setState({
             feedbackMessage: `ERROR: ${err.reason}`,
@@ -192,8 +192,8 @@ export default class ClientPersonalInfoComp extends Component {
             feedbackMessage: 'Client Info Saved!',
             feedbackMessageType: 'success',
           });
-          clientPersonalInfoObj.clientID = result;
-          this.props.saveClientPersonalInfo(clientPersonalInfoObj);
+          clientHealthInfoObj.clientID = result;
+          this.props.saveClientHealthInfo(clientHealthInfoObj);
           setTimeout(() => {
             this.setState({
               feedbackMessage: '',
@@ -203,7 +203,7 @@ export default class ClientPersonalInfoComp extends Component {
         }
       });
     } else {
-      Meteor.call('client_personal_info.update', clientID, clientPersonalInfoObj, (err) => {
+      Meteor.call('client_health_info.update', clientID, clientHealthInfoObj, (err) => {
         if (err) {
           this.setState({
             feedbackMessage: `ERROR: ${err.reason}`,
@@ -214,8 +214,8 @@ export default class ClientPersonalInfoComp extends Component {
             feedbackMessage: 'Client Info Saved!',
             feedbackMessageType: 'success',
           });
-          clientPersonalInfoObj.clientID = clientID;
-          this.props.saveClientPersonalInfo(clientPersonalInfoObj);
+          clientHealthInfoObj.clientID = clientID;
+          this.props.saveClientHealthInfo(clientHealthInfoObj);
           setTimeout(() => {
             this.setState({
               feedbackMessage: '',
@@ -230,22 +230,9 @@ export default class ClientPersonalInfoComp extends Component {
     const { feedbackMessage, feedbackMessageType } = this.state;
     const disableInputsFlag = (this.props.clientID === '');
     return (
-      <div id="client-personal-info-comp">
+      <div id="client-health-info-comp">
         <div className="top-tier-area">
-          <Button
-            bsSize="large"
-            block
-            onClick={this.searchClientButton}
-          >
-            Client Search
-          </Button>
-          <Button
-            bsSize="large"
-            block
-            onClick={this.createNewButton}
-          >
-            New Client
-          </Button>
+          <h1>{this.state.name} {this.state.surname}</h1>
           {(feedbackMessage) ?
             <Alert bsStyle={feedbackMessageType}>
               {feedbackMessage}
@@ -450,9 +437,9 @@ export default class ClientPersonalInfoComp extends Component {
   }
 }
 
-ClientPersonalInfoComp.propTypes = {
+ClientHealthInfoComp.propTypes = {
   clientID: PropTypes.string.isRequired,
-  // clientPersonalInfoRedux.name: PropTypes.shape.isRequired,
-  saveClientPersonalInfo: PropTypes.func.isRequired,
+  // clientHealthInfoRedux.name: PropTypes.shape.isRequired,
+  saveClientHealthInfo: PropTypes.func.isRequired,
   initializeNewClient: PropTypes.func.isRequired,
 };

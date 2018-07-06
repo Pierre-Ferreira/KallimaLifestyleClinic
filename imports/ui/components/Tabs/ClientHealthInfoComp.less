@@ -1,0 +1,62 @@
+#client-personal-info-comp {
+  .top-tier-area {
+    border-bottom: solid 3px indianred;
+    Button {
+      height: 50px;
+      margin: 10px 15px;
+      max-width: -webkit-fill-available;
+      font-size: x-large;
+      background-color: lightcoral;
+      color: floralwhite;
+    }
+    .alert {
+      margin: 0px 15px 10px 15px;
+    }
+  }
+  .middle-tier-area {
+    height: 320px;
+    padding: 20px 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .form-control {
+      font-size: 30px;
+      height: auto;
+    }
+    .control-label {
+      font-size: 34px;
+      padding-top: 0px;
+    }
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: #4950574f;
+      opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: #4950574f;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+      color: #4950574f;
+    }
+  }
+  .middle-tier-area::-webkit-scrollbar {
+    width: 2em;
+  }
+
+  .middle-tier-area::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  }
+
+  .middle-tier-area::-webkit-scrollbar-thumb {
+    background-color: #8b0400;
+  }
+  .bottom-tier-area {
+    border-top: solid 3px indianred;
+    Button {
+      height: 50px;
+      margin: 10px 15px;
+      max-width: -webkit-fill-available;
+      font-size: x-large;
+    }
+  }
+}

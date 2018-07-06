@@ -17,7 +17,7 @@ import VerifyEmailContainer from '../../containers/Auth/VerifyEmailContainer'
 import ForgotPasswordContainer from '../../containers/Auth/ForgotPasswordContainer';
 import AuthenticatedRouteComp from '../Routes/AuthenticatedRouteComp';
 import PublicRouteComp from '../Routes/PublicRouteComp';
-import ClientMainTabsComp from '../Main/ClientMainTabsComp';
+import ClientMainTabsContainer from '../../containers/Tabs/ClientMainTabsContainer';
 // import { withHistory, Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
@@ -43,7 +43,7 @@ export default class MainPage extends Component {
               <PublicRouteComp exact path="/auth/forgot_password" component={ForgotPasswordContainer} {...this.props} />
               <PublicRouteComp exact path="/auth/reset-password/:token" component={ResetPasswordContainer} {...this.props} />
               <PublicRouteComp exact path="/auth/verified-email" component={VerifyEmailContainer} {...this.props} />
-              <AuthenticatedRouteComp exact path="/main/client_info" component={ClientMainTabsComp} {...this.props} />
+              <AuthenticatedRouteComp exact path="/main/client_info" component={ClientMainTabsContainer} {...this.props} />
               {/* <Route exact path="/" component={AppContainer} /> */}
             </Switch>
           </div>

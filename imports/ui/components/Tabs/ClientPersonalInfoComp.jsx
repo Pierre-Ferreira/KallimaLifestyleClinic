@@ -1,19 +1,20 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+// import { Link } from 'react-router-dom';
 import {
   Alert,
   Button,
-  ButtonToolbar,
-  OverlayTrigger,
-  Popover,
+  // ButtonToolbar,
+  // OverlayTrigger,
+  // Popover,
   Form,
   FormGroup,
   Col,
   FormControl,
   ControlLabel,
 } from 'react-bootstrap';
-import moment from 'moment/moment'
+// import moment from 'moment/moment'
 import './ClientPersonalInfoComp.less';
 
 export default class ClientPersonalInfoComp extends Component {
@@ -22,6 +23,17 @@ export default class ClientPersonalInfoComp extends Component {
     this.state = {
       feedbackMessage: '',
       feedbackMessageType: '',
+      // clientID: '',
+      name: '',
+      surname: '',
+      cellNo: '',
+      workNo: '',
+      email: '',
+      married: '',
+      children: '',
+      hobbies: '',
+      occupation: '',
+      otherInfo: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -34,6 +46,45 @@ export default class ClientPersonalInfoComp extends Component {
     this.handleHobbiesChange = this.handleHobbiesChange.bind(this);
     this.handleOccupationChange = this.handleOccupationChange.bind(this);
     this.handleOtherInfoChange = this.handleOtherInfoChange.bind(this);
+    this.createNewButton = this.createNewButton.bind(this);
+  }
+
+  componentDidMount() {
+    // const { clientID } = this.props;
+    // Meteor.call('client_personal_info.fetch', clientID, (err, result) => {
+    //   console.log('ERR:', err);
+    //   console.log('RESULT:', result);
+    //   this.setState({
+    //     name: result.name,
+    //     surname: result.surname,
+    //     cellNo: result.cellNo,
+    //     workNo: result.workNo,
+    //     email: result.email,
+    //     married: result.married,
+    //     children: result.children,
+    //     hobbies: result.hobbies,
+    //     occupation: result.occupation,
+    //     otherInfo: result.otherInfo,
+    //   });
+    // });
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.clientID !== prevProps.clientID) {
+      this.setState({
+        // clientID: this.props.clientID,
+        name: this.props.clientPersonalInfoRedux.name,
+        surname: this.props.clientPersonalInfoRedux.surname,
+        cellNo: this.props.clientPersonalInfoRedux.cellNo,
+        workNo: this.props.clientPersonalInfoRedux.workNo,
+        email: this.props.clientPersonalInfoRedux.email,
+        married: this.props.clientPersonalInfoRedux.married,
+        children: this.props.clientPersonalInfoRedux.children,
+        hobbies: this.props.clientPersonalInfoRedux.hobbies,
+        occupation: this.props.clientPersonalInfoRedux.occupation,
+        otherInfo: this.props.clientPersonalInfoRedux.otherInfo,
+      });
+    }
   }
 
   handleNameChange(e) {
@@ -99,18 +150,22 @@ export default class ClientPersonalInfoComp extends Component {
     });
   }
 
+  createNewButton() {
+    this.props.initializeNewClient();
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.setState({
       feedbackMessage: 'Busy...',
       feedbackMessageType: 'success',
     });
-    const { clientID } = this.props.match.params;
-    const clientPersonalInfo = {
+
+    const clientPersonalInfoObj = {
       name: this.state.name,
       surname: this.state.surname,
-      cellno: this.state.cellno,
-      workno: this.state.workno,
+      cellNo: this.state.cellNo,
+      workNo: this.state.workNo,
       email: this.state.email,
       married: this.state.married,
       children: this.state.children,
@@ -118,20 +173,27 @@ export default class ClientPersonalInfoComp extends Component {
       occupation: this.state.occupation,
       otherInfo: this.state.otherInfo,
     };
-    if (clientID = 'new') {
-      Meteor.call('client_personal_info.create', clientPersonalInfo, (err, result) => {
+    console.log('clientPersonalInfoObj:', clientPersonalInfoObj)
+    const { clientID } = this.props;
+    if (clientID === '') {
+      this.setState({
+        feedbackMessage: 'ERROR: ClientID not set! Create new client',
+        feedbackMessageType: 'danger',
+      });
+    } else if (clientID === 'new') {
+      Meteor.call('client_personal_info.create', clientPersonalInfoObj, (err, result) => {
         if (err) {
           this.setState({
             feedbackMessage: `ERROR: ${err.reason}`,
             feedbackMessageType: 'danger',
-            clientID: 'new',
           });
         } else {
           this.setState({
-            feedbackMessage: 'Player Analysis Info Saved!',
+            feedbackMessage: 'Client Info Saved!',
             feedbackMessageType: 'success',
-            clientID: result,
           });
+          clientPersonalInfoObj.clientID = result;
+          this.props.saveClientPersonalInfo(clientPersonalInfoObj);
           setTimeout(() => {
             this.setState({
               feedbackMessage: '',
@@ -141,19 +203,19 @@ export default class ClientPersonalInfoComp extends Component {
         }
       });
     } else {
-      Meteor.call('client_personal_info.update', clientPersonalInfo, (err, result) => {
+      Meteor.call('client_personal_info.update', clientID, clientPersonalInfoObj, (err, result) => {
         if (err) {
           this.setState({
             feedbackMessage: `ERROR: ${err.reason}`,
             feedbackMessageType: 'danger',
-            clientID: '',
           });
         } else {
           this.setState({
-            feedbackMessage: 'Player Analysis Info Saved!',
+            feedbackMessage: 'Client Info Saved!',
             feedbackMessageType: 'success',
-            clientID: result,
           });
+          clientPersonalInfoObj.clientID = clientID;
+          this.props.saveClientPersonalInfo(clientPersonalInfoObj);
           setTimeout(() => {
             this.setState({
               feedbackMessage: '',
@@ -166,13 +228,22 @@ export default class ClientPersonalInfoComp extends Component {
   }
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
+    const disableInputsFlag = (this.props.clientID === '');
     return (
       <div id="client-personal-info-comp">
         <div className="top-tier-area">
-          <Button bsSize="large" block>
+          <Button
+            bsSize="large"
+            block
+            onClick={this.searchClientButton}
+          >
             Client Search
           </Button>
-          <Button bsSize="large" block>
+          <Button
+            bsSize="large"
+            block
+            onClick={this.createNewButton}
+          >
             New Client
           </Button>
           {(feedbackMessage) ?
@@ -194,6 +265,7 @@ export default class ClientPersonalInfoComp extends Component {
                   placeholder="Name"
                   value={this.state.name}
                   onChange={this.handleNameChange}
+                  disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
@@ -209,6 +281,7 @@ export default class ClientPersonalInfoComp extends Component {
                   placeholder="Surname"
                   value={this.state.surname}
                   onChange={this.handleSurnameChange}
+                  disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
@@ -222,8 +295,9 @@ export default class ClientPersonalInfoComp extends Component {
                 <FormControl
                   type="text"
                   placeholder="Cell No"
-                  value={this.state.cellno}
+                  value={this.state.cellNo}
                   onChange={this.handleCellnoChange}
+                  disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
@@ -237,8 +311,9 @@ export default class ClientPersonalInfoComp extends Component {
                 <FormControl
                   type="text"
                   placeholder="Work No"
-                  value={this.state.workno}
+                  value={this.state.workNo}
                   onChange={this.handleWorknoChange}
+                  disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
@@ -254,6 +329,7 @@ export default class ClientPersonalInfoComp extends Component {
                   placeholder="Email"
                   value={this.state.email}
                   onChange={this.handleEmailChange}
+                  disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
@@ -268,6 +344,7 @@ export default class ClientPersonalInfoComp extends Component {
                   componentClass="select"
                   value={this.state.married}
                   onChange={this.handleMarriedChange}
+                  disabled={disableInputsFlag}
                 >
                   <option value="">...</option>
                   <option value="No">No</option>
@@ -286,6 +363,7 @@ export default class ClientPersonalInfoComp extends Component {
                   componentClass="select"
                   value={this.state.children}
                   onChange={this.handleChildrenChange}
+                  disabled={disableInputsFlag}
                 >
                   <option value="">...</option>
                   <option value="0">None</option>
@@ -314,6 +392,7 @@ export default class ClientPersonalInfoComp extends Component {
                   placeholder="Hobbies"
                   value={this.state.hobbies}
                   onChange={this.handleHobbiesChange}
+                  disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
@@ -329,6 +408,7 @@ export default class ClientPersonalInfoComp extends Component {
                   placeholder="Occupation"
                   value={this.state.occupation}
                   onChange={this.handleOccupationChange}
+                  disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
@@ -344,6 +424,7 @@ export default class ClientPersonalInfoComp extends Component {
                   placeholder="Other info"
                   value={this.state.otherInfo}
                   onChange={this.handleOtherInfoChange}
+                  disabled={disableInputsFlag}
                 />
               </Col>
             </FormGroup>
@@ -356,6 +437,7 @@ export default class ClientPersonalInfoComp extends Component {
                   bsSize="large"
                   block
                   onClick={this.handleSubmit}
+                  disabled={disableInputsFlag}
                 >
                   Save
                 </Button>
@@ -367,3 +449,8 @@ export default class ClientPersonalInfoComp extends Component {
     );
   }
 }
+
+ClientPersonalInfoComp.propTypes = {
+  clientID: PropTypes.string.isRequired,
+  clientPersonalInfoRedux: PropTypes.func.isRequired,
+};

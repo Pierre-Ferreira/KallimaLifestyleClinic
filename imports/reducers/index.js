@@ -1,16 +1,18 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import gameSettings from './GameSettings';
-import gameAnswers from './GameAnswers';
-import gameCurrentAnswer from './GameCurrentAnswer';
-import gameScore from './GameScore';
+// import gameSettings from './GameSettings';
+// import gameAnswers from './GameAnswers';
+// import gameCurrentAnswer from './GameCurrentAnswer';
+// import gameScore from './GameScore';
+import clientPersonalInfo from './ClientPersonalInfo';
 
-const gameInfo = combineReducers({
-  gameSettings,
-  gameAnswers,
-  gameCurrentAnswer,
-  gameScore,
+const clientInfo = combineReducers({
+  // gameSettings,
+  // gameAnswers,
+  // gameCurrentAnswer,
+  // gameScore,
+  clientPersonalInfo,
   routing: routerReducer,
 });
 
-export default gameInfo;
+export default clientInfo;

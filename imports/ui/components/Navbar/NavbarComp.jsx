@@ -27,7 +27,7 @@ export default class NavbarComp extends Component {
       );
     return (
       <div>
-        <Navbar inverse fluid id="navbar-comp">
+        <Navbar fluid id="navbar-comp">
           <Navbar.Header href="/main/client_info">
             <Navbar.Brand>
               Kallima Lifestyle Center

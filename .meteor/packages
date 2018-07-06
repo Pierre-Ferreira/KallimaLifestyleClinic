@@ -25,3 +25,6 @@ twbs:bootstrap
 matb33:collection-hooks
 less
 alanning:roles
+check
+audit-argument-checks
+browser-policy

@@ -44,7 +44,6 @@ export default class ClientHealthInfoComp extends Component {
     this.handleFavouriteFoodsChange = this.handleFavouriteFoodsChange.bind(this);
     this.handleHealthChange = this.handleHealthChange.bind(this);
     this.handleOtherInfoChange = this.handleOtherInfoChange.bind(this);
-    this.createNewButton = this.createNewButton.bind(this);
   }
 
   // componentDidMount() {
@@ -151,10 +150,6 @@ export default class ClientHealthInfoComp extends Component {
     });
   }
 
-  createNewButton() {
-    this.props.initializeNewClient();
-  }
-
   handleSubmit(e) {
     e.preventDefault();
     this.setState({
@@ -210,9 +205,8 @@ export default class ClientHealthInfoComp extends Component {
     return (
       <div id="client-health-info-comp">
         <div className="top-tier-area">
-          <h1>CLIENTID props: {this.props.clientID}</h1>
-          <h1>CLIENTID state: {this.state.clientID}</h1>
-          <h1>{this.state.name} {this.state.surname}</h1>
+          <div className="client-details">{this.props.clientName} {this.props.clientSurname}</div>
+          <div className="clientid">ClientID: {this.props.clientID}</div>
           {(feedbackMessage) ?
             <Alert bsStyle={feedbackMessageType}>
               {feedbackMessage}
@@ -387,7 +381,7 @@ export default class ClientHealthInfoComp extends Component {
 
 ClientHealthInfoComp.propTypes = {
   clientID: PropTypes.string.isRequired,
-  // clientHealthInfoRedux.name: PropTypes.shape.isRequired,
+  clientName: PropTypes.string.isRequired,
+  clientSurname: PropTypes.string.isRequired,
   saveClientHealthInfo: PropTypes.func.isRequired,
-  initializeNewClient: PropTypes.func.isRequired,
 };

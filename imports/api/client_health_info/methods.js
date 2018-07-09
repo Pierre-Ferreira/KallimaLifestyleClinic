@@ -4,44 +4,17 @@ import './hooks';
 
 Meteor.methods({
   'client_health_info.fetch': (clientID) => {
-    console.log('client_health_info.fetch clientID:', clientID)
     check(clientID, String)
     if (clientID.length === 0) throw new Meteor.Error(403, 'client ID is required');
     if (!Meteor.userId()) {
       throw new Meteor.Error(403, "Client's Health Info not fetched. User not logged in.");
     } else {
       const clientHealthInfo = ClientHealthInfo.findOne({ clientID });
-      console.log('clientHealthInfo:', clientHealthInfo)
+      console.log('clientID:', clientID);
+      console.log('client_health_info.fetch:', clientHealthInfo);
       return clientHealthInfo;
     }
   },
-  // 'client_health_info.create': (clientHealthInfo) => {
-  //   console.log('clientHealthInfo:', clientHealthInfo);
-  //   check(clientHealthInfo, {
-  //     height: String,
-  //     currentWeight: String,
-  //     goalWeight: String,
-  //     allergies: String,
-  //     operations: String,
-  //     alcohol: String,
-  //     favouriteFoods: String,
-  //     health: String,
-  //     otherInfo: String,
-  //   });
-  //   if (clientHealthInfo.name.length === 0) throw new Meteor.Error(403, 'Name is required');
-  //   if (clientHealthInfo.surname.length === 0) throw new Meteor.Error(403, 'Surname is required');
-  //   if (!Meteor.userId()) {
-  //     throw new Meteor.Error(403, "Client's Health Info entry not created. User not logged in.");
-  //   } else if (!Roles.userIsInRole(Meteor.userId(), 'admin')) {
-  //     throw new Meteor.Error(403, "Client's Health Info entry not created. User is not authorized.");
-  //   } else {
-  //     clientHealthInfo.createdAt = new Date();
-  //     clientHealthInfo.createdBy = Meteor.userId();
-  //     const clientID = ClientHealthInfo.insert(clientHealthInfo);
-  //     console.log('Inserted client_health_info: ', ClientHealthInfo.find(clientHealthInfo).fetch()[0]);
-  //     return clientID;
-  //   }
-  // },
   'client_health_info.upsert': (clientID, clientHealthInfo) => {
     check(clientID, String);
     check(clientHealthInfo, {

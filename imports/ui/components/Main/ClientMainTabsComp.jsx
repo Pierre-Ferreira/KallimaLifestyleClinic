@@ -22,7 +22,7 @@ const ClientMainTabsComp = (props) => {
       </Tab>
       <Tab
         eventKey={3}
-        title="Client Consent"
+        title="Consent"
         disabled={disableTabsFlag}
       >
         SIGNATURE AREA
@@ -36,7 +36,7 @@ const ClientMainTabsComp = (props) => {
       </Tab>
       <Tab
         eventKey={5}
-        title="Payment Info"
+        title="Payments"
         disabled={disableTabsFlag}
       >
         PAYMENT INFO

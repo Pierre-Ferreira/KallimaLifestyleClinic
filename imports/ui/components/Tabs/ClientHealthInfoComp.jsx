@@ -47,11 +47,21 @@ export default class ClientHealthInfoComp extends Component {
     this.createNewButton = this.createNewButton.bind(this);
   }
 
-  componentDidMount() {
-    // const { clientID } = this.props;
-    // Meteor.call('client_personal_info.fetch', clientID, (err, result) => {
-    //   console.log('ERR:', err);
-    //   console.log('RESULT:', result);
+  // componentDidMount() {
+  //   const { clientID } = this.props;
+  //   console.log('this.props:', this.props);
+  //   Meteor.call('client_health_info.fetch', clientID, (err, result) => {
+  //     console.log('ERR:', err);
+  //     console.log('RESULT:', result);
+  //     if (err) {
+  //       this.setState({
+  //         feedbackMessage: `ERROR: ${err.reason}`,
+  //         feedbackMessageType: 'danger',
+  //       });
+  //     } else {
+  //
+  //     }
+  //   });
     //   this.setState({
     //     name: result.name,
     //     surname: result.surname,
@@ -65,12 +75,12 @@ export default class ClientHealthInfoComp extends Component {
     //     otherInfo: result.otherInfo,
     //   });
     // });
-  }
+  // }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.clientID !== prevProps.clientID) {
       this.setState({
-        // clientID: this.props.clientID,
+        clientID: this.props.clientID,
         height: this.props.clientHealthInfoRedux.height,
         currentWeight: this.props.clientHealthInfoRedux.currentWeight,
         goalWeight: this.props.clientHealthInfoRedux.goalWeight,
@@ -153,6 +163,7 @@ export default class ClientHealthInfoComp extends Component {
     });
 
     const clientHealthInfoObj = {
+      clientID: this.props.clientID,
       height: this.state.height,
       currentWeight: this.state.currentWeight,
       goalWeight: this.state.goalWeight,
@@ -170,30 +181,8 @@ export default class ClientHealthInfoComp extends Component {
         feedbackMessage: 'ERROR: ClientID not set! Create new client',
         feedbackMessageType: 'danger',
       });
-    } else if (clientID === 'new') {
-      Meteor.call('client_health_info.create', clientHealthInfoObj, (err, result) => {
-        if (err) {
-          this.setState({
-            feedbackMessage: `ERROR: ${err.reason}`,
-            feedbackMessageType: 'danger',
-          });
-        } else {
-          this.setState({
-            feedbackMessage: 'Client Info Saved!',
-            feedbackMessageType: 'success',
-          });
-          clientHealthInfoObj.clientID = result;
-          this.props.saveClientHealthInfo(clientHealthInfoObj);
-          setTimeout(() => {
-            this.setState({
-              feedbackMessage: '',
-              feedbackMessageType: '',
-            });
-          }, 3000);
-        }
-      });
     } else {
-      Meteor.call('client_health_info.update', clientID, clientHealthInfoObj, (err) => {
+      Meteor.call('client_health_info.upsert', clientID, clientHealthInfoObj, (err) => {
         if (err) {
           this.setState({
             feedbackMessage: `ERROR: ${err.reason}`,
@@ -218,10 +207,11 @@ export default class ClientHealthInfoComp extends Component {
   }
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
-    const disableInputsFlag = (this.props.clientID === '');
     return (
       <div id="client-health-info-comp">
         <div className="top-tier-area">
+          <h1>CLIENTID props: {this.props.clientID}</h1>
+          <h1>CLIENTID state: {this.state.clientID}</h1>
           <h1>{this.state.name} {this.state.surname}</h1>
           {(feedbackMessage) ?
             <Alert bsStyle={feedbackMessageType}>
@@ -232,144 +222,144 @@ export default class ClientHealthInfoComp extends Component {
         <Form horizontal>
           <div className="middle-tier-area">
             <FormGroup controlId="height-formgroup">
-              <Col mdOffset={1} md={3}>
+              <Col mdOffset={1} md={4}>
                 <ControlLabel>Height:</ControlLabel>
               </Col>
-              <Col md={7}>
+              <Col md={4}>
                 <FormControl
                   type="text"
                   placeholder="Height"
                   value={this.state.height}
                   onChange={this.handleHeightChange}
-                  disabled={disableInputsFlag}
+
                 />
               </Col>
             </FormGroup>
             <FormGroup
               controlId="currentWeight-formgroup"
             >
-              <Col mdOffset={1} md={3}>
+              <Col mdOffset={1} md={4}>
                 <ControlLabel>Current Weight:</ControlLabel>
               </Col>
-              <Col md={7}>
+              <Col md={4}>
                 <FormControl
                   type="text"
                   placeholder="Current Weight"
                   value={this.state.currentWeight}
                   onChange={this.handleCurrentWeightChange}
-                  disabled={disableInputsFlag}
+
                 />
               </Col>
             </FormGroup>
             <FormGroup
               controlId="goalWeight-formgroup"
             >
-              <Col mdOffset={1} md={3}>
-                <ControlLabel>Cell No:</ControlLabel>
+              <Col mdOffset={1} md={4}>
+                <ControlLabel>Goal Weight:</ControlLabel>
               </Col>
-              <Col md={7}>
+              <Col md={4}>
                 <FormControl
                   type="text"
-                  placeholder="Cell No"
+                  placeholder="Goal Weight"
                   value={this.state.goalWeight}
                   onChange={this.handleGoalWeightChange}
-                  disabled={disableInputsFlag}
+
                 />
               </Col>
             </FormGroup>
             <FormGroup
               controlId="allergies-formgroup"
             >
-              <Col mdOffset={1} md={3}>
-                <ControlLabel>Work No:</ControlLabel>
+              <Col mdOffset={1} md={4}>
+                <ControlLabel>Allergies:</ControlLabel>
               </Col>
-              <Col md={7}>
+              <Col md={6}>
                 <FormControl
-                  type="text"
-                  placeholder="Work No"
+                  componentClass="textarea"
+                  placeholder="Allergies"
                   value={this.state.allergies}
                   onChange={this.handleAllergiesChange}
-                  disabled={disableInputsFlag}
+
                 />
               </Col>
             </FormGroup>
             <FormGroup
               controlId="operations-formgroup"
             >
-              <Col mdOffset={1} md={3}>
+              <Col mdOffset={1} md={4}>
                 <ControlLabel>Operations:</ControlLabel>
               </Col>
-              <Col md={7}>
+              <Col md={6}>
                 <FormControl
-                  type="text"
+                  componentClass="textarea"
                   placeholder="Operations"
                   value={this.state.operations}
                   onChange={this.handleOperationsChange}
-                  disabled={disableInputsFlag}
+
                 />
               </Col>
             </FormGroup>
             <FormGroup
               controlId="alcohol-formgroup"
             >
-              <Col mdOffset={1} md={3}>
+              <Col mdOffset={1} md={4}>
                 <ControlLabel>Alcohol:</ControlLabel>
               </Col>
-              <Col md={3}>
+              <Col md={6}>
                 <FormControl
-                  type="text"
+                  componentClass="textarea"
                   placeholder="Alcohol"
                   value={this.state.alcohol}
                   onChange={this.handleAlcoholChange}
-                  disabled={disableInputsFlag}
+
                 />
               </Col>
             </FormGroup>
             <FormGroup
               controlId="favouriteFoods-formgroup"
             >
-              <Col mdOffset={1} md={3}>
+              <Col mdOffset={1} md={4}>
                 <ControlLabel>Favourite Foods:</ControlLabel>
               </Col>
-              <Col md={3}>
+              <Col md={6}>
                 <FormControl
-                  type="text"
+                  componentClass="textarea"
                   placeholder="Favourite Foods"
                   value={this.state.favouriteFoods}
                   onChange={this.handleFavouriteFoodsChange}
-                  disabled={disableInputsFlag}
+
                 />
               </Col>
             </FormGroup>
             <FormGroup
               controlId="health-formgroup"
             >
-              <Col mdOffset={1} md={3}>
+              <Col mdOffset={1} md={4}>
                 <ControlLabel>Health:</ControlLabel>
               </Col>
-              <Col md={7}>
+              <Col md={6}>
                 <FormControl
                   componentClass="textarea"
                   placeholder="Health"
                   value={this.state.health}
                   onChange={this.handleHealthChange}
-                  disabled={disableInputsFlag}
+
                 />
               </Col>
             </FormGroup>
             <FormGroup
               controlId="otherinfo-formgroup"
             >
-              <Col mdOffset={1} md={3}>
+              <Col mdOffset={1} md={4}>
                 <ControlLabel>Other Info:</ControlLabel>
               </Col>
-              <Col md={7}>
+              <Col md={6}>
                 <FormControl
                   componentClass="textarea"
                   placeholder="Other info"
                   value={this.state.otherInfo}
                   onChange={this.handleOtherInfoChange}
-                  disabled={disableInputsFlag}
+
                 />
               </Col>
             </FormGroup>
@@ -382,7 +372,7 @@ export default class ClientHealthInfoComp extends Component {
                   bsSize="large"
                   block
                   onClick={this.handleSubmit}
-                  disabled={disableInputsFlag}
+
                 >
                   Save
                 </Button>

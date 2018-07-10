@@ -14,7 +14,7 @@ import {
   FormControl,
   ControlLabel,
 } from 'react-bootstrap';
-// import moment from 'moment/moment'
+import ClientSearchModalContainer from '../../containers/Modals/ClientSearchModalContainer';
 import './ClientPersonalInfoComp.less';
 
 export default class ClientPersonalInfoComp extends Component {
@@ -232,13 +232,14 @@ export default class ClientPersonalInfoComp extends Component {
     return (
       <div id="client-personal-info-comp">
         <div className="top-tier-area">
-          <Button
+          {/* <Button
             bsSize="large"
             block
             onClick={this.searchClientButton}
           >
             Client Search
-          </Button>
+          </Button> */}
+          <ClientSearchModalContainer />
           <Button
             bsSize="large"
             block

@@ -15,9 +15,10 @@ const initialState = {
 };
 
 const clientPersonalInfo = (state = initialState, action) => {
+  console.log('clientPersonalInfo action.type', action.type)
+  console.log('clientPersonalInfo action', action)
   switch (action.type) {
     case types.SAVE_CLIENT_PERSONAL_INFO: {
-      console.log('action', action)
       return {
         ...state,
         clientID: action.clientPersonalInfoObj.clientID,
@@ -32,6 +33,22 @@ const clientPersonalInfo = (state = initialState, action) => {
         occupation: action.clientPersonalInfoObj.occupation,
         otherInfo: action.clientPersonalInfoObj.otherInfo,
       };
+    }
+    case types.LOAD_CLIENT_ALL_INFO: {
+      return {
+        ...state,
+        clientID: action.clientAllInfoObj.clientPersonalInfo._id,
+        name: action.clientAllInfoObj.clientPersonalInfo.name,
+        surname: action.clientAllInfoObj.clientPersonalInfo.surname,
+        cellNo: action.clientAllInfoObj.clientPersonalInfo.cellNo,
+        workNo: action.clientAllInfoObj.clientPersonalInfo.workNo,
+        email: action.clientAllInfoObj.clientPersonalInfo.email,
+        married: action.clientAllInfoObj.clientPersonalInfo.married,
+        children: action.clientAllInfoObj.clientPersonalInfo.children,
+        hobbies: action.clientAllInfoObj.clientPersonalInfo.hobbies,
+        occupation: action.clientAllInfoObj.clientPersonalInfo.occupation,
+        otherInfo: action.clientAllInfoObj.clientPersonalInfo.otherInfo,
+      }
     }
     case types.INITIALIZE_NEW_CLIENT: {
       state = initialState;

@@ -17,7 +17,7 @@ import VerifyEmailContainer from '../../containers/Auth/VerifyEmailContainer'
 import ForgotPasswordContainer from '../../containers/Auth/ForgotPasswordContainer';
 import AuthenticatedRouteComp from '../Routes/AuthenticatedRouteComp';
 import PublicRouteComp from '../Routes/PublicRouteComp';
-import ClientMainTabsContainer from '../../containers/Tabs/ClientMainTabsContainer';
+import ClientMainTabsContainer from '../../containers/Main/ClientMainTabsContainer';
 // import { withHistory, Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 

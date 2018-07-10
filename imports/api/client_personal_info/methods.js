@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import Fuse from 'fuse.js';
 import ClientPersonalInfo from './collection';
 import './hooks';
 
@@ -69,5 +70,27 @@ Meteor.methods({
       ClientPersonalInfo.update({ _id: clientID }, { $set: clientPersonalInfo });
       console.log('Updated client_personal_info: ', ClientPersonalInfo.find(clientPersonalInfo).fetch()[0]);
     }
+  },
+  'client_personal_info.search': (searchValue) => {
+    check(searchValue, String);
+    const allUsers = ClientPersonalInfo.find(
+      {},
+      { fields: { name: 1, surname: 1 } },
+    ).fetch();
+    const options = {
+      shouldSort: true,
+      threshold: 0.3,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 2,
+      keys: [
+        'name',
+        'surname',
+      ],
+    };
+    const fuse = new Fuse(allUsers, options);
+    const result = fuse.search(searchValue);
+    return result;
   },
 });

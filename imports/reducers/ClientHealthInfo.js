@@ -30,6 +30,37 @@ const clientHealthInfo = (state = initialState, action) => {
         otherInfo: action.clientHealthInfoObj.otherInfo,
       };
     }
+    case types.LOAD_CLIENT_ALL_INFO: {
+      if (action.clientAllInfoObj.clientHealthInfo) {
+        return {
+          ...state,
+          clientID: action.clientAllInfoObj.clientHealthInfo.clientID,
+          height: action.clientAllInfoObj.clientHealthInfo.height,
+          currentWeight: action.clientAllInfoObj.clientHealthInfo.currentWeight,
+          goalWeight: action.clientAllInfoObj.clientHealthInfo.goalWeight,
+          allergies: action.clientAllInfoObj.clientHealthInfo.allergies,
+          operations: action.clientAllInfoObj.clientHealthInfo.operations,
+          alcohol: action.clientAllInfoObj.clientHealthInfo.alcohol,
+          favouriteFoods: action.clientAllInfoObj.clientHealthInfo.favouriteFoods,
+          health: action.clientAllInfoObj.clientHealthInfo.health,
+          otherInfo: action.clientAllInfoObj.clientHealthInfo.otherInfo,
+        };
+      } else {
+        return {
+          ...state,
+          clientID: '',
+          height: '',
+          currentWeight: '',
+          goalWeight: '',
+          allergies: '',
+          operations: '',
+          alcohol: '',
+          favouriteFoods: '',
+          health: '',
+          otherInfo: '',
+        };
+      }
+    }
     case types.INITIALIZE_NEW_CLIENT: {
       state = initialState;
       return {

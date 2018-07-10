@@ -13,6 +13,7 @@
     "bcrypt": "^1.0.3",
     "bootstrap": "4.0.0",
     "csv-parse": "^2.2.0",
+    "fuse.js": "^3.2.1",
     "history": "^4.7.2",
     "jquery": "^2.2.4",
     "meteor-node-stubs": "~0.2.4",
@@ -34,7 +35,7 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-transition-group": "^1.2.1",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
+    "redux-thunk": "^2.3.0",
     "simpl-schema": "^1.4.2",
     "styled-components": "^3.3.3"
   },

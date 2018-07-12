@@ -13,7 +13,8 @@ import {
   FormControl,
   ControlLabel,
 } from 'react-bootstrap';
-// import moment from 'moment/moment'
+import DatePicker from 'react-bootstrap-date-picker';
+import moment from 'moment/moment'
 import './ClientWeightInfoComp.less';
 
 export default class ClientWeightInfoComp extends Component {
@@ -71,7 +72,9 @@ export default class ClientWeightInfoComp extends Component {
   // }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.clientID !== prevProps.clientID || this.props.weeklyEntriesArrRedux !== prevProps.weeklyEntriesArrRedux) {
+    if (this.props.clientID !== prevProps.clientID ||
+        this.props.weeklyEntriesArrRedux !== prevProps.weeklyEntriesArrRedux
+    ) {
       this.setState({
         clientID: this.props.clientID,
         weeklyEntriesArr: this.props.weeklyEntriesArrRedux,
@@ -86,10 +89,10 @@ export default class ClientWeightInfoComp extends Component {
     });
   }
 
-  handleDateChange(e) {
-    console.log('handleDateChange:', e.target.value)
+  handleDateChange(date) {
+    console.log('handleDateChange:', date)
     this.setState({
-      date: e.target.value,
+      date,
     });
   }
 
@@ -296,9 +299,9 @@ export default class ClientWeightInfoComp extends Component {
                     />
                   </Col>
                   <Col lg={2}>
-                    <FormControl
-                      type="text"
-                      placeholder="Date"
+                    <DatePicker
+                      dateFormat="DD-MM-YYYY"
+                      className="date-input"
                       value={this.state.date}
                       onChange={this.handleDateChange}
                     />
@@ -448,7 +451,7 @@ export default class ClientWeightInfoComp extends Component {
                       <div className="div-entries" key={entry.week}>{entry.week}</div>
                     </Col>
                     <Col lg={2}>
-                      <div className="div-entries" key={entry.week}>{entry.date}</div>
+                      <div className="div-entries" key={entry.week}>{moment(entry.date).format('DD-MM-YYYY')}</div>
                     </Col>
                     <Col lg={1}>
                       <div className="div-entries" key={entry.week}>{entry.weight || '-'}</div>

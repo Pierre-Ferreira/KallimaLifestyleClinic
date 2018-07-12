@@ -48,6 +48,8 @@ export default class ClientWeightInfoComp extends Component {
     this.handleArmChange = this.handleArmChange.bind(this);
     this.handleNeckChange = this.handleNeckChange.bind(this);
     this.handleAnkleChange = this.handleAnkleChange.bind(this);
+    this.handleNew = this.handleNew.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   // componentDidMount() {
@@ -147,6 +149,39 @@ export default class ClientWeightInfoComp extends Component {
     });
   }
 
+  handleSelect(pos) {
+    console.log("POS:",pos);
+    this.setState({
+      week: this.state.weeklyEntriesArr[pos].week,
+      date: this.state.weeklyEntriesArr[pos].date,
+      weight: this.state.weeklyEntriesArr[pos].weight,
+      chest: this.state.weeklyEntriesArr[pos].chest,
+      middle: this.state.weeklyEntriesArr[pos].middle,
+      bum: this.state.weeklyEntriesArr[pos].bum,
+      legL: this.state.weeklyEntriesArr[pos].legL,
+      legR: this.state.weeklyEntriesArr[pos].legR,
+      arm: this.state.weeklyEntriesArr[pos].arm,
+      neck: this.state.weeklyEntriesArr[pos].neck,
+      ankle: this.state.weeklyEntriesArr[pos].ankle,
+    });
+  }
+
+  handleNew() {
+    this.setState({
+      week: this.state.weeklyEntriesArr.length + 1,
+      date: '',
+      weight: '',
+      chest: '',
+      middle: '',
+      bum: '',
+      legL: '',
+      legR: '',
+      arm: '',
+      neck: '',
+      ankle: '',
+    });
+  }
+
   handleSave(e) {
     e.preventDefault();
     this.setState({
@@ -155,7 +190,7 @@ export default class ClientWeightInfoComp extends Component {
     });
 
     const clientWeightInfoObj = {
-      week: this.state.week,
+      week: Number(this.state.week),
       date: this.state.date,
       weight: this.state.weight,
       chest: this.state.chest,
@@ -199,6 +234,7 @@ export default class ClientWeightInfoComp extends Component {
       });
     }
   }
+
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
     return (
@@ -256,7 +292,7 @@ export default class ClientWeightInfoComp extends Component {
                       placeholder="Week"
                       value={this.state.week}
                       onChange={this.handleWeekChange}
-                      // disabled
+                      disabled
                     />
                   </Col>
                   <Col lg={2}>
@@ -401,48 +437,55 @@ export default class ClientWeightInfoComp extends Component {
                 <ControlLabel>Ankle</ControlLabel>
               </Col>
             </Row>
-            <div>
-
+            <div className="entries-scroll-area">
+              {this.state.weeklyEntriesArr.map((entry, i) => {
+                return (
+                  <Row
+                    key={entry.week}
+                    onClick={e => this.handleSelect(i, e)}
+                  >
+                    <Col lg={1}>
+                      <div className="div-entries" key={entry.week}>{entry.week}</div>
+                    </Col>
+                    <Col lg={2}>
+                      <div className="div-entries" key={entry.week}>{entry.date}</div>
+                    </Col>
+                    <Col lg={1}>
+                      <div className="div-entries" key={entry.week}>{entry.weight || '-'}</div>
+                    </Col>
+                    <Col lg={1}>
+                      <div
+                        className="div-entries"
+                        key={entry.week}
+                      >
+                        {entry.chest || '-'}
+                      </div>
+                    </Col>
+                    <Col lg={1}>
+                      <div className="div-entries" key={entry.week}>{entry.middle || '-'}</div>
+                    </Col>
+                    <Col lg={1}>
+                      <div className="div-entries" key={entry.week}>{entry.bum || '-'}</div>
+                    </Col>
+                    <Col lg={1}>
+                      <div className="div-entries" key={entry.week}>{entry.legL || '-'}</div>
+                    </Col>
+                    <Col lg={1}>
+                      <div className="div-entries" key={entry.week}>{entry.legR || '-'}</div>
+                    </Col>
+                    <Col lg={1}>
+                      <div className="div-entries" key={entry.week}>{entry.arm || '-'}</div>
+                    </Col>
+                    <Col lg={1}>
+                      <div className="div-entries" key={entry.week}>{entry.neck || '-'}</div>
+                    </Col>
+                    <Col lg={1}>
+                      <div className="div-entries" key={entry.week}>{entry.ankle || '-'}</div>
+                    </Col>
+                  </Row>
+                )
+              })}
             </div>
-            {this.state.weeklyEntriesArr.map((entry) => {
-              return (
-                <Row>
-                  <Col lg={1}>
-                    <div className="div-entries" key={entry.week}>{entry.week}</div>
-                  </Col>
-                  <Col lg={2}>
-                    <div className="div-entries" key={entry.date}>{entry.date}</div>
-                  </Col>
-                  <Col lg={1}>
-                    <div className="div-entries" key={entry.weight}>{entry.weight || '-'}</div>
-                  </Col>
-                  <Col lg={1}>
-                    <div className="div-entries" key={entry.chest}>{entry.chest || '-'}</div>
-                  </Col>
-                  <Col lg={1}>
-                    <div className="div-entries" key={entry.middle}>{entry.middle || '-'}</div>
-                  </Col>
-                  <Col lg={1}>
-                    <div className="div-entries" key={entry.bum}>{entry.bum || '-'}</div>
-                  </Col>
-                  <Col lg={1}>
-                    <div className="div-entries" key={entry.legL}>{entry.legL || '-'}</div>
-                  </Col>
-                  <Col lg={1}>
-                    <div className="div-entries" key={entry.legR}>{entry.legR || '-'}</div>
-                  </Col>
-                  <Col lg={1}>
-                    <div className="div-entries" key={entry.arm}>{entry.arm || '-'}</div>
-                  </Col>
-                  <Col lg={1}>
-                    <div className="div-entries" key={entry.neck}>{entry.neck || '-'}</div>
-                  </Col>
-                  <Col lg={1}>
-                    <div className="div-entries" key={entry.ankle}>{entry.ankle || '-'}</div>
-                  </Col>
-                </Row>
-              )
-            })}
           </Grid>
         </div>
       </div>

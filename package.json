@@ -24,6 +24,7 @@
     "react": "^15.6.2",
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-bootstrap": "^0.32.1",
+    "react-bootstrap-date-picker": "^5.1.0",
     "react-dom": "^15.6.2",
     "react-file-reader": "^1.1.4",
     "react-redux": "^5.0.7",

@@ -18,7 +18,7 @@ Meteor.methods({
   'client_weight_info.update': (clientID, clientWeightInfo) => {
     check(clientID, String);
     check(clientWeightInfo, {
-      week: String,
+      week: Number,
       date: String,
       weight: String,
       chest: String,

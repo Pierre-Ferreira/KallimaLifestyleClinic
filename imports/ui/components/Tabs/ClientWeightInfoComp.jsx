@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {
   Alert,
   Button,
+  ButtonToolbar,
   Grid,
   Row,
   Col,
@@ -304,6 +305,7 @@ export default class ClientWeightInfoComp extends Component {
                       className="date-input"
                       value={this.state.date}
                       onChange={this.handleDateChange}
+                      calendarPlacement="right"
                     />
                   </Col>
                   <Col lg={1}>
@@ -380,26 +382,28 @@ export default class ClientWeightInfoComp extends Component {
                   </Col>
                 </Row>
               </Grid>
-              <Col sm={12}>
-                <Button
-                  bsStyle="warning"
-                  bsSize="large"
-                  block
-                  onClick={this.handleNew}
-                >
-                  New
-                </Button>
-              </Col>
-              <Col sm={12}>
-                <Button
-                  bsStyle="primary"
-                  bsSize="large"
-                  block
-                  onClick={this.handleSave}
-                >
-                  Save
-                </Button>
-              </Col>
+              <ButtonToolbar>
+                <Col sm={6}>
+                  <Button
+                    bsStyle="primary"
+                    bsSize="large"
+                    block
+                    onClick={this.handleSave}
+                  >
+                    Save
+                  </Button>
+                </Col>
+                <Col sm={6}>
+                  <Button
+                    bsStyle="warning"
+                    bsSize="large"
+                    block
+                    onClick={this.handleNew}
+                  >
+                    New
+                  </Button>
+                </Col>
+                </ButtonToolbar>
             </Form>
           </div>
         </div>

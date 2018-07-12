@@ -4,6 +4,7 @@ import './ClientMainTabsComp.less';
 import ClientPersonalInfoContainer from '../../containers/Tabs/ClientPersonalInfoContainer';
 import ClientHealthInfoContainer from '../../containers/Tabs/ClientHealthInfoContainer';
 import ClientWeightInfoContainer from '../../containers/Tabs/ClientWeightInfoContainer';
+import ClientPaymentInfoContainer from '../../containers/Tabs/ClientPaymentInfoContainer';
 
 const ClientMainTabsComp = (props) => {
   const disableTabsFlag = (props.clientID === '' || props.clientID === 'new');
@@ -41,7 +42,7 @@ const ClientMainTabsComp = (props) => {
         title="Payments"
         disabled={disableTabsFlag}
       >
-        PAYMENT INFO
+        <ClientPaymentInfoContainer clientID={props.clientID} />
       </Tab>
       <Tab
         eventKey={6}

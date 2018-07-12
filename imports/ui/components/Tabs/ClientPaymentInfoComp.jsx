@@ -139,7 +139,7 @@ export default class ClientPaymentInfoComp extends Component {
       amount: this.state.amount,
       payType: this.state.payType,
       noOfWeeks: this.state.noOfWeeks,
-      receiverName: this.state.ReceiverName,
+      receiverName: this.state.receiverName,
       otherInfo: this.state.otherInfo,
     };
     console.log('clientPaymentInfoObj:', clientPaymentInfoObj)

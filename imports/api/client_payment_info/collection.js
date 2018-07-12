@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
 
-const ClientWeightInfo = new Mongo.Collection('client_weight_info');
+const ClientPaymentInfo = new Mongo.Collection('client_payment_info');
 
-export default ClientWeightInfo;
+export default ClientPaymentInfo;

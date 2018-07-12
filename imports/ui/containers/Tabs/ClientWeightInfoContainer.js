@@ -12,6 +12,8 @@ function mapStateToProps(state) {
   console.log('REDUX STATE3:', state)
   return {
     weeklyEntriesArrRedux: state.clientWeightInfo.weeklyEntriesArr,
+    clientName: state.clientPersonalInfo.name,
+    clientSurname: state.clientPersonalInfo.surname,
   };
 }
 

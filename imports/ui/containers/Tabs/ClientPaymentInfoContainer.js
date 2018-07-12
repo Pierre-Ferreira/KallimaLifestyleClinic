@@ -11,7 +11,7 @@ const mapTrackerToProps = (state, props) => {
 function mapStateToProps(state) {
   console.log('REDUX STATE5:', state)
   return {
-    clientPaymentInfoRedux: state.clientPaymentInfo,
+    paymentEntriesArrRedux: state.clientPaymentInfo.paymentEntriesArr,
     clientName: state.clientPersonalInfo.name,
     clientSurname: state.clientPersonalInfo.surname,
   };
@@ -19,7 +19,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveClientPaymentInfo: clientPaymentInfoObj => dispatch({ type: 'SAVE_CLIENT_PAYMENT_INFO', clientPaymentInfoObj }),
+    saveClientPaymentInfo: (clientID, clientPaymentInfoObj) => dispatch({ type: 'SAVE_CLIENT_PAYMENT_INFO', clientID, clientPaymentInfoObj }),
+
   };
 }
 

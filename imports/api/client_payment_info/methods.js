@@ -1,83 +1,79 @@
 import { Meteor } from 'meteor/meteor';
-import ClientWeightInfo from './collection';
+import ClientPaymentInfo from './collection';
 import './hooks';
 
 Meteor.methods({
-  'client_weight_info.fetch': (clientID) => {
+  'client_payment_info.fetch': (clientID) => {
     check(clientID, String)
     if (clientID.length === 0) throw new Meteor.Error(403, 'client ID is required');
     if (!Meteor.userId()) {
-      throw new Meteor.Error(403, "Client's Weight Info not fetched. User not logged in.");
+      throw new Meteor.Error(403, "Client's Payment Info not fetched. User not logged in.");
     } else {
-      const clientWeightInfo = ClientWeightInfo.findOne({ clientID });
+      const clientPaymentInfo = ClientPaymentInfo.findOne({ clientID });
       console.log('clientID:', clientID);
-      console.log('client_weight_info.fetch:', clientWeightInfo);
-      return clientWeightInfo;
+      console.log('client_payment_info.fetch:', clientPaymentInfo);
+      return clientPaymentInfo;
     }
   },
-  'client_weight_info.update': (clientID, clientWeightInfo) => {
-    console.log('clientWeightInfo:', clientWeightInfo)
+  'client_payment_info.update': (clientID, clientPaymentInfo) => {
+    console.log('clientPaymentInfo:', clientPaymentInfo)
     check(clientID, String);
-    check(clientWeightInfo, {
-      week: Number,
+    check(clientPaymentInfo, {
+      payNum: Number,
       date: String,
-      weight: String,
-      chest: String,
-      middle: String,
-      bum: String,
-      legL: String,
-      legR: String,
-      arm: String,
-      neck: String,
-      ankle: String,
+      amount: String,
+      payType: String,
+      noOfWeeks: String,
+      receiverName: String,
+      otherInfo: String,
     });
     if (clientID.length === 0) throw new Meteor.Error(403, 'clientID is required');
-    if (clientWeightInfo.week.length === 0 || clientWeightInfo.week === 0) throw new Meteor.Error(403, 'Week is required');
-    if (clientWeightInfo.date.length === 0) throw new Meteor.Error(403, 'Date is required');
+    if (clientPaymentInfo.payNum.length === 0 || clientPaymentInfo.payNum === 0) throw new Meteor.Error(403, 'Week is required');
+    if (clientPaymentInfo.date.length === 0) throw new Meteor.Error(403, 'Date is required');
     if (!Meteor.userId()) {
-      throw new Meteor.Error(403, "Client's Weight Info entry not updated. User not logged in.");
+      throw new Meteor.Error(403, "Client's Payment Info entry not updated. User not logged in.");
     } else if (!Roles.userIsInRole(Meteor.userId(), 'admin')) {
-      throw new Meteor.Error(403, "Client's Weight Info entry not updated. User is not authorized.");
+      throw new Meteor.Error(403, "Client's Payment Info entry not updated. User is not authorized.");
     } else {
       // Check if the document for this ClientID already exists. If so UPDATE, else INSERT.
-      const ClientWeightInfoDoc = ClientWeightInfo.findOne({ clientID });
-      const ClientWeightInfoID = ClientWeightInfoDoc && ClientWeightInfoDoc._id;
-      console.log('ClientWeightInfoID:', ClientWeightInfoID);
-      if (ClientWeightInfoID) {
+      const ClientPaymentInfoDoc = ClientPaymentInfo.findOne({ clientID });
+      const ClientPaymentInfoID = ClientPaymentInfoDoc && ClientPaymentInfoDoc._id;
+      console.log('ClientPaymentInfoID:', ClientPaymentInfoID);
+      if (ClientPaymentInfoID) {
         // Remove all occurances of that week in the array.
-        ClientWeightInfo.update(
+        ClientPaymentInfo.update(
           { clientID },
           {
             $pull: {
-              client_weight_info: {
-                week: clientWeightInfo.week,
+              client_payment_info: {
+                week: clientPaymentInfo.week,
               },
             },
           },
         );
-        clientWeightInfo.updatedAt = new Date();
-        clientWeightInfo.updatedBy = Meteor.userId();
+        clientPaymentInfo.updatedAt = new Date();
+        clientPaymentInfo.updatedBy = Meteor.userId();
         // Re-insert the week back into the array and sort. Using UPSERT causes issues.
-        ClientWeightInfo.update(
+        ClientPaymentInfo.update(
           { clientID },
           {
             $push: {
-              client_weight_info: {
-                $each: [clientWeightInfo],
+              client_payment_info: {
+                $each: [clientPaymentInfo],
                 $sort: { week: 1 },
               },
             },
           },
         );
-        console.log('Updated client_weight_info: ', ClientWeightInfo.findOne({ clientID }));
+        console.log('Updated client_payment_info: ', ClientPaymentInfo.findOne({ clientID }));
       } else {
-        ClientWeightInfo.insert({
+        ClientPaymentInfo.insert({
           clientID,
-          client_weight_info: [clientWeightInfo],
+          client_payment_info: [clientPaymentInfo],
         });
-        console.log('Insert client_weight_info: ', ClientWeightInfo.findOne({ clientID }));
+        console.log('Insert client_payment_info: ', ClientPaymentInfo.findOne({ clientID }));
       }
-      return ClientWeightInfo.findOne({ clientID }).client_weight_info;
+      return ClientPaymentInfo.findOne({ clientID }).client_payment_info;
     }
   },
 });

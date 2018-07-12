@@ -11,7 +11,7 @@ const mapTrackerToProps = (state, props) => {
 function mapStateToProps(state) {
   console.log('REDUX STATE3:', state)
   return {
-    weeklyEntriesArrRedux: state.weeklyEntriesArr,
+    weeklyEntriesArrRedux: state.clientWeightInfo.weeklyEntriesArr,
   };
 }
 

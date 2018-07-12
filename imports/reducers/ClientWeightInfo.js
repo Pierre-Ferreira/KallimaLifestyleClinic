@@ -6,8 +6,9 @@ const initialState = {
 };
 
 const clientWeightInfo = (state = initialState, action) => {
+  console.log('clientWeightInfo action:', action)
   switch (action.type) {
-    case types.SAVE_CLIENT_HEALTH_INFO: {
+    case types.SAVE_CLIENT_WEIGHT_INFO: {
       return {
         ...state,
         clientID: action.clientID,
@@ -16,11 +17,16 @@ const clientWeightInfo = (state = initialState, action) => {
     }
     case types.LOAD_CLIENT_ALL_INFO: {
       let returnObj = {};
-      if (action.weeklyEntriesArr) {
+      if (
+        action &&
+        action.clientAllInfoObj &&
+        action.clientAllInfoObj.clientWeightInfo &&
+        action.clientAllInfoObj.clientWeightInfo.client_weight_info
+      ) {
         returnObj = {
           ...state,
-          clientID: action.clientAllInfoObj.clientID,
-          weeklyEntriesArr: action.clientAllInfoObj.weeklyEntriesArr,
+          clientID: action.clientAllInfoObj.clientWeightInfo.clientID,
+          weeklyEntriesArr: action.clientAllInfoObj.clientWeightInfo.client_weight_info,
         };
       } else {
         returnObj = {

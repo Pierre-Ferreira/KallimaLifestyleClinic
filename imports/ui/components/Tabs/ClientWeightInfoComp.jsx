@@ -69,22 +69,7 @@ export default class ClientWeightInfoComp extends Component {
   // }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.clientID !== prevProps.clientID) {
-      // const { clientID } = this.props;
-      // console.log('this.props2:', this.props);
-      // Meteor.call('client_weight_info.fetch', clientID, (err, result) => {
-      //   if (err) {
-      //     this.setState({
-      //       feedbackMessage: `ERROR: ${err.reason}`,
-      //       feedbackMessageType: 'danger',
-      //     });
-      //   } else {
-      //     this.setState({
-      //       feedbackMessage: '',
-      //       weeklyEntriesArr: result.client_weight_info,
-      //     });
-      //   }
-      // });
+    if (this.props.clientID !== prevProps.clientID || this.props.weeklyEntriesArrRedux !== prevProps.weeklyEntriesArrRedux) {
       this.setState({
         clientID: this.props.clientID,
         weeklyEntriesArr: this.props.weeklyEntriesArrRedux,
@@ -380,9 +365,85 @@ export default class ClientWeightInfoComp extends Component {
           </div>
         </div>
         <div className="lower-tier-area">
-          {this.state.weeklyEntriesArr.map((entry) => {
-            return <div key={entry.week}>{entry.week}</div>;
-          })}
+          <Grid>
+            <Row className="show-grid">
+              <Col lg={1}>
+                <ControlLabel>Week</ControlLabel>
+              </Col>
+              <Col lg={2}>
+                <ControlLabel>Date</ControlLabel>
+              </Col>
+              <Col lg={1}>
+                <ControlLabel>Weight:</ControlLabel>
+              </Col>
+              <Col lg={1}>
+                <ControlLabel>Chest</ControlLabel>
+              </Col>
+              <Col lg={1}>
+                <ControlLabel>Middle</ControlLabel>
+              </Col>
+              <Col lg={1}>
+                <ControlLabel>Bum</ControlLabel>
+              </Col>
+              <Col lg={1}>
+                <ControlLabel>Leg(L)</ControlLabel>
+              </Col>
+              <Col lg={1}>
+                <ControlLabel>Leg(R)</ControlLabel>
+              </Col>
+              <Col lg={1}>
+                <ControlLabel>Arm</ControlLabel>
+              </Col>
+              <Col lg={1}>
+                <ControlLabel>Neck:</ControlLabel>
+              </Col>
+              <Col lg={1}>
+                <ControlLabel>Ankle</ControlLabel>
+              </Col>
+            </Row>
+            <div>
+
+            </div>
+            {this.state.weeklyEntriesArr.map((entry) => {
+              return (
+                <Row>
+                  <Col lg={1}>
+                    <div className="div-entries" key={entry.week}>{entry.week}</div>
+                  </Col>
+                  <Col lg={2}>
+                    <div className="div-entries" key={entry.date}>{entry.date}</div>
+                  </Col>
+                  <Col lg={1}>
+                    <div className="div-entries" key={entry.weight}>{entry.weight || '-'}</div>
+                  </Col>
+                  <Col lg={1}>
+                    <div className="div-entries" key={entry.chest}>{entry.chest || '-'}</div>
+                  </Col>
+                  <Col lg={1}>
+                    <div className="div-entries" key={entry.middle}>{entry.middle || '-'}</div>
+                  </Col>
+                  <Col lg={1}>
+                    <div className="div-entries" key={entry.bum}>{entry.bum || '-'}</div>
+                  </Col>
+                  <Col lg={1}>
+                    <div className="div-entries" key={entry.legL}>{entry.legL || '-'}</div>
+                  </Col>
+                  <Col lg={1}>
+                    <div className="div-entries" key={entry.legR}>{entry.legR || '-'}</div>
+                  </Col>
+                  <Col lg={1}>
+                    <div className="div-entries" key={entry.arm}>{entry.arm || '-'}</div>
+                  </Col>
+                  <Col lg={1}>
+                    <div className="div-entries" key={entry.neck}>{entry.neck || '-'}</div>
+                  </Col>
+                  <Col lg={1}>
+                    <div className="div-entries" key={entry.ankle}>{entry.ankle || '-'}</div>
+                  </Col>
+                </Row>
+              )
+            })}
+          </Grid>
         </div>
       </div>
     );

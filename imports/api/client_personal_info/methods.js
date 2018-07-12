@@ -58,6 +58,7 @@ Meteor.methods({
       occupation: String,
       otherInfo: String,
     });
+    if (clientID.length === 0) throw new Meteor.Error(403, 'clientID is required');
     if (clientPersonalInfo.name.length === 0) throw new Meteor.Error(403, 'Name is required');
     if (clientPersonalInfo.surname.length === 0) throw new Meteor.Error(403, 'Surname is required');
     if (!Meteor.userId()) {

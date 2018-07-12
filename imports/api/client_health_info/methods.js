@@ -29,6 +29,7 @@ Meteor.methods({
       health: String,
       otherInfo: String,
     });
+    if (clientID.length === 0) throw new Meteor.Error(403, 'clientID is required');
     if (clientHealthInfo.height.length === 0) throw new Meteor.Error(403, 'Height is required');
     if (clientHealthInfo.currentWeight.length === 0) throw new Meteor.Error(403, 'Current Weight is required');
     if (!Meteor.userId()) {

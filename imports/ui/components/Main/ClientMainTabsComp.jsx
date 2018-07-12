@@ -3,6 +3,7 @@ import { Tabs, Tab } from 'react-bootstrap';
 import './ClientMainTabsComp.less';
 import ClientPersonalInfoContainer from '../../containers/Tabs/ClientPersonalInfoContainer';
 import ClientHealthInfoContainer from '../../containers/Tabs/ClientHealthInfoContainer';
+import ClientWeightInfoContainer from '../../containers/Tabs/ClientWeightInfoContainer';
 
 const ClientMainTabsComp = (props) => {
   const disableTabsFlag = (props.clientID === '' || props.clientID === 'new');
@@ -17,6 +18,7 @@ const ClientMainTabsComp = (props) => {
       <Tab
         eventKey={2}
         title="Client Health"
+        disabled={disableTabsFlag}
       >
         <ClientHealthInfoContainer clientID={props.clientID} />
       </Tab>
@@ -30,9 +32,9 @@ const ClientMainTabsComp = (props) => {
       <Tab
         eventKey={4}
         title="Weight Info"
-        disabled={disableTabsFlag}
+        // disabled={disableTabsFlag}
       >
-        WEIGHT INFO
+        <ClientWeightInfoContainer clientID={props.clientID} />
       </Tab>
       <Tab
         eventKey={5}

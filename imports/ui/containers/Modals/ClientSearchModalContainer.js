@@ -9,7 +9,7 @@ const mapTrackerToProps = (state, props) => {
 };
 
 function mapStateToProps(state) {
-  console.log('REDUX STATE2:', state)
+  console.log('REDUX STATE4:', state)
   return {
     // clientHealthInfoRedux: state.clientHealthInfo,
     // clientName: state.clientPersonalInfo.name,

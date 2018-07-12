@@ -31,8 +31,9 @@ const clientHealthInfo = (state = initialState, action) => {
       };
     }
     case types.LOAD_CLIENT_ALL_INFO: {
+      let returnObj = {};
       if (action.clientAllInfoObj.clientHealthInfo) {
-        return {
+        returnObj = {
           ...state,
           clientID: action.clientAllInfoObj.clientHealthInfo.clientID,
           height: action.clientAllInfoObj.clientHealthInfo.height,
@@ -46,7 +47,7 @@ const clientHealthInfo = (state = initialState, action) => {
           otherInfo: action.clientAllInfoObj.clientHealthInfo.otherInfo,
         };
       } else {
-        return {
+        returnObj = {
           ...state,
           clientID: '',
           height: '',
@@ -60,6 +61,7 @@ const clientHealthInfo = (state = initialState, action) => {
           otherInfo: '',
         };
       }
+      return returnObj;
     }
     case types.INITIALIZE_NEW_CLIENT: {
       state = initialState;

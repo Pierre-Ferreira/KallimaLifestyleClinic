@@ -7,6 +7,7 @@ import { routerReducer } from 'react-router-redux';
 import clientPersonalInfo from './ClientPersonalInfo';
 import clientHealthInfo from './ClientHealthInfo';
 import clientWeightInfo from './ClientWeightInfo';
+import clientPaymentInfo from './ClientPaymentInfo';
 
 const clientInfo = combineReducers({
   // gameSettings,
@@ -16,6 +17,7 @@ const clientInfo = combineReducers({
   clientPersonalInfo,
   clientHealthInfo,
   clientWeightInfo,
+  clientPaymentInfo,
   routing: routerReducer,
 });
 

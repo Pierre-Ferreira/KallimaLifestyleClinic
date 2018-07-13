@@ -76,10 +76,30 @@ export default class ClientWeightInfoComp extends Component {
     if (this.props.clientID !== prevProps.clientID ||
         this.props.weeklyEntriesArrRedux !== prevProps.weeklyEntriesArrRedux
     ) {
-      this.setState({
-        clientID: this.props.clientID,
-        weeklyEntriesArr: this.props.weeklyEntriesArrRedux,
-      });
+      if (this.props.clientID !== prevProps.clientID) {
+        this.setState({
+          clientID: this.props.clientID,
+          feedbackMessage: '',
+          feedbackMessageType: '',
+          week: '',
+          date: '',
+          weight: '',
+          chest: '',
+          middle: '',
+          bum: '',
+          legL: '',
+          legR: '',
+          arm: '',
+          neck: '',
+          ankle: '',
+          weeklyEntriesArr: this.props.weeklyEntriesArrRedux,
+        });
+      } else {
+        this.setState({
+          clientID: this.props.clientID,
+          weeklyEntriesArr: this.props.weeklyEntriesArrRedux,
+        });
+      }
     }
   }
 

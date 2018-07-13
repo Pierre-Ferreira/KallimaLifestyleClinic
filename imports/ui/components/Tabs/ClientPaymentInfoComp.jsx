@@ -49,10 +49,26 @@ export default class ClientPaymentInfoComp extends Component {
     if (this.props.clientID !== prevProps.clientID ||
         this.props.paymentEntriesArrRedux !== prevProps.paymentEntriesArrRedux
     ) {
-      this.setState({
-        clientID: this.props.clientID,
-        paymentEntriesArr: this.props.paymentEntriesArrRedux,
-      });
+      if (this.props.clientID !== prevProps.clientID) {
+        this.setState({
+          clientID: this.props.clientID,
+          feedbackMessage: '',
+          feedbackMessageType: '',
+          payNum: '',
+          date: '',
+          amount: '',
+          payType: '',
+          noOfWeeks: '',
+          receiverName: '',
+          otherInfo: '',
+          paymentEntriesArr: this.props.paymentEntriesArrRedux,
+        });
+      } else {
+        this.setState({
+          clientID: this.props.clientID,
+          paymentEntriesArr: this.props.paymentEntriesArrRedux,
+        });
+      }
     }
   }
 
@@ -330,9 +346,10 @@ export default class ClientPaymentInfoComp extends Component {
                   <Row
                     key={entry.payNum}
                     onClick={e => this.handleSelect(i, e)}
+                    className={(i % 2 === 0) ? 'uneven-entries' : 'even-entries'}
                   >
                     <Col lg={1}>
-                      <div className="div-entries" key={entry.payNum}>{entry.payNum}</div>
+                      <div className="div-entries" key={entry.payNum}>{entry.payNum}.</div>
                     </Col>
                     <Col lg={2}>
                       <div className="div-entries" key={entry.payNum}>{moment(entry.date).format('DD-MM-YYYY')}</div>

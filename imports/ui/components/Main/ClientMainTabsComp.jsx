@@ -33,7 +33,7 @@ const ClientMainTabsComp = (props) => {
       <Tab
         eventKey={4}
         title="Weight Info"
-        // disabled={disableTabsFlag}
+        disabled={disableTabsFlag}
       >
         <ClientWeightInfoContainer clientID={props.clientID} />
       </Tab>

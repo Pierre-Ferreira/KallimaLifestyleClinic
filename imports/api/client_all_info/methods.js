@@ -3,6 +3,7 @@ import ClientHealthInfo from '../client_health_info/collection';
 import ClientPersonalInfo from '../client_personal_info/collection';
 import ClientWeightInfo from '../client_weight_info/collection';
 import ClientPaymentInfo from '../client_payment_info/collection';
+import ClientConsent from '../client_consent/collection';
 
 
 Meteor.methods({
@@ -16,11 +17,13 @@ Meteor.methods({
       const clientHealthInfo = ClientHealthInfo.findOne({ clientID });
       const clientWeightInfo = ClientWeightInfo.findOne({ clientID });
       const clientPaymentInfo = ClientPaymentInfo.findOne({ clientID });
+      const clientConsent = ClientConsent.findOne({ clientID })
       const clientAllInfo = {
         clientPersonalInfo,
         clientHealthInfo,
         clientWeightInfo,
         clientPaymentInfo,
+        clientConsent,
       };
       console.log('clientID:', clientID);
       console.log('client_all_info.fetch:', clientAllInfo);

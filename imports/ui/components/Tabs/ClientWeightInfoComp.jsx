@@ -275,42 +275,42 @@ export default class ClientWeightInfoComp extends Component {
             <Form>
               <Grid>
                 <Row className="show-grid">
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Week</ControlLabel>
                   </Col>
-                  <Col lg={2}>
+                  <Col sm={2}>
                     <ControlLabel>Date</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Weight:</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Chest</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Middle</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Bum</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Leg(L)</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Leg(R)</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Arm</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Neck:</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Ankle</ControlLabel>
                   </Col>
                 </Row>
                 <Row>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="Week"
@@ -319,7 +319,7 @@ export default class ClientWeightInfoComp extends Component {
                       disabled
                     />
                   </Col>
-                  <Col lg={2}>
+                  <Col sm={2}>
                     <DatePicker
                       dateFormat="DD-MM-YYYY"
                       className="date-input"
@@ -328,7 +328,7 @@ export default class ClientWeightInfoComp extends Component {
                       calendarPlacement="right"
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="Weight"
@@ -336,7 +336,7 @@ export default class ClientWeightInfoComp extends Component {
                       onChange={this.handleWeightChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="Chest"
@@ -344,7 +344,7 @@ export default class ClientWeightInfoComp extends Component {
                       onChange={this.handleChestChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="Middle"
@@ -352,7 +352,7 @@ export default class ClientWeightInfoComp extends Component {
                       onChange={this.handleMiddleChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="Bum"
@@ -360,7 +360,7 @@ export default class ClientWeightInfoComp extends Component {
                       onChange={this.handleBumChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="Leg(L)"
@@ -368,7 +368,7 @@ export default class ClientWeightInfoComp extends Component {
                       onChange={this.handleLegLChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="Leg(R)"
@@ -376,7 +376,7 @@ export default class ClientWeightInfoComp extends Component {
                       onChange={this.handleLegRChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="Arm"
@@ -384,7 +384,7 @@ export default class ClientWeightInfoComp extends Component {
                       onChange={this.handleArmChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="Neck"
@@ -392,7 +392,7 @@ export default class ClientWeightInfoComp extends Component {
                       onChange={this.handleNeckChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="Ankle"
@@ -430,37 +430,37 @@ export default class ClientWeightInfoComp extends Component {
         <div className="lower-tier-area">
           <Grid>
             <Row className="show-grid">
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Week</ControlLabel>
               </Col>
-              <Col lg={2}>
+              <Col sm={2}>
                 <ControlLabel>Date</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Weight:</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Chest</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Middle</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Bum</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Leg(L)</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Leg(R)</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Arm</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Neck:</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Ankle</ControlLabel>
               </Col>
             </Row>
@@ -472,42 +472,37 @@ export default class ClientWeightInfoComp extends Component {
                     onClick={e => this.handleSelect(i, e)}
                     className={(i % 2 === 0) ? 'uneven-entries' : 'even-entries'}
                   >
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.week}</div>
                     </Col>
-                    <Col lg={2}>
+                    <Col sm={2}>
                       <div className="div-entries" key={entry.week}>{moment(entry.date).format('DD-MM-YYYY')}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.weight || '-'}</div>
                     </Col>
-                    <Col lg={1}>
-                      <div
-                        className="div-entries"
-                        key={entry.week}
-                      >
-                        {entry.chest || '-'}
-                      </div>
+                    <Col sm={1}>
+                      <div className="div-entries" key={entry.week}>{entry.chest || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.middle || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.bum || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.legL || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.legR || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.arm || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.neck || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.ankle || '-'}</div>
                     </Col>
                   </Row>

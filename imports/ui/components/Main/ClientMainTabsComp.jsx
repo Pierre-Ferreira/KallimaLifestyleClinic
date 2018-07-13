@@ -5,6 +5,7 @@ import ClientPersonalInfoContainer from '../../containers/Tabs/ClientPersonalInf
 import ClientHealthInfoContainer from '../../containers/Tabs/ClientHealthInfoContainer';
 import ClientWeightInfoContainer from '../../containers/Tabs/ClientWeightInfoContainer';
 import ClientPaymentInfoContainer from '../../containers/Tabs/ClientPaymentInfoContainer';
+import ClientConsentContainer from '../../containers/Tabs/ClientConsentContainer';
 
 const ClientMainTabsComp = (props) => {
   const disableTabsFlag = (props.clientID === '' || props.clientID === 'new');
@@ -28,7 +29,7 @@ const ClientMainTabsComp = (props) => {
         title="Consent"
         disabled={disableTabsFlag}
       >
-        SIGNATURE AREA
+        <ClientConsentContainer clientID={props.clientID} />
       </Tab>
       <Tab
         eventKey={4}

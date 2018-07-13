@@ -207,30 +207,30 @@ export default class ClientPaymentInfoComp extends Component {
             <Form>
               <Grid>
                 <Row className="show-grid">
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>No.</ControlLabel>
                   </Col>
-                  <Col lg={2}>
+                  <Col sm={2}>
                     <ControlLabel>Date</ControlLabel>
                   </Col>
-                  <Col lg={2}>
+                  <Col sm={2}>
                     <ControlLabel>Amount</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Type</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <ControlLabel>Weeks</ControlLabel>
                   </Col>
-                  <Col lg={2}>
+                  <Col sm={2}>
                     <ControlLabel>Receiver</ControlLabel>
                   </Col>
-                  <Col lg={3}>
+                  <Col sm={3}>
                     <ControlLabel>Other Info</ControlLabel>
                   </Col>
                 </Row>
                 <Row>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
                       type="text"
                       placeholder="No."
@@ -239,7 +239,7 @@ export default class ClientPaymentInfoComp extends Component {
                       disabled
                     />
                   </Col>
-                  <Col lg={2}>
+                  <Col sm={2}>
                     <DatePicker
                       dateFormat="DD-MM-YYYY"
                       className="date-input"
@@ -248,7 +248,7 @@ export default class ClientPaymentInfoComp extends Component {
                       calendarPlacement="right"
                     />
                   </Col>
-                  <Col lg={2}>
+                  <Col sm={2}>
                     <FormControl
                       type="text"
                       placeholder="Amount"
@@ -256,23 +256,51 @@ export default class ClientPaymentInfoComp extends Component {
                       onChange={this.handleAmountChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
-                      type="text"
+                      componentClass="select"
                       placeholder="Type"
                       value={this.state.payType}
                       onChange={this.handlePayTypeChange}
-                    />
+                      className="payment-type-input"
+                    >
+                      <option value="">...</option>
+                      <option value="Cash">Cash</option>
+                      <option value="EFT">EFT</option>
+                      <option value="Card">Card</option>
+                    </FormControl>
                   </Col>
-                  <Col lg={1}>
+                  <Col sm={1}>
                     <FormControl
-                      type="text"
+                      componentClass="select"
                       placeholder="Weeks"
                       value={this.state.noOfWeeks}
                       onChange={this.handleNoOfWeeksChange}
-                    />
+                    >
+                      <option value="">...</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                    </FormControl>
                   </Col>
-                  <Col lg={2}>
+                  <Col sm={2}>
                     <FormControl
                       type="text"
                       placeholder="Receiver"
@@ -280,7 +308,7 @@ export default class ClientPaymentInfoComp extends Component {
                       onChange={this.handleReceiverNameChange}
                     />
                   </Col>
-                  <Col lg={3}>
+                  <Col sm={3}>
                     <FormControl
                       type="text"
                       placeholder="Other Info"
@@ -318,25 +346,25 @@ export default class ClientPaymentInfoComp extends Component {
         <div className="lower-tier-area">
           <Grid>
             <Row className="show-grid">
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>No.</ControlLabel>
               </Col>
-              <Col lg={2}>
+              <Col sm={2}>
                 <ControlLabel>Date</ControlLabel>
               </Col>
-              <Col lg={2}>
+              <Col sm={2}>
                 <ControlLabel>Amount:</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Type</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col sm={1}>
                 <ControlLabel>Weeks</ControlLabel>
               </Col>
-              <Col lg={2}>
+              <Col sm={2}>
                 <ControlLabel>Reciever</ControlLabel>
               </Col>
-              <Col lg={3}>
+              <Col sm={3}>
                 <ControlLabel>Other Info</ControlLabel>
               </Col>
             </Row>
@@ -348,25 +376,25 @@ export default class ClientPaymentInfoComp extends Component {
                     onClick={e => this.handleSelect(i, e)}
                     className={(i % 2 === 0) ? 'uneven-entries' : 'even-entries'}
                   >
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.payNum}>{entry.payNum}.</div>
                     </Col>
-                    <Col lg={2}>
+                    <Col sm={2}>
                       <div className="div-entries" key={entry.payNum}>{moment(entry.date).format('DD-MM-YYYY')}</div>
                     </Col>
-                    <Col lg={2}>
+                    <Col sm={2}>
                       <div className="div-entries" key={entry.payNum}>{entry.amount || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.payNum}>{entry.payType || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col sm={1}>
                       <div className="div-entries" key={entry.payNum}>{entry.noOfWeeks || '-'}</div>
                     </Col>
-                    <Col lg={2}>
+                    <Col sm={2}>
                       <div className="div-entries" key={entry.payNum}>{entry.receiverName || '-'}</div>
                     </Col>
-                    <Col lg={3}>
+                    <Col sm={3}>
                       <div className="div-entries" key={entry.payNum}>{entry.otherInfo || '-'}</div>
                     </Col>
                   </Row>

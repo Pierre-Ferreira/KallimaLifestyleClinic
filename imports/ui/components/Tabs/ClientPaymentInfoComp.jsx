@@ -197,7 +197,7 @@ export default class ClientPaymentInfoComp extends Component {
                   <Col lg={2}>
                     <ControlLabel>Date</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={2}>
                     <ControlLabel>Amount</ControlLabel>
                   </Col>
                   <Col lg={1}>
@@ -206,10 +206,10 @@ export default class ClientPaymentInfoComp extends Component {
                   <Col lg={1}>
                     <ControlLabel>Weeks</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={2}>
                     <ControlLabel>Receiver</ControlLabel>
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={3}>
                     <ControlLabel>Other Info</ControlLabel>
                   </Col>
                 </Row>
@@ -232,7 +232,7 @@ export default class ClientPaymentInfoComp extends Component {
                       calendarPlacement="right"
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={2}>
                     <FormControl
                       type="text"
                       placeholder="Amount"
@@ -256,7 +256,7 @@ export default class ClientPaymentInfoComp extends Component {
                       onChange={this.handleNoOfWeeksChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={2}>
                     <FormControl
                       type="text"
                       placeholder="Receiver"
@@ -264,7 +264,7 @@ export default class ClientPaymentInfoComp extends Component {
                       onChange={this.handleReceiverNameChange}
                     />
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={3}>
                     <FormControl
                       type="text"
                       placeholder="Other Info"
@@ -308,7 +308,7 @@ export default class ClientPaymentInfoComp extends Component {
               <Col lg={2}>
                 <ControlLabel>Date</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col lg={2}>
                 <ControlLabel>Amount:</ControlLabel>
               </Col>
               <Col lg={1}>
@@ -317,10 +317,10 @@ export default class ClientPaymentInfoComp extends Component {
               <Col lg={1}>
                 <ControlLabel>Weeks</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col lg={2}>
                 <ControlLabel>Reciever</ControlLabel>
               </Col>
-              <Col lg={1}>
+              <Col lg={3}>
                 <ControlLabel>Other Info</ControlLabel>
               </Col>
             </Row>
@@ -337,19 +337,19 @@ export default class ClientPaymentInfoComp extends Component {
                     <Col lg={2}>
                       <div className="div-entries" key={entry.payNum}>{moment(entry.date).format('DD-MM-YYYY')}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col lg={2}>
                       <div className="div-entries" key={entry.payNum}>{entry.amount || '-'}</div>
                     </Col>
                     <Col lg={1}>
                       <div className="div-entries" key={entry.payNum}>{entry.payType || '-'}</div>
                     </Col>
                     <Col lg={1}>
-                      <div className="div-entries" key={entry.payNum}>{entry.NoOfWeeks || '-'}</div>
+                      <div className="div-entries" key={entry.payNum}>{entry.noOfWeeks || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col lg={2}>
                       <div className="div-entries" key={entry.payNum}>{entry.receiverName || '-'}</div>
                     </Col>
-                    <Col lg={1}>
+                    <Col lg={3}>
                       <div className="div-entries" key={entry.payNum}>{entry.otherInfo || '-'}</div>
                     </Col>
                   </Row>

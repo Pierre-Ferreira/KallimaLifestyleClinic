@@ -28,7 +28,7 @@ Meteor.methods({
       otherInfo: String,
     });
     if (clientID.length === 0) throw new Meteor.Error(403, 'clientID is required');
-    if (clientPaymentInfo.payNum.length === 0 || clientPaymentInfo.payNum === 0) throw new Meteor.Error(403, 'Week is required');
+    if (clientPaymentInfo.payNum.length === 0 || clientPaymentInfo.payNum === 0) throw new Meteor.Error(403, 'No. is required. Create new payment.');
     if (clientPaymentInfo.date.length === 0) throw new Meteor.Error(403, 'Date is required');
     if (!Meteor.userId()) {
       throw new Meteor.Error(403, "Client's Payment Info entry not updated. User not logged in.");
@@ -40,27 +40,27 @@ Meteor.methods({
       const ClientPaymentInfoID = ClientPaymentInfoDoc && ClientPaymentInfoDoc._id;
       console.log('ClientPaymentInfoID:', ClientPaymentInfoID);
       if (ClientPaymentInfoID) {
-        // Remove all occurances of that week in the array.
+        // Remove all occurances of that payNum in the array.
         ClientPaymentInfo.update(
           { clientID },
           {
             $pull: {
               client_payment_info: {
-                week: clientPaymentInfo.week,
+                payNum: clientPaymentInfo.payNum,
               },
             },
           },
         );
         clientPaymentInfo.updatedAt = new Date();
         clientPaymentInfo.updatedBy = Meteor.userId();
-        // Re-insert the week back into the array and sort. Using UPSERT causes issues.
+        // Re-insert the payNum back into the array and sort. Using UPSERT causes issues.
         ClientPaymentInfo.update(
           { clientID },
           {
             $push: {
               client_payment_info: {
                 $each: [clientPaymentInfo],
-                $sort: { week: 1 },
+                $sort: { payNum: 1 },
               },
             },
           },

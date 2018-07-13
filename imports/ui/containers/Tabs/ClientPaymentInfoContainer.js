@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveClientPaymentInfo: (clientID, clientPaymentInfoObj) => dispatch({ type: 'SAVE_CLIENT_PAYMENT_INFO', clientID, clientPaymentInfoObj }),
+    saveClientPaymentInfo: (clientID, paymentEntriesArr) => dispatch({ type: 'SAVE_CLIENT_PAYMENT_INFO', clientID, paymentEntriesArr }),
 
   };
 }

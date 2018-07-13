@@ -118,7 +118,7 @@ export default class ClientSearchModalComp extends Component {
                     id="search-input"
                     className="form-control input-lg"
                     placeholder="search"
-                    autocomplete="off"
+                    autoComplete="off"
                     onChange={this.onChangeSearch}
                   />
                 </div>

@@ -470,6 +470,7 @@ export default class ClientWeightInfoComp extends Component {
                   <Row
                     key={entry.week}
                     onClick={e => this.handleSelect(i, e)}
+                    className={(i % 2 === 0) ? 'uneven-entries' : 'even-entries'}
                   >
                     <Col lg={1}>
                       <div className="div-entries" key={entry.week}>{entry.week}</div>

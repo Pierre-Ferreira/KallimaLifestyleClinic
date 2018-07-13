@@ -213,7 +213,10 @@ export default class ClientHealthInfoComp extends Component {
             </Alert>
           : null }
         </div>
-        <Form horizontal>
+        <Form
+          horizontal
+          autoComplete="off"
+        >
           <div className="middle-tier-area">
             <FormGroup controlId="height-formgroup">
               <Col mdOffset={1} md={4}>

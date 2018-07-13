@@ -253,7 +253,10 @@ export default class ClientPersonalInfoComp extends Component {
             </Alert>
           : null }
         </div>
-        <Form horizontal>
+        <Form
+          horizontal
+          autoComplete="off"
+        >
           <div className="middle-tier-area">
             <FormGroup controlId="name-formgroup">
               <Col mdOffset={1} md={3}>

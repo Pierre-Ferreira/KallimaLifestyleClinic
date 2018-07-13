@@ -32,7 +32,7 @@ Meteor.methods({
       ankle: String,
     });
     if (clientID.length === 0) throw new Meteor.Error(403, 'clientID is required');
-    if (clientWeightInfo.week.length === 0 || clientWeightInfo.week === 0) throw new Meteor.Error(403, 'Week is required');
+    if (clientWeightInfo.week.length === 0 || clientWeightInfo.week === 0) throw new Meteor.Error(403, 'Week is required. Create new entry.');
     if (clientWeightInfo.date.length === 0) throw new Meteor.Error(403, 'Date is required');
     if (!Meteor.userId()) {
       throw new Meteor.Error(403, "Client's Weight Info entry not updated. User not logged in.");

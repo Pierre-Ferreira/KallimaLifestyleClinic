@@ -387,7 +387,7 @@ export default class ClientWeightInfoComp extends Component {
             <ButtonToolbar>
               <Col sm={6}>
                 <Button
-                  bsStyle="primary"
+                  // bsStyle="primary"
                   bsSize="large"
                   block
                   onClick={this.handleSave}
@@ -397,7 +397,7 @@ export default class ClientWeightInfoComp extends Component {
               </Col>
               <Col sm={6}>
                 <Button
-                  bsStyle="warning"
+                  // bsStyle="warning"
                   bsSize="large"
                   block
                   onClick={this.handleNew}

@@ -46,36 +46,6 @@ export default class ClientHealthInfoComp extends Component {
     this.handleOtherInfoChange = this.handleOtherInfoChange.bind(this);
   }
 
-  // componentDidMount() {
-  //   const { clientID } = this.props;
-  //   console.log('this.props:', this.props);
-  //   Meteor.call('client_health_info.fetch', clientID, (err, result) => {
-  //     console.log('ERR:', err);
-  //     console.log('RESULT:', result);
-  //     if (err) {
-  //       this.setState({
-  //         feedbackMessage: `ERROR: ${err.reason}`,
-  //         feedbackMessageType: 'danger',
-  //       });
-  //     } else {
-  //
-  //     }
-  //   });
-    //   this.setState({
-    //     name: result.name,
-    //     surname: result.surname,
-    //     cellNo: result.cellNo,
-    //     workNo: result.workNo,
-    //     email: result.email,
-    //     married: result.married,
-    //     children: result.children,
-    //     hobbies: result.hobbies,
-    //     occupation: result.occupation,
-    //     otherInfo: result.otherInfo,
-    //   });
-    // });
-  // }
-
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.clientID !== prevProps.clientID) {
       this.setState({
@@ -365,7 +335,7 @@ export default class ClientHealthInfoComp extends Component {
             <FormGroup>
               <Col sm={12}>
                 <Button
-                  bsStyle="primary"
+                  // bsStyle="primary"
                   bsSize="large"
                   block
                   onClick={this.handleSubmit}

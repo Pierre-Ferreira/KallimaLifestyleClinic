@@ -437,7 +437,7 @@ export default class ClientPersonalInfoComp extends Component {
             <FormGroup>
               <Col sm={12}>
                 <Button
-                  bsStyle="primary"
+                  // bsStyle="primary"
                   bsSize="large"
                   block
                   onClick={this.handleSubmit}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popover, Tooltip, Button, Modal, OverlayTrigger, Alert } from 'react-bootstrap';
+import { Col, Popover, Tooltip, Button, Modal, OverlayTrigger, Alert } from 'react-bootstrap';
 import SignatureCanvas from 'react-signature-canvas';
 import './ClientConsentComp.less';
 
@@ -97,41 +97,46 @@ export default class ClientConsentComp extends Component {
           : null }
         </div>
         <div className="lower-tier-area">
-          <div className="consent-text">{`I ${this.props.clientName} ${this.props.clientSurname} hereby give consent for Herbal Heel Injections by Mrs. JW Venter or Mrs. S van Zyl`}</div>
+          <div className="consent-text">
+            I , <span className="consent-name-text">{`${this.props.clientName} ${this.props.clientSurname}`}</span>,
+            hereby give consent for Herbal Heel Injections by Mrs. JW Venter or Mrs. S van Zyl.
+          </div>
           {trimmedDataURL
             ?
               <div>
-                <img
-                  // className={styles.sigImage}
-                  src={trimmedDataURL}
-                />
+                <Col mdOffset={1} md={10}>
+                  <img
+                    // className={styles.sigImage}
+                    src={trimmedDataURL}
+                  />
+                </Col>
               </div>
             :
               <div>
-                <div>
-                  <Button
-                    bsStyle="warning"
-                    bsSize="large"
-                    block
-                    onClick={this.clear}
-                  >
-                    Clear
-                  </Button>
-                  <Button
-                    bsStyle="warning"
-                    bsSize="large"
-                    block
-                    onClick={this.trimAndSave}
-                  >
-                    Save
-                  </Button>
-                </div>
-                <SignatureCanvas
-                  penColor="black"
-                  backgroundColor="white"
-                  canvasProps={{ width: 800, height: 200, className: 'sigCanvas' }}
-                  ref={(ref) => { this.sigPad = ref; }}
-                />
+                <Button
+                  bsStyle="warning"
+                  bsSize="large"
+                  block
+                  onClick={this.clear}
+                >
+                  Clear
+                </Button>
+                <Col mdOffset={1} md={10}>
+                  <SignatureCanvas
+                    penColor="black"
+                    backgroundColor="white"
+                    canvasProps={{ width: 600, height: 200, className: 'sigCanvas' }}
+                    ref={(ref) => { this.sigPad = ref; }}
+                  />
+                </Col>
+                <Button
+                  bsStyle="warning"
+                  bsSize="large"
+                  block
+                  onClick={this.trimAndSave}
+                >
+                  Save
+                </Button>
               </div>
           }
         </div>

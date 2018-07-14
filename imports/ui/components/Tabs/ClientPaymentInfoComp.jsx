@@ -208,7 +208,7 @@ export default class ClientPaymentInfoComp extends Component {
           <div>
             <Form>
               <Grid>
-                <Row className="show-grid">
+                <Row className="show-grid display-block">
                   <Col sm={1}>
                     <ControlLabel>No.</ControlLabel>
                   </Col>
@@ -231,7 +231,7 @@ export default class ClientPaymentInfoComp extends Component {
                     <ControlLabel>Other Info</ControlLabel>
                   </Col>
                 </Row>
-                <Row>
+                <Row className="display-block">
                   <Col sm={1}>
                     <FormControl
                       type="text"
@@ -346,8 +346,8 @@ export default class ClientPaymentInfoComp extends Component {
           </div>
         </div>
         <div className="bottom-tier-area">
-          <Grid>
-            <Row className="show-grid">
+          {/* <Grid> */}
+            <Row className="display-block">
               <Col sm={1}>
                 <ControlLabel>No.</ControlLabel>
               </Col>
@@ -364,7 +364,7 @@ export default class ClientPaymentInfoComp extends Component {
                 <ControlLabel>Weeks</ControlLabel>
               </Col>
               <Col sm={2}>
-                <ControlLabel>Reciever</ControlLabel>
+                <ControlLabel>Receiver</ControlLabel>
               </Col>
               <Col sm={3}>
                 <ControlLabel>Other Info</ControlLabel>
@@ -376,7 +376,7 @@ export default class ClientPaymentInfoComp extends Component {
                   <Row
                     key={entry.payNum}
                     onClick={e => this.handleSelect(i, e)}
-                    className={(i % 2 === 0) ? 'uneven-entries' : 'even-entries'}
+                    className={(i % 2 === 0) ? 'uneven-entries display-block' : 'even-entries display-block'}
                   >
                     <Col sm={1}>
                       <div className="div-entries" key={entry.payNum}>{entry.payNum}.</div>
@@ -403,7 +403,7 @@ export default class ClientPaymentInfoComp extends Component {
                 )
               })}
             </div>
-          </Grid>
+          {/* </Grid> */}
         </div>
       </div>
     );

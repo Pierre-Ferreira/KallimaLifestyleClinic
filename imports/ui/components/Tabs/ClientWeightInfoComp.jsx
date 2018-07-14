@@ -256,7 +256,7 @@ export default class ClientWeightInfoComp extends Component {
         <div className="middle-tier-area">
           <Form>
             <Grid>
-              <Row className="show-grid">
+              <Row className="show-grid display-block">
                 <Col sm={1}>
                   <ControlLabel>Week</ControlLabel>
                 </Col>
@@ -291,7 +291,7 @@ export default class ClientWeightInfoComp extends Component {
                   <ControlLabel>Ankle</ControlLabel>
                 </Col>
               </Row>
-              <Row>
+              <Row className="display-block display-block">
                 <Col sm={1}>
                   <FormControl
                     type="text"
@@ -410,7 +410,7 @@ export default class ClientWeightInfoComp extends Component {
         </div>
         <div className="bottom-tier-area">
           <Grid>
-            <Row className="show-grid">
+            <Row className="show-grid display-block">
               <Col sm={1}>
                 <ControlLabel>Week</ControlLabel>
               </Col>
@@ -451,7 +451,7 @@ export default class ClientWeightInfoComp extends Component {
                   <Row
                     key={entry.week}
                     onClick={e => this.handleSelect(i, e)}
-                    className={(i % 2 === 0) ? 'uneven-entries' : 'even-entries'}
+                    className={(i % 2 === 0) ? 'uneven-entries display-block' : 'even-entries display-block'}
                   >
                     <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.week}</div>

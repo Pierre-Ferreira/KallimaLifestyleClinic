@@ -1,7 +1,8 @@
-#client-payment-info-comp {
+#client-consent-comp {
   .top-tier-area {
     border-bottom: solid 3px indianred;
     min-height: 125px;
+    // display: inline-block;
     .client-details {
       font-size: 40px;
       text-align: center;
@@ -10,29 +11,18 @@
       font-size: 35px;
       text-align: center;
     }
-
+    .input-group {
+      flex-wrap: nowrap;
+    }
     .alert {
       margin: 0px 15px 10px 15px;
     }
-  }
-  .middle-tier-area {
-    display: inline-block;
     label {
       font-size: 17px;
       text-decoration: underline;
     }
-    .input-group {
-      flex-wrap: nowrap;
-    }
     .form-control {
       font-size: 15px;
-      height: 35px;
-      padding: 3px;
-    }
-    .payment-type-input {
-      padding: 0px;
-      margin: 0px -10px;
-      width: -webkit-fill-available;
     }
     button {
       margin-top: 12px;
@@ -40,8 +30,9 @@
       font-size: x-large;
     }
   }
-  .bottom-tier-area {
-    border-top: solid 3px indianred;
+
+  .lower-tier-area {
+    // border-top: solid 3px indianred;
     label {
       font-size: 15px;
     }

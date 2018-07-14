@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Popover, Tooltip, Button, Modal, OverlayTrigger, Alert } from 'react-bootstrap';
-import SignatureCanvas from 'react-signature-canvas'
+import SignatureCanvas from 'react-signature-canvas';
+import './ClientConsentComp.less';
 
 export default class ClientConsentComp extends Component {
   constructor(props, context) {
@@ -62,7 +63,6 @@ export default class ClientConsentComp extends Component {
             feedbackMessage: 'Client Consent Saved!',
             feedbackMessageType: 'success',
           });
-          // clientPaymentInfoObj.clientID = clientID;
           this.props.saveClientConsent(clientID, trimmedDataURL);
           console.log('client_payment_info.insert RESULT:', result)
           setTimeout(() => {
@@ -96,44 +96,45 @@ export default class ClientConsentComp extends Component {
             </Alert>
           : null }
         </div>
-        <div className="consent-text">{`I ${this.props.clientName} ${this.props.clientSurname} hereby give consent for Herbal Heel Injections by Mrs. JW Venter or Mrs. S van Zyl`}</div>
-        {trimmedDataURL
-          ?
-            <div>
-              <img
-                // className={styles.sigImage}
-                src={trimmedDataURL}
-              />
-            </div>
-          :
-            <div>
+        <div className="lower-tier-area">
+          <div className="consent-text">{`I ${this.props.clientName} ${this.props.clientSurname} hereby give consent for Herbal Heel Injections by Mrs. JW Venter or Mrs. S van Zyl`}</div>
+          {trimmedDataURL
+            ?
               <div>
-                <Button
-                  bsStyle="warning"
-                  bsSize="large"
-                  block
-                  onClick={this.clear}
-                >
-                  Clear
-                </Button>
-                <Button
-                  bsStyle="warning"
-                  bsSize="large"
-                  block
-                  onClick={this.trimAndSave}
-                >
-                  Save
-                </Button>
+                <img
+                  // className={styles.sigImage}
+                  src={trimmedDataURL}
+                />
               </div>
-              <SignatureCanvas
-                penColor="black"
-                backgroundColor="white"
-                canvasProps={{ width: 800, height: 200, className: 'sigCanvas' }}
-                ref={(ref) => { this.sigPad = ref; }}
-              />
-            </div>
-        }
-
+            :
+              <div>
+                <div>
+                  <Button
+                    bsStyle="warning"
+                    bsSize="large"
+                    block
+                    onClick={this.clear}
+                  >
+                    Clear
+                  </Button>
+                  <Button
+                    bsStyle="warning"
+                    bsSize="large"
+                    block
+                    onClick={this.trimAndSave}
+                  >
+                    Save
+                  </Button>
+                </div>
+                <SignatureCanvas
+                  penColor="black"
+                  backgroundColor="white"
+                  canvasProps={{ width: 800, height: 200, className: 'sigCanvas' }}
+                  ref={(ref) => { this.sigPad = ref; }}
+                />
+              </div>
+          }
+        </div>
       </div>
     );
   }

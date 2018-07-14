@@ -54,24 +54,6 @@ export default class ClientWeightInfoComp extends Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
 
-  // componentDidMount() {
-  //   const { clientID } = this.props;
-  //   console.log('this.props:', this.props);
-  //   Meteor.call('client_weight_info.fetch', clientID, (err, result) => {
-  //     if (err) {
-  //       this.setState({
-  //         feedbackMessage: `ERROR: ${err.reason}`,
-  //         feedbackMessageType: 'danger',
-  //       });
-  //     } else {
-  //       this.setState({
-  //         feedbackMessage: '',
-  //         weeklyEntriesArr: result.client_weight_info,
-  //       });
-  //     }
-  //   });
-  // }
-
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.clientID !== prevProps.clientID ||
         this.props.weeklyEntriesArrRedux !== prevProps.weeklyEntriesArrRedux
@@ -174,7 +156,6 @@ export default class ClientWeightInfoComp extends Component {
   }
 
   handleSelect(pos) {
-    console.log("POS:",pos);
     this.setState({
       week: this.state.weeklyEntriesArr[pos].week,
       date: this.state.weeklyEntriesArr[pos].date,
@@ -271,163 +252,163 @@ export default class ClientWeightInfoComp extends Component {
               {feedbackMessage}
             </Alert>
           : null }
-          <div>
-            <Form>
-              <Grid>
-                <Row className="show-grid">
-                  <Col sm={1}>
-                    <ControlLabel>Week</ControlLabel>
-                  </Col>
-                  <Col sm={2}>
-                    <ControlLabel>Date</ControlLabel>
-                  </Col>
-                  <Col sm={1}>
-                    <ControlLabel>Weight:</ControlLabel>
-                  </Col>
-                  <Col sm={1}>
-                    <ControlLabel>Chest</ControlLabel>
-                  </Col>
-                  <Col sm={1}>
-                    <ControlLabel>Middle</ControlLabel>
-                  </Col>
-                  <Col sm={1}>
-                    <ControlLabel>Bum</ControlLabel>
-                  </Col>
-                  <Col sm={1}>
-                    <ControlLabel>Leg(L)</ControlLabel>
-                  </Col>
-                  <Col sm={1}>
-                    <ControlLabel>Leg(R)</ControlLabel>
-                  </Col>
-                  <Col sm={1}>
-                    <ControlLabel>Arm</ControlLabel>
-                  </Col>
-                  <Col sm={1}>
-                    <ControlLabel>Neck:</ControlLabel>
-                  </Col>
-                  <Col sm={1}>
-                    <ControlLabel>Ankle</ControlLabel>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm={1}>
-                    <FormControl
-                      type="text"
-                      placeholder="Week"
-                      value={this.state.week}
-                      onChange={this.handleWeekChange}
-                      disabled
-                    />
-                  </Col>
-                  <Col sm={2}>
-                    <DatePicker
-                      dateFormat="DD-MM-YYYY"
-                      className="date-input"
-                      value={this.state.date}
-                      onChange={this.handleDateChange}
-                      calendarPlacement="right"
-                    />
-                  </Col>
-                  <Col sm={1}>
-                    <FormControl
-                      type="text"
-                      placeholder="Weight"
-                      value={this.state.weight}
-                      onChange={this.handleWeightChange}
-                    />
-                  </Col>
-                  <Col sm={1}>
-                    <FormControl
-                      type="text"
-                      placeholder="Chest"
-                      value={this.state.chest}
-                      onChange={this.handleChestChange}
-                    />
-                  </Col>
-                  <Col sm={1}>
-                    <FormControl
-                      type="text"
-                      placeholder="Middle"
-                      value={this.state.middle}
-                      onChange={this.handleMiddleChange}
-                    />
-                  </Col>
-                  <Col sm={1}>
-                    <FormControl
-                      type="text"
-                      placeholder="Bum"
-                      value={this.state.bum}
-                      onChange={this.handleBumChange}
-                    />
-                  </Col>
-                  <Col sm={1}>
-                    <FormControl
-                      type="text"
-                      placeholder="Leg(L)"
-                      value={this.state.legL}
-                      onChange={this.handleLegLChange}
-                    />
-                  </Col>
-                  <Col sm={1}>
-                    <FormControl
-                      type="text"
-                      placeholder="Leg(R)"
-                      value={this.state.legR}
-                      onChange={this.handleLegRChange}
-                    />
-                  </Col>
-                  <Col sm={1}>
-                    <FormControl
-                      type="text"
-                      placeholder="Arm"
-                      value={this.state.arm}
-                      onChange={this.handleArmChange}
-                    />
-                  </Col>
-                  <Col sm={1}>
-                    <FormControl
-                      type="text"
-                      placeholder="Neck"
-                      value={this.state.neck}
-                      onChange={this.handleNeckChange}
-                    />
-                  </Col>
-                  <Col sm={1}>
-                    <FormControl
-                      type="text"
-                      placeholder="Ankle"
-                      value={this.state.ankle}
-                      onChange={this.handleAnkleChange}
-                    />
-                  </Col>
-                </Row>
-              </Grid>
-              <ButtonToolbar>
-                <Col sm={6}>
-                  <Button
-                    bsStyle="primary"
-                    bsSize="large"
-                    block
-                    onClick={this.handleSave}
-                  >
-                    Save
-                  </Button>
-                </Col>
-                <Col sm={6}>
-                  <Button
-                    bsStyle="warning"
-                    bsSize="large"
-                    block
-                    onClick={this.handleNew}
-                  >
-                    New
-                  </Button>
-                </Col>
-                </ButtonToolbar>
-            </Form>
-          </div>
         </div>
-        <div className="lower-tier-area">
+        <div className="middle-tier-area">
+          <Form>
+            <Grid>
+              <Row className="show-grid">
+                <Col sm={1}>
+                  <ControlLabel>Week</ControlLabel>
+                </Col>
+                <Col sm={2}>
+                  <ControlLabel>Date</ControlLabel>
+                </Col>
+                <Col sm={1}>
+                  <ControlLabel>Weight:</ControlLabel>
+                </Col>
+                <Col sm={1}>
+                  <ControlLabel>Chest</ControlLabel>
+                </Col>
+                <Col sm={1}>
+                  <ControlLabel>Middle</ControlLabel>
+                </Col>
+                <Col sm={1}>
+                  <ControlLabel>Bum</ControlLabel>
+                </Col>
+                <Col sm={1}>
+                  <ControlLabel>Leg(L)</ControlLabel>
+                </Col>
+                <Col sm={1}>
+                  <ControlLabel>Leg(R)</ControlLabel>
+                </Col>
+                <Col sm={1}>
+                  <ControlLabel>Arm</ControlLabel>
+                </Col>
+                <Col sm={1}>
+                  <ControlLabel>Neck:</ControlLabel>
+                </Col>
+                <Col sm={1}>
+                  <ControlLabel>Ankle</ControlLabel>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Week"
+                    value={this.state.week}
+                    onChange={this.handleWeekChange}
+                    disabled
+                  />
+                </Col>
+                <Col sm={2}>
+                  <DatePicker
+                    dateFormat="DD-MM-YYYY"
+                    className="date-input"
+                    value={this.state.date}
+                    onChange={this.handleDateChange}
+                    calendarPlacement="right"
+                  />
+                </Col>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Weight"
+                    value={this.state.weight}
+                    onChange={this.handleWeightChange}
+                  />
+                </Col>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Chest"
+                    value={this.state.chest}
+                    onChange={this.handleChestChange}
+                  />
+                </Col>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Middle"
+                    value={this.state.middle}
+                    onChange={this.handleMiddleChange}
+                  />
+                </Col>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Bum"
+                    value={this.state.bum}
+                    onChange={this.handleBumChange}
+                  />
+                </Col>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Leg(L)"
+                    value={this.state.legL}
+                    onChange={this.handleLegLChange}
+                  />
+                </Col>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Leg(R)"
+                    value={this.state.legR}
+                    onChange={this.handleLegRChange}
+                  />
+                </Col>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Arm"
+                    value={this.state.arm}
+                    onChange={this.handleArmChange}
+                  />
+                </Col>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Neck"
+                    value={this.state.neck}
+                    onChange={this.handleNeckChange}
+                  />
+                </Col>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Ankle"
+                    value={this.state.ankle}
+                    onChange={this.handleAnkleChange}
+                  />
+                </Col>
+              </Row>
+            </Grid>
+            <ButtonToolbar>
+              <Col sm={6}>
+                <Button
+                  bsStyle="primary"
+                  bsSize="large"
+                  block
+                  onClick={this.handleSave}
+                >
+                  Save
+                </Button>
+              </Col>
+              <Col sm={6}>
+                <Button
+                  bsStyle="warning"
+                  bsSize="large"
+                  block
+                  onClick={this.handleNew}
+                >
+                  New
+                </Button>
+              </Col>
+              </ButtonToolbar>
+          </Form>
+        </div>
+        <div className="bottom-tier-area">
           <Grid>
             <Row className="show-grid">
               <Col sm={1}>

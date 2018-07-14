@@ -203,6 +203,8 @@ export default class ClientPaymentInfoComp extends Component {
               {feedbackMessage}
             </Alert>
           : null }
+        </div>
+        <div className="middle-tier-area">
           <div>
             <Form>
               <Grid>
@@ -343,7 +345,7 @@ export default class ClientPaymentInfoComp extends Component {
             </Form>
           </div>
         </div>
-        <div className="lower-tier-area">
+        <div className="bottom-tier-area">
           <Grid>
             <Row className="show-grid">
               <Col sm={1}>

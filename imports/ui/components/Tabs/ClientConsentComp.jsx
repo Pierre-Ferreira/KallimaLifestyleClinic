@@ -108,6 +108,7 @@ export default class ClientConsentComp extends Component {
                   <img
                     // className={styles.sigImage}
                     src={trimmedDataURL}
+                    alt=""
                   />
                 </Col>
               </div>

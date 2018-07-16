@@ -30,7 +30,7 @@ export default class NavbarComp extends Component {
         <Navbar fluid id="navbar-comp">
           <Navbar.Header href="/main/client_info">
             <Navbar.Brand>
-              Kallima Lifestyle Center
+              Kallima Lifestyle Clinic
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>

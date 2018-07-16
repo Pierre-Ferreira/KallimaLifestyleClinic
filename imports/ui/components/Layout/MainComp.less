@@ -1,0 +1,72 @@
+#main-page-comp {
+  width: -webkit-fill-available;
+  .container {
+      margin: auto;
+  }
+}
+.background-auth {
+  background-image: url('/images/background-image1.png');
+  background-color: ivory; //purple, royalblue, slateblue, violet
+  height: 160vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-blend-mode: hard-light;
+  background-size: cover;
+  background-position: center center;
+  // -webkit-animation-name: color-transition;
+  // animation-name: color-transition;
+  -webkit-animation-duration: 25s;
+  animation-duration: 25s;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+};
+.background-public {
+  background: url('/images/background-image2.png');
+  background-color: ivory; //purple, royalblue, slateblue, violet
+  height: 160vh;
+  width: 125%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-blend-mode: hard-light;
+  background-size: cover;
+  background-position: center center;
+  // -webkit-animation-name: color-transition;
+  // animation-name: color-transition;
+  -webkit-animation-duration: 25s;
+  animation-duration: 25s;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+/*This is the animation used to change colors; In this instance, I made sure to have the same color at 0% as I did at 100% */
+
+@-webkit-keyframes color-transition {
+  0% {
+    background-color: #000000;
+  }
+  50% {
+    background-color: #ee82ee;
+  }
+  100% {
+    background-color: #000000;
+  }
+}
+
+@keyframes color-transition {
+  0% {
+    background-color: #000000;
+  }
+  50% {
+    background-color: #ee82ee;
+  }
+  100% {
+    background-color: #000000;
+  }
+}

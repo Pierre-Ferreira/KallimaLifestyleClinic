@@ -18,6 +18,7 @@ import ForgotPasswordContainer from '../../containers/Auth/ForgotPasswordContain
 import AuthenticatedRouteComp from '../Routes/AuthenticatedRouteComp';
 import PublicRouteComp from '../Routes/PublicRouteComp';
 import ClientMainTabsContainer from '../../containers/Main/ClientMainTabsContainer';
+import './MainComp.less';
 // import { withHistory, Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
@@ -30,8 +31,10 @@ export default class MainPage extends Component {
   }
 
   render() {
+    const { authenticated } = this.props;
+    const backgroundStyle = authenticated ? 'background-auth' : 'background-public';
     return (
-      <div>
+      <div id="main-page-comp" className={backgroundStyle}>
         <Grid>
           <div>
             <Switch>

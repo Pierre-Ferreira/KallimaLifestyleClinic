@@ -29,7 +29,7 @@ export default class NavbarComp extends Component {
       <div>
         <Navbar fluid id="navbar-comp">
           <Navbar.Header href="/main/client_info">
-            <Navbar.Brand>
+            <Navbar.Brand href="#">
               Kallima Lifestyle Clinic
             </Navbar.Brand>
             <Navbar.Toggle />

@@ -123,15 +123,15 @@ export default class LoginComp extends Component {
                   <input
                     type="submit"
                     id="login-button"
-                    className="btn btn-primary btn-lg btn-block"
+                    className="btn btn-lg btn-block"
                     value="Login"
                   />
                 </div>
-                <div className="form-group text-center">
+                {/* <div className="form-group text-center">
                   <p className="text-center">
                     Don't have an account? Register <Link to="/auth/signup">here</Link>
                   </p>
-                </div>
+                </div> */}
               </form>
             </div>
             <div className="modal-footer" style={{ borderTop: 0 }} />

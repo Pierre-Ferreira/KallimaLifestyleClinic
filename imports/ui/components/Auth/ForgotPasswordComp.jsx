@@ -74,7 +74,7 @@ export default class ForgotPasswordComp extends Component {
                   <input
                     type="submit"
                     id="login-button"
-                    className="btn btn-lg btn-primary btn-block"
+                    className="btn btn-lg btn-block"
                     value="Reset password"
                   />
                 </div>

@@ -193,6 +193,7 @@ export default class ClientPaymentInfoComp extends Component {
 
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
+    const inputDisabledFlag = (this.state.payNum) ? false : true;
     return (
       <div id="client-payment-info-comp">
         <div className="top-tier-area">
@@ -248,6 +249,7 @@ export default class ClientPaymentInfoComp extends Component {
                       value={this.state.date}
                       onChange={this.handleDateChange}
                       calendarPlacement="right"
+                      disabled={inputDisabledFlag}
                     />
                   </Col>
                   <Col sm={2}>
@@ -256,6 +258,7 @@ export default class ClientPaymentInfoComp extends Component {
                       placeholder="Amount"
                       value={this.state.amount}
                       onChange={this.handleAmountChange}
+                      disabled={inputDisabledFlag}
                     />
                   </Col>
                   <Col sm={1}>
@@ -265,6 +268,7 @@ export default class ClientPaymentInfoComp extends Component {
                       value={this.state.payType}
                       onChange={this.handlePayTypeChange}
                       className="payment-type-input"
+                      disabled={inputDisabledFlag}
                     >
                       <option value="">...</option>
                       <option value="Cash">Cash</option>
@@ -278,6 +282,7 @@ export default class ClientPaymentInfoComp extends Component {
                       placeholder="Weeks"
                       value={this.state.noOfWeeks}
                       onChange={this.handleNoOfWeeksChange}
+                      disabled={inputDisabledFlag}
                     >
                       <option value="">...</option>
                       <option value="1">1</option>
@@ -308,6 +313,7 @@ export default class ClientPaymentInfoComp extends Component {
                       placeholder="Receiver"
                       value={this.state.receiverName}
                       onChange={this.handleReceiverNameChange}
+                      disabled={inputDisabledFlag}
                     />
                   </Col>
                   <Col sm={3}>
@@ -316,6 +322,7 @@ export default class ClientPaymentInfoComp extends Component {
                       placeholder="Other Info"
                       value={this.state.otherInfo}
                       onChange={this.handleOtherInfoChange}
+                      disabled={inputDisabledFlag}
                     />
                   </Col>
                 </Row>

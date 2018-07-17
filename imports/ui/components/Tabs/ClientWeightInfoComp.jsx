@@ -34,8 +34,8 @@ export default class ClientWeightInfoComp extends Component {
       legUp: '',
       legLow: '',
       arm: '',
-      neck: '',
-      ankle: '',
+      // neck: '',
+      // ankle: '',
       weeklyEntriesArr: [],
     };
     this.handleSave = this.handleSave.bind(this);
@@ -48,8 +48,8 @@ export default class ClientWeightInfoComp extends Component {
     this.handleLegUpChange = this.handleLegUpChange.bind(this);
     this.handleLegLowChange = this.handleLegLowChange.bind(this);
     this.handleArmChange = this.handleArmChange.bind(this);
-    this.handleNeckChange = this.handleNeckChange.bind(this);
-    this.handleAnkleChange = this.handleAnkleChange.bind(this);
+    // this.handleNeckChange = this.handleNeckChange.bind(this);
+    // this.handleAnkleChange = this.handleAnkleChange.bind(this);
     this.handleNew = this.handleNew.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
@@ -72,8 +72,8 @@ export default class ClientWeightInfoComp extends Component {
           legUp: '',
           legLow: '',
           arm: '',
-          neck: '',
-          ankle: '',
+          // neck: '',
+          // ankle: '',
           weeklyEntriesArr: this.props.weeklyEntriesArrRedux,
         });
       } else {
@@ -142,18 +142,18 @@ export default class ClientWeightInfoComp extends Component {
       arm: e.target.value,
     });
   }
-  handleNeckChange(e) {
-    console.log('handleNeckChange:', e.target.value)
-    this.setState({
-      neck: e.target.value,
-    });
-  }
-  handleAnkleChange(e) {
-    console.log('handleAnkleChange:', e.target.value)
-    this.setState({
-      ankle: e.target.value,
-    });
-  }
+  // handleNeckChange(e) {
+  //   console.log('handleNeckChange:', e.target.value)
+  //   this.setState({
+  //     neck: e.target.value,
+  //   });
+  // }
+  // handleAnkleChange(e) {
+  //   console.log('handleAnkleChange:', e.target.value)
+  //   this.setState({
+  //     ankle: e.target.value,
+  //   });
+  // }
 
   handleSelect(pos) {
     this.setState({
@@ -166,8 +166,8 @@ export default class ClientWeightInfoComp extends Component {
       legUp: this.state.weeklyEntriesArr[pos].legUp,
       legLow: this.state.weeklyEntriesArr[pos].legLow,
       arm: this.state.weeklyEntriesArr[pos].arm,
-      neck: this.state.weeklyEntriesArr[pos].neck,
-      ankle: this.state.weeklyEntriesArr[pos].ankle,
+      // neck: this.state.weeklyEntriesArr[pos].neck,
+      // ankle: this.state.weeklyEntriesArr[pos].ankle,
     });
   }
 
@@ -182,8 +182,8 @@ export default class ClientWeightInfoComp extends Component {
       legUp: '',
       legLow: '',
       arm: '',
-      neck: '',
-      ankle: '',
+      // neck: '',
+      // ankle: '',
     });
   }
 
@@ -204,8 +204,8 @@ export default class ClientWeightInfoComp extends Component {
       legUp: this.state.legUp,
       legLow: this.state.legLow,
       arm: this.state.arm,
-      neck: this.state.neck,
-      ankle: this.state.ankle,
+      // neck: this.state.neck,
+      // ankle: this.state.ankle,
     };
     console.log('clientWeightInfoObj:', clientWeightInfoObj)
     const { clientID } = this.props;

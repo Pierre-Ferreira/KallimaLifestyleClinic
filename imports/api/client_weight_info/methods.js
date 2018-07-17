@@ -28,8 +28,8 @@ Meteor.methods({
       legUp: String,
       legLow: String,
       arm: String,
-      neck: String,
-      ankle: String,
+      // neck: String,
+      // ankle: String,
     });
     if (clientID.length === 0) throw new Meteor.Error(403, 'clientID is required');
     if (clientWeightInfo.week.length === 0 || clientWeightInfo.week === 0) throw new Meteor.Error(403, 'Week is required. Create new entry.');

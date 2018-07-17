@@ -89,7 +89,7 @@ export default class ClientConsentComp extends Component {
       <div id="client-consent-comp">
         <div className="top-tier-area">
           <div className="client-details">{this.props.clientName} {this.props.clientSurname}</div>
-          <div className="clientid">ClientID: {this.props.clientID}</div>
+          {/* <div className="clientid">ClientID: {this.props.clientID}</div> */}
           {(feedbackMessage) ?
             <Alert bsStyle={feedbackMessageType}>
               {feedbackMessage}

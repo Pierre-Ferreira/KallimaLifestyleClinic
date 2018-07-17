@@ -31,8 +31,8 @@ export default class ClientWeightInfoComp extends Component {
       chest: '',
       middle: '',
       bum: '',
-      legL: '',
-      legR: '',
+      legUp: '',
+      legLow: '',
       arm: '',
       neck: '',
       ankle: '',
@@ -45,8 +45,8 @@ export default class ClientWeightInfoComp extends Component {
     this.handleChestChange = this.handleChestChange.bind(this);
     this.handleMiddleChange = this.handleMiddleChange.bind(this);
     this.handleBumChange = this.handleBumChange.bind(this);
-    this.handleLegLChange = this.handleLegLChange.bind(this);
-    this.handleLegRChange = this.handleLegRChange.bind(this);
+    this.handleLegUpChange = this.handleLegUpChange.bind(this);
+    this.handleLegLowChange = this.handleLegLowChange.bind(this);
     this.handleArmChange = this.handleArmChange.bind(this);
     this.handleNeckChange = this.handleNeckChange.bind(this);
     this.handleAnkleChange = this.handleAnkleChange.bind(this);
@@ -69,8 +69,8 @@ export default class ClientWeightInfoComp extends Component {
           chest: '',
           middle: '',
           bum: '',
-          legL: '',
-          legR: '',
+          legUp: '',
+          legLow: '',
           arm: '',
           neck: '',
           ankle: '',
@@ -124,16 +124,16 @@ export default class ClientWeightInfoComp extends Component {
       bum: e.target.value,
     });
   }
-  handleLegLChange(e) {
-    console.log('handleLegLChange:', e.target.value)
+  handleLegUpChange(e) {
+    console.log('handleLegUpChange:', e.target.value)
     this.setState({
-      legL: e.target.value,
+      legUp: e.target.value,
     });
   }
-  handleLegRChange(e) {
-    console.log('handleLegRChange:', e.target.value)
+  handleLegLowChange(e) {
+    console.log('handleLegLowChange:', e.target.value)
     this.setState({
-      legR: e.target.value,
+      legLow: e.target.value,
     });
   }
   handleArmChange(e) {
@@ -163,8 +163,8 @@ export default class ClientWeightInfoComp extends Component {
       chest: this.state.weeklyEntriesArr[pos].chest,
       middle: this.state.weeklyEntriesArr[pos].middle,
       bum: this.state.weeklyEntriesArr[pos].bum,
-      legL: this.state.weeklyEntriesArr[pos].legL,
-      legR: this.state.weeklyEntriesArr[pos].legR,
+      legUp: this.state.weeklyEntriesArr[pos].legUp,
+      legLow: this.state.weeklyEntriesArr[pos].legLow,
       arm: this.state.weeklyEntriesArr[pos].arm,
       neck: this.state.weeklyEntriesArr[pos].neck,
       ankle: this.state.weeklyEntriesArr[pos].ankle,
@@ -179,8 +179,8 @@ export default class ClientWeightInfoComp extends Component {
       chest: '',
       middle: '',
       bum: '',
-      legL: '',
-      legR: '',
+      legUp: '',
+      legLow: '',
       arm: '',
       neck: '',
       ankle: '',
@@ -201,8 +201,8 @@ export default class ClientWeightInfoComp extends Component {
       chest: this.state.chest,
       middle: this.state.middle,
       bum: this.state.bum,
-      legL: this.state.legL,
-      legR: this.state.legR,
+      legUp: this.state.legUp,
+      legLow: this.state.legLow,
       arm: this.state.arm,
       neck: this.state.neck,
       ankle: this.state.ankle,
@@ -242,11 +242,12 @@ export default class ClientWeightInfoComp extends Component {
 
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
+    const inputDisabledFlag = (this.state.week) ? false : true;
     return (
       <div id="client-weight-info-comp">
         <div className="top-tier-area">
           <div className="client-details">{this.props.clientName} {this.props.clientSurname}</div>
-          <div className="clientid">ClientID: {this.props.clientID}</div>
+          {/* <div className="clientid">ClientID: {this.props.clientID}</div> */}
           {(feedbackMessage) ?
             <Alert bsStyle={feedbackMessageType}>
               {feedbackMessage}
@@ -257,14 +258,14 @@ export default class ClientWeightInfoComp extends Component {
           <Form>
             <Grid>
               <Row className="show-grid display-block">
-                <Col sm={1}>
+                <Col smOffset={1} sm={1}>
                   <ControlLabel>Week</ControlLabel>
                 </Col>
-                <Col sm={2}>
+                <Col className="text-align-center" sm={2}>
                   <ControlLabel>Date</ControlLabel>
                 </Col>
                 <Col sm={1}>
-                  <ControlLabel>Weight:</ControlLabel>
+                  <ControlLabel>Weight</ControlLabel>
                 </Col>
                 <Col sm={1}>
                   <ControlLabel>Chest</ControlLabel>
@@ -276,23 +277,23 @@ export default class ClientWeightInfoComp extends Component {
                   <ControlLabel>Bum</ControlLabel>
                 </Col>
                 <Col sm={1}>
-                  <ControlLabel>Leg(L)</ControlLabel>
+                  <ControlLabel>Leg(U)</ControlLabel>
                 </Col>
                 <Col sm={1}>
-                  <ControlLabel>Leg(R)</ControlLabel>
+                  <ControlLabel>Leg(L)</ControlLabel>
                 </Col>
                 <Col sm={1}>
                   <ControlLabel>Arm</ControlLabel>
                 </Col>
-                <Col sm={1}>
+                {/* <Col sm={1}>
                   <ControlLabel>Neck:</ControlLabel>
                 </Col>
                 <Col sm={1}>
                   <ControlLabel>Ankle</ControlLabel>
-                </Col>
+                </Col> */}
               </Row>
               <Row className="display-block display-block">
-                <Col sm={1}>
+                <Col smOffset={1} sm={1}>
                   <FormControl
                     type="text"
                     placeholder="Week"
@@ -308,6 +309,7 @@ export default class ClientWeightInfoComp extends Component {
                     value={this.state.date}
                     onChange={this.handleDateChange}
                     calendarPlacement="right"
+                    disabled={inputDisabledFlag}
                   />
                 </Col>
                 <Col sm={1}>
@@ -316,6 +318,7 @@ export default class ClientWeightInfoComp extends Component {
                     placeholder="Weight"
                     value={this.state.weight}
                     onChange={this.handleWeightChange}
+                    disabled={inputDisabledFlag}
                   />
                 </Col>
                 <Col sm={1}>
@@ -324,6 +327,7 @@ export default class ClientWeightInfoComp extends Component {
                     placeholder="Chest"
                     value={this.state.chest}
                     onChange={this.handleChestChange}
+                    disabled={inputDisabledFlag}
                   />
                 </Col>
                 <Col sm={1}>
@@ -332,6 +336,7 @@ export default class ClientWeightInfoComp extends Component {
                     placeholder="Middle"
                     value={this.state.middle}
                     onChange={this.handleMiddleChange}
+                    disabled={inputDisabledFlag}
                   />
                 </Col>
                 <Col sm={1}>
@@ -340,22 +345,25 @@ export default class ClientWeightInfoComp extends Component {
                     placeholder="Bum"
                     value={this.state.bum}
                     onChange={this.handleBumChange}
+                    disabled={inputDisabledFlag}
+                  />
+                </Col>
+                <Col sm={1}>
+                  <FormControl
+                    type="text"
+                    placeholder="Leg(U)"
+                    value={this.state.legUp}
+                    onChange={this.handleLegUpChange}
+                    disabled={inputDisabledFlag}
                   />
                 </Col>
                 <Col sm={1}>
                   <FormControl
                     type="text"
                     placeholder="Leg(L)"
-                    value={this.state.legL}
-                    onChange={this.handleLegLChange}
-                  />
-                </Col>
-                <Col sm={1}>
-                  <FormControl
-                    type="text"
-                    placeholder="Leg(R)"
-                    value={this.state.legR}
-                    onChange={this.handleLegRChange}
+                    value={this.state.legLow}
+                    onChange={this.handleLegLowChange}
+                    disabled={inputDisabledFlag}
                   />
                 </Col>
                 <Col sm={1}>
@@ -364,14 +372,16 @@ export default class ClientWeightInfoComp extends Component {
                     placeholder="Arm"
                     value={this.state.arm}
                     onChange={this.handleArmChange}
+                    disabled={inputDisabledFlag}
                   />
                 </Col>
-                <Col sm={1}>
+                {/* <Col sm={1}>
                   <FormControl
                     type="text"
                     placeholder="Neck"
                     value={this.state.neck}
                     onChange={this.handleNeckChange}
+                    disabled={inputDisabledFlag}
                   />
                 </Col>
                 <Col sm={1}>
@@ -380,8 +390,9 @@ export default class ClientWeightInfoComp extends Component {
                     placeholder="Ankle"
                     value={this.state.ankle}
                     onChange={this.handleAnkleChange}
+                    disabled={inputDisabledFlag}
                   />
-                </Col>
+                </Col> */}
               </Row>
             </Grid>
             <ButtonToolbar>
@@ -411,14 +422,14 @@ export default class ClientWeightInfoComp extends Component {
         <div className="bottom-tier-area">
           <Grid>
             <Row className="show-grid display-block">
-              <Col sm={1}>
+              <Col smOffset={1} sm={1}>
                 <ControlLabel>Week</ControlLabel>
               </Col>
-              <Col sm={2}>
+              <Col className="text-align-center" sm={2}>
                 <ControlLabel>Date</ControlLabel>
               </Col>
               <Col sm={1}>
-                <ControlLabel>Weight:</ControlLabel>
+                <ControlLabel>Weight</ControlLabel>
               </Col>
               <Col sm={1}>
                 <ControlLabel>Chest</ControlLabel>
@@ -430,20 +441,20 @@ export default class ClientWeightInfoComp extends Component {
                 <ControlLabel>Bum</ControlLabel>
               </Col>
               <Col sm={1}>
-                <ControlLabel>Leg(L)</ControlLabel>
+                <ControlLabel>Leg(U)</ControlLabel>
               </Col>
               <Col sm={1}>
-                <ControlLabel>Leg(R)</ControlLabel>
+                <ControlLabel>Leg(L)</ControlLabel>
               </Col>
               <Col sm={1}>
                 <ControlLabel>Arm</ControlLabel>
               </Col>
-              <Col sm={1}>
+              {/* <Col sm={1}>
                 <ControlLabel>Neck:</ControlLabel>
               </Col>
               <Col sm={1}>
                 <ControlLabel>Ankle</ControlLabel>
-              </Col>
+              </Col> */}
             </Row>
             <div className="entries-scroll-area">
               {this.state.weeklyEntriesArr.map((entry, i) => {
@@ -453,8 +464,8 @@ export default class ClientWeightInfoComp extends Component {
                     onClick={e => this.handleSelect(i, e)}
                     className={(i % 2 === 0) ? 'uneven-entries display-block' : 'even-entries display-block'}
                   >
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.week}</div>
+                    <Col smOffset={1} sm={1} >
+                      <div className="div-entries" key={entry.week}>{entry.week}.</div>
                     </Col>
                     <Col sm={2}>
                       <div className="div-entries" key={entry.week}>{moment(entry.date).format('DD-MM-YYYY')}</div>
@@ -472,20 +483,20 @@ export default class ClientWeightInfoComp extends Component {
                       <div className="div-entries" key={entry.week}>{entry.bum || '-'}</div>
                     </Col>
                     <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.legL || '-'}</div>
+                      <div className="div-entries" key={entry.week}>{entry.legUp || '-'}</div>
                     </Col>
                     <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.legR || '-'}</div>
+                      <div className="div-entries" key={entry.week}>{entry.legLow || '-'}</div>
                     </Col>
                     <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.arm || '-'}</div>
                     </Col>
-                    <Col sm={1}>
+                    {/* <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.neck || '-'}</div>
                     </Col>
                     <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.ankle || '-'}</div>
-                    </Col>
+                    </Col> */}
                   </Row>
                 )
               })}

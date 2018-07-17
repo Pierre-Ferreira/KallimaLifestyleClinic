@@ -97,7 +97,7 @@ export default class ClientSearchModalComp extends Component {
         </Button>
 
         <Modal id="client-search-modal" show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
+          <Modal.Header>
             <Modal.Title>Client Search</Modal.Title>
           </Modal.Header>
           <Modal.Body>

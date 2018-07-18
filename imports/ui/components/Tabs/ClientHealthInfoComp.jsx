@@ -14,7 +14,7 @@ import {
   FormControl,
   ControlLabel,
 } from 'react-bootstrap';
-// import moment from 'moment/moment'
+import moment from 'moment/moment'
 import './ClientHealthInfoComp.less';
 
 export default class ClientHealthInfoComp extends Component {
@@ -147,7 +147,7 @@ export default class ClientHealthInfoComp extends Component {
         feedbackMessageType: 'danger',
       });
     } else {
-      Meteor.call('client_health_info.upsert', clientID, clientHealthInfoObj, (err) => {
+      Meteor.call('client_health_info.upsert', clientID, clientHealthInfoObj, (err, result) => {
         if (err) {
           this.setState({
             feedbackMessage: `ERROR: ${err.reason}`,
@@ -158,8 +158,9 @@ export default class ClientHealthInfoComp extends Component {
             feedbackMessage: 'Client Info Saved!',
             feedbackMessageType: 'success',
           });
-          clientHealthInfoObj.clientID = clientID;
-          this.props.saveClientHealthInfo(clientHealthInfoObj);
+          const clientHealthInfoResult = result;
+          clientHealthInfoResult.clientID = clientID;
+          this.props.saveClientHealthInfo(clientHealthInfoResult);
           setTimeout(() => {
             this.setState({
               feedbackMessage: '',
@@ -177,6 +178,7 @@ export default class ClientHealthInfoComp extends Component {
         <div className="top-tier-area">
           <div className="client-details">{this.props.clientName} {this.props.clientSurname}</div>
           {/* <div className="clientid">ClientID: {this.props.clientID}</div> */}
+          <div className="capture-info">{(this.props.updatedAt) ? `Updated on ${moment(this.props.updatedAt).format('DD-MM-YYYY (HH:mm)')} by ${this.props.updatedByUsername}` : null}</div>
           {(feedbackMessage) ?
             <Alert bsStyle={feedbackMessageType}>
               {feedbackMessage}

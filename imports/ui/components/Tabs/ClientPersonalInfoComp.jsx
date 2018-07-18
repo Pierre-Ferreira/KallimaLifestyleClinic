@@ -1,13 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
+import moment from 'moment/moment';
 import {
   Alert,
   Button,
-  // ButtonToolbar,
-  // OverlayTrigger,
-  // Popover,
   Form,
   FormGroup,
   Col,
@@ -49,30 +46,11 @@ export default class ClientPersonalInfoComp extends Component {
     this.createNewButton = this.createNewButton.bind(this);
   }
 
-  componentDidMount() {
-    // const { clientID } = this.props;
-    // Meteor.call('client_personal_info.fetch', clientID, (err, result) => {
-    //   console.log('ERR:', err);
-    //   console.log('RESULT:', result);
-    //   this.setState({
-    //     name: result.name,
-    //     surname: result.surname,
-    //     cellNo: result.cellNo,
-    //     workNo: result.workNo,
-    //     email: result.email,
-    //     married: result.married,
-    //     children: result.children,
-    //     hobbies: result.hobbies,
-    //     occupation: result.occupation,
-    //     otherInfo: result.otherInfo,
-    //   });
-    // });
-  }
-
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.clientID !== prevProps.clientID) {
+    if (
+      this.props.clientID !== prevProps.clientID
+    ) {
       this.setState({
-        // clientID: this.props.clientID,
         name: this.props.clientPersonalInfoRedux.name,
         surname: this.props.clientPersonalInfoRedux.surname,
         cellNo: this.props.clientPersonalInfoRedux.cellNo,
@@ -192,8 +170,10 @@ export default class ClientPersonalInfoComp extends Component {
             feedbackMessage: 'Client Info Saved!',
             feedbackMessageType: 'success',
           });
-          clientPersonalInfoObj.clientID = result;
-          this.props.saveClientPersonalInfo(clientPersonalInfoObj);
+          // Set the clientID and call the REDUX action creator.
+          const clientPersonalInfoResult = result;
+          clientPersonalInfoResult.clientID = result._id;
+          this.props.saveClientPersonalInfo(clientPersonalInfoResult);
           setTimeout(() => {
             this.setState({
               feedbackMessage: '',
@@ -203,7 +183,7 @@ export default class ClientPersonalInfoComp extends Component {
         }
       });
     } else {
-      Meteor.call('client_personal_info.update', clientID, clientPersonalInfoObj, (err) => {
+      Meteor.call('client_personal_info.update', clientID, clientPersonalInfoObj, (err, result) => {
         if (err) {
           this.setState({
             feedbackMessage: `ERROR: ${err.reason}`,
@@ -214,8 +194,10 @@ export default class ClientPersonalInfoComp extends Component {
             feedbackMessage: 'Client Info Saved!',
             feedbackMessageType: 'success',
           });
-          clientPersonalInfoObj.clientID = clientID;
-          this.props.saveClientPersonalInfo(clientPersonalInfoObj);
+          // Set the clientID and call the REDUX action creator.
+          const clientPersonalInfoResult = result
+          clientPersonalInfoResult.clientID = clientID;
+          this.props.saveClientPersonalInfo(clientPersonalInfoResult);
           setTimeout(() => {
             this.setState({
               feedbackMessage: '',
@@ -247,6 +229,8 @@ export default class ClientPersonalInfoComp extends Component {
           >
             New Client
           </Button>
+          <div className="capture-info">{(this.props.createdAt) ? `Created on ${moment(this.props.createdAt).format('DD-MM-YYYY (HH:mm)')} by ${this.props.createdByUsername}` : null}</div>
+          <div className="capture-info">{(this.props.updatedAt) ? `Updated on ${moment(this.props.updatedAt).format('DD-MM-YYYY (HH:mm)')} by ${this.props.updatedByUsername}` : null}</div>
           {(feedbackMessage) ?
             <Alert bsStyle={feedbackMessageType}>
               {feedbackMessage}

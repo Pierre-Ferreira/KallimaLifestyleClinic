@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Popover, Tooltip, Button, Modal, OverlayTrigger, Alert } from 'react-bootstrap';
 import SignatureCanvas from 'react-signature-canvas';
+import moment from 'moment/moment';
 import './ClientConsentComp.less';
 
 export default class ClientConsentComp extends Component {
@@ -63,7 +64,8 @@ export default class ClientConsentComp extends Component {
             feedbackMessage: 'Client Consent Saved!',
             feedbackMessageType: 'success',
           });
-          this.props.saveClientConsent(clientID, trimmedDataURL);
+          const clientConsentInfoResult = result;
+          this.props.saveClientConsent(clientConsentInfoResult);
           console.log('client_payment_info.insert RESULT:', result)
           setTimeout(() => {
             this.setState({
@@ -89,6 +91,7 @@ export default class ClientConsentComp extends Component {
       <div id="client-consent-comp">
         <div className="top-tier-area">
           <div className="client-details">{this.props.clientName} {this.props.clientSurname}</div>
+          <div className="capture-info">{(this.props.createdAt) ? `Created on ${moment(this.props.createdAt).format('DD-MM-YYYY (HH:mm)')} by ${this.props.createdByUsername}` : null}</div>
           {/* <div className="clientid">ClientID: {this.props.clientID}</div> */}
           {(feedbackMessage) ?
             <Alert bsStyle={feedbackMessageType}>

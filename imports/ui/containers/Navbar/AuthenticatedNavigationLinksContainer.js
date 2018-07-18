@@ -11,6 +11,7 @@ const mapTrackerToProps = (state, props) => {
 
 function mapStateToProps(state) {
   return {
+    username: Meteor.user().username,
   };
 }
 

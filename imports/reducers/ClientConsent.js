@@ -3,6 +3,9 @@ import * as types from '../constants/ActionTypes';
 const initialState = {
   clientID: '',
   trimmedDataURL: '',
+  createdAt: '',
+  createdBy: '',
+  createdByUsername: '',
 };
 
 const clientConsent = (state = initialState, action) => {
@@ -11,8 +14,11 @@ const clientConsent = (state = initialState, action) => {
     case types.SAVE_CLIENT_CONSENT: {
       return {
         ...state,
-        clientID: action.clientID,
-        trimmedDataURL: action.trimmedDataURL,
+        clientID: action.clientConsentInfoObj.clientID,
+        trimmedDataURL: action.clientConsentInfoObj.trimmedDataURL,
+        createdAt: action.clientConsentInfoObj.createdAt,
+        createdBy: action.clientConsentInfoObj.createdBy,
+        createdByUsername: action.clientConsentInfoObj.createdByUsername,
       };
     }
     case types.LOAD_CLIENT_ALL_INFO: {
@@ -22,12 +28,17 @@ const clientConsent = (state = initialState, action) => {
           ...state,
           clientID: action.clientAllInfoObj.clientConsent.clientID,
           trimmedDataURL: action.clientAllInfoObj.clientConsent.trimmedDataURL,
+          createdAt: action.clientAllInfoObj.clientConsent.createdAt,
+          createdBy: action.clientAllInfoObj.clientConsent.createdBy,
+          createdByUsername: action.clientAllInfoObj.clientConsent.createdByUsername,
         };
       } else {
         returnObj = {
           ...state,
           clientID: '',
           trimmedDataURL: '',
+          createdAt: '',
+          createdBy: '',
         };
       }
       return returnObj;

@@ -4,3 +4,4 @@ import '../../api/client_all_info/methods';
 import '../../api/client_weight_info/methods';
 import '../../api/client_payment_info/methods';
 import '../../api/client_consent/methods';
+import '../../api/users/publications';

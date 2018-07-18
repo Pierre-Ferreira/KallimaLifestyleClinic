@@ -57,6 +57,7 @@ Meteor.methods({
         );
         clientWeightInfo.updatedAt = new Date();
         clientWeightInfo.updatedBy = Meteor.userId();
+        clientWeightInfo.updatedByUsername = Meteor.user().username;
         // Re-insert the week back into the array and sort. Using UPSERT causes issues.
         ClientWeightInfo.update(
           { clientID },
@@ -71,6 +72,9 @@ Meteor.methods({
         );
         console.log('Updated client_weight_info: ', ClientWeightInfo.findOne({ clientID }));
       } else {
+        clientWeightInfo.updatedAt = new Date();
+        clientWeightInfo.updatedBy = Meteor.userId();
+        clientWeightInfo.updatedByUsername = Meteor.user().username;
         ClientWeightInfo.insert({
           clientID,
           client_weight_info: [clientWeightInfo],

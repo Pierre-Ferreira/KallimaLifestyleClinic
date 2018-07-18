@@ -11,6 +11,9 @@ const initialState = {
   favouriteFoods: '',
   health: '',
   otherInfo: '',
+  updatedAt: '',
+  updatedBy: '',
+  updatedByUsername: '',
 };
 
 const clientHealthInfo = (state = initialState, action) => {
@@ -28,6 +31,9 @@ const clientHealthInfo = (state = initialState, action) => {
         favouriteFoods: action.clientHealthInfoObj.favouriteFoods,
         health: action.clientHealthInfoObj.health,
         otherInfo: action.clientHealthInfoObj.otherInfo,
+        updatedAt: action.clientHealthInfoObj.updatedAt,
+        updatedBy: action.clientHealthInfoObj.updatedBy,
+        updatedByUsername: action.clientHealthInfoObj.updatedByUsername,
       };
     }
     case types.LOAD_CLIENT_ALL_INFO: {
@@ -45,6 +51,9 @@ const clientHealthInfo = (state = initialState, action) => {
           favouriteFoods: action.clientAllInfoObj.clientHealthInfo.favouriteFoods,
           health: action.clientAllInfoObj.clientHealthInfo.health,
           otherInfo: action.clientAllInfoObj.clientHealthInfo.otherInfo,
+          updatedAt: action.clientAllInfoObj.clientHealthInfo.updatedAt,
+          updatedBy: action.clientAllInfoObj.clientHealthInfo.updatedBy,
+          updatedByUsername: action.clientAllInfoObj.clientHealthInfo.updatedByUsername,
         };
       } else {
         returnObj = {

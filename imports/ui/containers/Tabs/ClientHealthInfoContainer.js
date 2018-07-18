@@ -14,6 +14,8 @@ function mapStateToProps(state) {
     clientHealthInfoRedux: state.clientHealthInfo,
     clientName: state.clientPersonalInfo.name,
     clientSurname: state.clientPersonalInfo.surname,
+    updatedByUsername: state.clientHealthInfo.updatedByUsername,
+    updatedAt: state.clientHealthInfo.updatedAt,
   };
 }
 

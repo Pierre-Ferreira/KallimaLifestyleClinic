@@ -27,14 +27,15 @@ Meteor.methods({
     } else if (ClientConsent.findOne({ clientID })) {
       throw new Meteor.Error(403, "Client's consent already exists!");
     } else {
-
       ClientConsent.insert({
         clientID,
         trimmedDataURL,
         createdAt: new Date(),
         createdBy: Meteor.userId(),
+        createdByUsername: Meteor.user().username,
       });
       console.log('Inserted client_consent: ', ClientConsent.findOne({ clientID }));
+      return ClientConsent.findOne({ clientID });
     }
   },
 });

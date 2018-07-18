@@ -53,6 +53,7 @@ Meteor.methods({
         );
         clientPaymentInfo.updatedAt = new Date();
         clientPaymentInfo.updatedBy = Meteor.userId();
+        clientPaymentInfo.updatedByUsername = Meteor.user().username;
         // Re-insert the payNum back into the array and sort. Using UPSERT causes issues.
         ClientPaymentInfo.update(
           { clientID },
@@ -67,6 +68,9 @@ Meteor.methods({
         );
         console.log('Updated client_payment_info: ', ClientPaymentInfo.findOne({ clientID }));
       } else {
+        clientPaymentInfo.updatedAt = new Date();
+        clientPaymentInfo.updatedBy = Meteor.userId();
+        clientPaymentInfo.updatedByUsername = Meteor.user().username;
         ClientPaymentInfo.insert({
           clientID,
           client_payment_info: [clientPaymentInfo],

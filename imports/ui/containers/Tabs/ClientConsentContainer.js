@@ -14,12 +14,14 @@ function mapStateToProps(state) {
     trimmedDataURLRedux: state.clientConsent.trimmedDataURL,
     clientName: state.clientPersonalInfo.name,
     clientSurname: state.clientPersonalInfo.surname,
+    createdByUsername: state.clientConsent.createdByUsername,
+    createdAt: state.clientConsent.createdAt,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveClientConsent: (clientID, trimmedDataURL) => dispatch({ type: 'SAVE_CLIENT_CONSENT', clientID, trimmedDataURL }),
+    saveClientConsent: clientConsentInfoObj => dispatch({ type: 'SAVE_CLIENT_CONSENT', clientConsentInfoObj }),
   };
 }
 

@@ -39,12 +39,14 @@ Meteor.methods({
     } else {
       clientHealthInfo.updatedAt = new Date();
       clientHealthInfo.updatedBy = Meteor.userId();
+      clientHealthInfo.updatedByUsername = Meteor.user().username;
       ClientHealthInfo.update(
         { clientID },
         { $set: clientHealthInfo },
         { upsert: true }
       );
       console.log('Upserted client_health_info: ', ClientHealthInfo.find(clientHealthInfo).fetch()[0]);
+      return ClientHealthInfo.findOne(clientHealthInfo);
     }
   },
 });

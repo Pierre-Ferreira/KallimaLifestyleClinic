@@ -39,9 +39,10 @@ Meteor.methods({
     } else {
       clientPersonalInfo.createdAt = new Date();
       clientPersonalInfo.createdBy = Meteor.userId();
-      const clientID = ClientPersonalInfo.insert(clientPersonalInfo);
+      clientPersonalInfo.createdByUsername = Meteor.user().username;
+      ClientPersonalInfo.insert(clientPersonalInfo);
       console.log('Inserted client_personal_info: ', ClientPersonalInfo.find(clientPersonalInfo).fetch()[0]);
-      return clientID;
+      return ClientPersonalInfo.findOne(clientPersonalInfo);
     }
   },
   'client_personal_info.update': (clientID, clientPersonalInfo) => {
@@ -68,8 +69,10 @@ Meteor.methods({
     } else {
       clientPersonalInfo.updatedAt = new Date();
       clientPersonalInfo.updatedBy = Meteor.userId();
+      clientPersonalInfo.updatedByUsername = Meteor.user().username;
       ClientPersonalInfo.update({ _id: clientID }, { $set: clientPersonalInfo });
       console.log('Updated client_personal_info: ', ClientPersonalInfo.find(clientPersonalInfo).fetch()[0]);
+      return ClientPersonalInfo.findOne(clientPersonalInfo);
     }
   },
   'client_personal_info.search': (searchValue) => {

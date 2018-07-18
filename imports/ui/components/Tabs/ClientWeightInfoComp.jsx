@@ -422,7 +422,7 @@ export default class ClientWeightInfoComp extends Component {
         <div className="bottom-tier-area">
           <Grid>
             <Row className="show-grid display-block">
-              <Col smOffset={1} sm={1}>
+              <Col sm={1}>
                 <ControlLabel>Week</ControlLabel>
               </Col>
               <Col className="text-align-center" sm={2}>
@@ -449,11 +449,11 @@ export default class ClientWeightInfoComp extends Component {
               <Col sm={1}>
                 <ControlLabel>Arm</ControlLabel>
               </Col>
-              {/* <Col sm={1}>
-                <ControlLabel>Neck:</ControlLabel>
-              </Col>
               <Col sm={1}>
-                <ControlLabel>Ankle</ControlLabel>
+                <ControlLabel>Updated</ControlLabel>
+              </Col>
+              {/* <Col sm={1}>
+                <ControlLabel>By</ControlLabel>
               </Col> */}
             </Row>
             <div className="entries-scroll-area">
@@ -464,7 +464,7 @@ export default class ClientWeightInfoComp extends Component {
                     onClick={e => this.handleSelect(i, e)}
                     className={(i % 2 === 0) ? 'uneven-entries display-block' : 'even-entries display-block'}
                   >
-                    <Col smOffset={1} sm={1} >
+                    <Col sm={1} >
                       <div className="div-entries" key={entry.week}>{entry.week}.</div>
                     </Col>
                     <Col sm={2}>
@@ -491,11 +491,11 @@ export default class ClientWeightInfoComp extends Component {
                     <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.arm || '-'}</div>
                     </Col>
-                    {/* <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.neck || '-'}</div>
+                    <Col sm={2}>
+                      <div className="div-entries" key={entry.week}>{moment(entry.updatedAt).format('DD-MM-YYYY (HH:mm)') || '-'}</div>
                     </Col>
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.ankle || '-'}</div>
+                    {/* <Col sm={1}>
+                      <div className="div-entries" key={entry.week}>{entry.updatedByUsername || '-'}</div>
                     </Col> */}
                   </Row>
                 )

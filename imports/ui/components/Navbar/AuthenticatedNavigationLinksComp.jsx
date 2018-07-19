@@ -28,23 +28,19 @@ export default class AuthenticatedNavigationLinksComp extends Component {
     let authMenuItems = '';
     if (this.props.userIsSuperAdmin) {
       authMenuItems = (
-        <div>
-          <h1>{this.props.username}</h1>
-          <Nav right>
-            <NavLink to="/admin/blockchain_api">Blockchain API</NavLink>
-            <NavLink to="/admin/import_existing">Import</NavLink>
-            <NavLink to="/auth/login" onClick={this.logoutFN}>Logout</NavLink>
-          </Nav>
-        </div>
+        <Nav right>
+          <NavLink to="">Superadmin: {this.props.username}</NavLink>
+          {/* <NavLink to="/admin/blockchain_api">Blockchain API</NavLink>
+          <NavLink to="/admin/import_existing">Import</NavLink> */}
+          <NavLink to="/auth/login" onClick={this.logoutFN}>Logout</NavLink>
+        </Nav>
       );
     } else {
       authMenuItems = (
-        <div>
-          <h1>{this.props.username}</h1>
-          <Nav>
-            <NavLink to="/auth/login" onClick={this.logoutFN}>Logout</NavLink>
-          </Nav>
-        </div>
+        <Nav>
+          <NavLink to="">{this.props.username}</NavLink>
+          <NavLink to="/auth/login" onClick={this.logoutFN}>Logout</NavLink>
+        </Nav>
       );
     }
     return authMenuItems;

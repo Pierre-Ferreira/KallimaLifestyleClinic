@@ -492,7 +492,11 @@ export default class ClientWeightInfoComp extends Component {
                       <div className="div-entries" key={entry.week}>{entry.arm || '-'}</div>
                     </Col>
                     <Col sm={2}>
-                      <div className="div-entries" key={entry.week}>{moment(entry.updatedAt).format('DD-MM-YYYY (HH:mm)') || '-'}</div>
+                      <div
+                        className="div-entries div-left-align"
+                        key={entry.week}
+                      >{`${moment(entry.updatedAt).format('DD-MM-YYYY')} (${entry.updatedByUsername})` || '-'}
+                      </div>
                     </Col>
                     {/* <Col sm={1}>
                       <div className="div-entries" key={entry.week}>{entry.updatedByUsername || '-'}</div>

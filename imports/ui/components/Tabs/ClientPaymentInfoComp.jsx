@@ -361,7 +361,7 @@ export default class ClientPaymentInfoComp extends Component {
               <Col sm={2}>
                 <ControlLabel>Date</ControlLabel>
               </Col>
-              <Col sm={2}>
+              <Col sm={1}>
                 <ControlLabel>Amount:</ControlLabel>
               </Col>
               <Col sm={1}>
@@ -370,46 +370,56 @@ export default class ClientPaymentInfoComp extends Component {
               <Col sm={1}>
                 <ControlLabel>Weeks</ControlLabel>
               </Col>
-              <Col sm={2}>
+              <Col sm={1}>
                 <ControlLabel>Receiver</ControlLabel>
               </Col>
               <Col sm={3}>
                 <ControlLabel>Other Info</ControlLabel>
               </Col>
+              <Col sm={1}>
+                <ControlLabel>Updated</ControlLabel>
+              </Col>
             </Row>
-            <div className="entries-scroll-area">
-              {this.state.paymentEntriesArr.map((entry, i) => {
-                return (
-                  <Row
-                    key={entry.payNum}
-                    onClick={e => this.handleSelect(i, e)}
-                    className={(i % 2 === 0) ? 'uneven-entries display-block' : 'even-entries display-block'}
-                  >
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.payNum}>{entry.payNum}.</div>
-                    </Col>
-                    <Col sm={2}>
-                      <div className="div-entries" key={entry.payNum}>{moment(entry.date).format('DD-MM-YYYY')}</div>
-                    </Col>
-                    <Col sm={2}>
-                      <div className="div-entries" key={entry.payNum}>{entry.amount || '-'}</div>
-                    </Col>
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.payNum}>{entry.payType || '-'}</div>
-                    </Col>
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.payNum}>{entry.noOfWeeks || '-'}</div>
-                    </Col>
-                    <Col sm={2}>
-                      <div className="div-entries" key={entry.payNum}>{entry.receiverName || '-'}</div>
-                    </Col>
-                    <Col sm={3}>
-                      <div className="div-entries" key={entry.payNum}>{entry.otherInfo || '-'}</div>
-                    </Col>
-                  </Row>
-                )
+          <div className="entries-scroll-area">
+            {this.state.paymentEntriesArr.map((entry, i) => {
+              return (
+                <Row
+                  key={entry.payNum}
+                  onClick={e => this.handleSelect(i, e)}
+                  className={(i % 2 === 0) ? 'uneven-entries display-block' : 'even-entries display-block'}
+                >
+                  <Col sm={1}>
+                    <div className="div-entries" key={entry.payNum}>{entry.payNum}.</div>
+                  </Col>
+                  <Col sm={2}>
+                    <div className="div-entries" key={entry.payNum}>{moment(entry.date).format('DD-MM-YYYY')}</div>
+                  </Col>
+                  <Col sm={1}>
+                    <div className="div-entries div-center-align" key={entry.payNum}>{entry.amount || '-'}</div>
+                  </Col>
+                  <Col sm={1}>
+                    <div className="div-entries div-center-align" key={entry.payNum}>{entry.payType || '-'}</div>
+                  </Col>
+                  <Col sm={1}>
+                    <div className="div-entries div-center-align" key={entry.payNum}>{entry.noOfWeeks || '-'}</div>
+                  </Col>
+                  <Col sm={1}>
+                    <div className="div-entries div-center-align" key={entry.payNum}>{entry.receiverName || '-'}</div>
+                  </Col>
+                  <Col sm={3}>
+                    <div className="div-entries" key={entry.payNum}>{entry.otherInfo || '-'}</div>
+                  </Col>
+                  <Col sm={2}>
+                    <div
+                      className="div-entries div-left-align"
+                      key={entry.week}
+                    >{`${moment(entry.updatedAt).format('DD-MM-YYYY')} (${entry.updatedByUsername})` || '-'}
+                    </div>
+                  </Col>
+                </Row>
+                );
               })}
-            </div>
+          </div>
           {/* </Grid> */}
         </div>
       </div>

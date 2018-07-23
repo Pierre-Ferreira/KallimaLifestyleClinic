@@ -11,12 +11,13 @@ const mapTrackerToProps = (state, props) => {
 
 function mapStateToProps(state) {
   return {
-    username: Meteor.user().username,
+    username: Meteor.user() ? Meteor.user().username : 'UNKNOWN',
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    clearClientInfo: () => dispatch({ type: 'CLEAR_CLIENT_INFO' }),
     toHomepage: () => dispatch(push('/')),
   };
 }

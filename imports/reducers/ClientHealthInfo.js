@@ -78,6 +78,12 @@ const clientHealthInfo = (state = initialState, action) => {
         ...state,
       };
     }
+    case types.CLEAR_CLIENT_INFO: {
+      state = initialState;
+      return {
+        ...state,
+      };
+    }
     default:
       return state;
   }

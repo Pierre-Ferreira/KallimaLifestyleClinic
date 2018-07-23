@@ -75,6 +75,12 @@ const clientPersonalInfo = (state = initialState, action) => {
         clientID: 'new',
       };
     }
+    case types.CLEAR_CLIENT_INFO: {
+      state = initialState;
+      return {
+        ...state,
+      };
+    }
     default:
       return state;
   }

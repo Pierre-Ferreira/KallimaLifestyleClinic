@@ -14,11 +14,20 @@ export default class AuthenticatedNavigationLinksComp extends Component {
     this.logoutFN = this.logoutFN.bind(this);
   }
 
+  componentDidMount() {
+    this.props.clearClientInfo();
+  }
+
+  componentWillUnmount() {
+    this.props.clearClientInfo();
+  }
+
   logoutFN() {
-    Meteor.logout((err) => {
+    Meteor.logout((err, result) => {
       if (err) {
-        console.log( err.reason );
+        console.log( `LOGOUT ERROR: ${err.reason}` );
       } else {
+        console.log( `LOGOUT RESULT: ${result}` );
         this.props.toHomepage();
       }
     });

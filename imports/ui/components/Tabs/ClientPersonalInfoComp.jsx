@@ -11,6 +11,7 @@ import {
   FormControl,
   ControlLabel,
 } from 'react-bootstrap';
+import DatePicker from 'react-bootstrap-date-picker';
 import ClientSearchModalContainer from '../../containers/Modals/ClientSearchModalContainer';
 import './ClientPersonalInfoComp.less';
 
@@ -26,6 +27,9 @@ export default class ClientPersonalInfoComp extends Component {
       cellNo: '',
       workNo: '',
       email: '',
+      dateOfBirthDay: '',
+      dateOfBirthMonth: '',
+      dateOfBirthYear: '',
       married: '',
       children: '',
       hobbies: '',
@@ -38,6 +42,9 @@ export default class ClientPersonalInfoComp extends Component {
     this.handleCellnoChange = this.handleCellnoChange.bind(this);
     this.handleWorknoChange = this.handleWorknoChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleDateOfBirthDayChange = this.handleDateOfBirthDayChange.bind(this);
+    this.handleDateOfBirthMonthChange = this.handleDateOfBirthMonthChange.bind(this);
+    this.handleDateOfBirthYearChange = this.handleDateOfBirthYearChange.bind(this);
     this.handleMarriedChange = this.handleMarriedChange.bind(this);
     this.handleChildrenChange = this.handleChildrenChange.bind(this);
     this.handleHobbiesChange = this.handleHobbiesChange.bind(this);
@@ -56,6 +63,10 @@ export default class ClientPersonalInfoComp extends Component {
         cellNo: this.props.clientPersonalInfoRedux.cellNo,
         workNo: this.props.clientPersonalInfoRedux.workNo,
         email: this.props.clientPersonalInfoRedux.email,
+        dateOfBirthDay: this.props.clientPersonalInfoRedux.dateOfBirth ?  this.props.clientPersonalInfoRedux.dateOfBirth.split('-')[0].trim() : '',
+        dateOfBirthMonth: this.props.clientPersonalInfoRedux.dateOfBirth ? this.props.clientPersonalInfoRedux.dateOfBirth.split('-')[1].trim() : '',
+        dateOfBirthYear: this.props.clientPersonalInfoRedux.dateOfBirth ? this.props.clientPersonalInfoRedux.dateOfBirth.split('-')[2].trim() : '',
+        dateOfBirth: this.props.clientPersonalInfoRedux.dateOfBirth,
         married: this.props.clientPersonalInfoRedux.married,
         children: this.props.clientPersonalInfoRedux.children,
         hobbies: this.props.clientPersonalInfoRedux.hobbies,
@@ -97,6 +108,24 @@ export default class ClientPersonalInfoComp extends Component {
       email: e.target.value,
     });
   }
+  handleDateOfBirthDayChange(e) {
+    console.log('handleDateOfBirthDayChange:', e.target.value)
+    this.setState({
+      dateOfBirthDay: e.target.value,
+    });
+  }
+  handleDateOfBirthMonthChange(e) {
+    console.log('handleDateOfBirthMonthChange:', e.target.value)
+    this.setState({
+      dateOfBirthMonth: e.target.value,
+    });
+  }
+  handleDateOfBirthYearChange(e) {
+    console.log('handleDateOfBirthYearChange:', e.target.value)
+    this.setState({
+      dateOfBirthYear: e.target.value,
+    });
+  }
   handleMarriedChange(e) {
     console.log('handleMarriedChange:', e.target.value)
     this.setState({
@@ -116,13 +145,13 @@ export default class ClientPersonalInfoComp extends Component {
     });
   }
   handleOccupationChange(e) {
-    console.log('handleOccupationChange:', e.target.value)
+    console.log('handleOccupationChange:', e.target.value);
     this.setState({
       occupation: e.target.value,
     });
   }
   handleOtherInfoChange(e) {
-    console.log('handleOtherInfoChange:', e.target.value)
+    console.log('handleOtherInfoChange:', e.target.value);
     this.setState({
       otherInfo: e.target.value,
     });
@@ -145,13 +174,14 @@ export default class ClientPersonalInfoComp extends Component {
       cellNo: this.state.cellNo,
       workNo: this.state.workNo,
       email: this.state.email,
+      dateOfBirth: `${this.state.dateOfBirthDay} - ${this.state.dateOfBirthMonth} - ${this.state.dateOfBirthYear}`,
       married: this.state.married,
       children: this.state.children,
       hobbies: this.state.hobbies,
       occupation: this.state.occupation,
       otherInfo: this.state.otherInfo,
     };
-    console.log('clientPersonalInfoObj:', clientPersonalInfoObj)
+    console.log('clientPersonalInfoObj:', clientPersonalInfoObj);
     const { clientID } = this.props;
     if (clientID === '') {
       this.setState({
@@ -195,7 +225,7 @@ export default class ClientPersonalInfoComp extends Component {
             feedbackMessageType: 'success',
           });
           // Set the clientID and call the REDUX action creator.
-          const clientPersonalInfoResult = result
+          const clientPersonalInfoResult = result;
           clientPersonalInfoResult.clientID = clientID;
           this.props.saveClientPersonalInfo(clientPersonalInfoResult);
           setTimeout(() => {
@@ -211,6 +241,19 @@ export default class ClientPersonalInfoComp extends Component {
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
     const disableInputsFlag = (this.props.clientID === '');
+    const daysArr = [];
+    for (let x = 1; x <= 31; x += 1) {
+      daysArr.push(x);
+    }
+    const yearsArr = [];
+    for (let x = 1940; x < 2019; x += 1) {
+      yearsArr.push(x);
+    }
+    const childrenArr = [];
+    for (let x = 1; x <= 10; x += 1) {
+      childrenArr.push(x);
+    }
+    console.log('yearsArr:', yearsArr);
     return (
       <div id="client-personal-info-comp">
         <div className="top-tier-area">
@@ -322,6 +365,63 @@ export default class ClientPersonalInfoComp extends Component {
               </Col>
             </FormGroup>
             <FormGroup
+              controlId="dateOfBirth-formgroup"
+              className="dateOfBirth-formgroup"
+            >
+              <Col mdOffset={1} md={3}>
+                <ControlLabel>Birth Date:</ControlLabel>
+              </Col>
+              <Col md={2}>
+                <FormControl
+                  componentClass="select"
+                  value={this.state.dateOfBirthDay}
+                  onChange={this.handleDateOfBirthDayChange}
+                  disabled={disableInputsFlag}
+                  className="dateOfBirthDay"
+                >
+                  <option value="" selected>DD</option>
+                  { daysArr.map(x => <option value={x}>{x}</option>) }
+                </FormControl>
+              </Col>
+              <span className="date-dash">-</span>
+              <Col md={2}>
+                <FormControl
+                  componentClass="select"
+                  value={this.state.dateOfBirthMonth}
+                  onChange={this.handleDateOfBirthMonthChange}
+                  disabled={disableInputsFlag}
+                  className="dateOfBirthMonth"
+                >
+                  <option value="">MM</option>
+                  <option value="Jan">Jan</option>
+                  <option value="Feb">Feb</option>
+                  <option value="Mar">Mar</option>
+                  <option value="Apr">Apr</option>
+                  <option value="May">May</option>
+                  <option value="Jun">Jun</option>
+                  <option value="Jul">Jul</option>
+                  <option value="Aug">Aug</option>
+                  <option value="Sep">Sep</option>
+                  <option value="Oct">Oct</option>
+                  <option value="Nov">Nov</option>
+                  <option value="Dec">Dec</option>
+                </FormControl>
+              </Col>
+              <span className="date-dash">-</span>
+              <Col md={2}>
+                <FormControl
+                  componentClass="select"
+                  value={this.state.dateOfBirthYear}
+                  onChange={this.handleDateOfBirthYearChange}
+                  disabled={disableInputsFlag}
+                  className="dateOfBirthYear"
+                >
+                  <option value="">YYYY</option>
+                  { yearsArr.map(x => <option value={x}>{x}</option>) }
+                </FormControl>
+              </Col>
+            </FormGroup>
+            <FormGroup
               controlId="married-formgroup"
             >
               <Col mdOffset={1} md={3}>
@@ -355,16 +455,7 @@ export default class ClientPersonalInfoComp extends Component {
                 >
                   <option value="">...</option>
                   <option value="0">None</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+                  { childrenArr.map(x => <option value={x}>{x}</option>) }
                 </FormControl>
               </Col>
             </FormGroup>

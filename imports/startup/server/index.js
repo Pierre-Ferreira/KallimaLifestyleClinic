@@ -5,3 +5,4 @@ import '../../api/client_weight_info/methods';
 import '../../api/client_payment_info/methods';
 import '../../api/client_consent/methods';
 import '../../api/users/publications';
+import '../../api/client_pictures/permissions';

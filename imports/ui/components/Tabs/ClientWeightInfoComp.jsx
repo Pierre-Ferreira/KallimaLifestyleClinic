@@ -433,7 +433,7 @@ export default class ClientWeightInfoComp extends Component {
                   <ControlLabel>Weight</ControlLabel>
                 </Col>
               </Col>
-              <Col className="col-no-padding text-align-center" sm={5} >
+              <Col className="col-no-padding text-align-center" sm={6} >
                 <Col sm={2}>
                   <ControlLabel>Chest</ControlLabel>
                 </Col>
@@ -453,7 +453,7 @@ export default class ClientWeightInfoComp extends Component {
                   <ControlLabel>Arm</ControlLabel>
                 </Col>
               </Col>
-              <Col className="col-no-padding text-align-center" sm={4} >
+              <Col className="col-no-padding text-align-center" sm={3} >
                 <Col sm={6}>
                   <ControlLabel>Other Info</ControlLabel>
                 </Col>
@@ -484,7 +484,7 @@ export default class ClientWeightInfoComp extends Component {
                         <div className="div-entries" key={entry.week}>{entry.weight || '-'}</div>
                       </Col>
                     </Col>
-                    <Col className="col-no-padding" sm={5} >
+                    <Col className="col-no-padding" sm={6} >
                       <Col sm={2}>
                         <div className="div-entries" key={entry.week}>{entry.chest || '-'}</div>
                       </Col>
@@ -504,11 +504,11 @@ export default class ClientWeightInfoComp extends Component {
                         <div className="div-entries" key={entry.week}>{entry.arm || '-'}</div>
                       </Col>
                     </Col>
-                    <Col className="col-no-padding" sm={4}>
-                      <Col sm={7}>
+                    <Col className="col-no-padding" sm={3}>
+                      <Col sm={6}>
                         <div className="div-entries" key={entry.week}>{entry.otherInfo || '-'}</div>
                       </Col>
-                      <Col sm={5}>
+                      <Col sm={6}>
                         <div
                           className="div-entries"
                           key={entry.week}

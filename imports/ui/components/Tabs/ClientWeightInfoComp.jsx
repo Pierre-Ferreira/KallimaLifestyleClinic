@@ -34,7 +34,7 @@ export default class ClientWeightInfoComp extends Component {
       legUp: '',
       legLow: '',
       arm: '',
-      // neck: '',
+      otherInfo: '',
       // ankle: '',
       weeklyEntriesArr: [],
     };
@@ -48,7 +48,7 @@ export default class ClientWeightInfoComp extends Component {
     this.handleLegUpChange = this.handleLegUpChange.bind(this);
     this.handleLegLowChange = this.handleLegLowChange.bind(this);
     this.handleArmChange = this.handleArmChange.bind(this);
-    // this.handleNeckChange = this.handleNeckChange.bind(this);
+    this.handleOtherInfoChange = this.handleOtherInfoChange.bind(this);
     // this.handleAnkleChange = this.handleAnkleChange.bind(this);
     this.handleNew = this.handleNew.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -72,7 +72,7 @@ export default class ClientWeightInfoComp extends Component {
           legUp: '',
           legLow: '',
           arm: '',
-          // neck: '',
+          otherInfo: '',
           // ankle: '',
           weeklyEntriesArr: this.props.weeklyEntriesArrRedux,
         });
@@ -142,12 +142,12 @@ export default class ClientWeightInfoComp extends Component {
       arm: e.target.value,
     });
   }
-  // handleNeckChange(e) {
-  //   console.log('handleNeckChange:', e.target.value)
-  //   this.setState({
-  //     neck: e.target.value,
-  //   });
-  // }
+  handleOtherInfoChange(e) {
+    console.log('handleOtherInfoChange:', e.target.value)
+    this.setState({
+      otherInfo: e.target.value,
+    });
+  }
   // handleAnkleChange(e) {
   //   console.log('handleAnkleChange:', e.target.value)
   //   this.setState({
@@ -157,16 +157,16 @@ export default class ClientWeightInfoComp extends Component {
 
   handleSelect(pos) {
     this.setState({
-      week: this.state.weeklyEntriesArr[pos].week,
-      date: this.state.weeklyEntriesArr[pos].date,
-      weight: this.state.weeklyEntriesArr[pos].weight,
-      chest: this.state.weeklyEntriesArr[pos].chest,
-      middle: this.state.weeklyEntriesArr[pos].middle,
-      bum: this.state.weeklyEntriesArr[pos].bum,
-      legUp: this.state.weeklyEntriesArr[pos].legUp,
-      legLow: this.state.weeklyEntriesArr[pos].legLow,
-      arm: this.state.weeklyEntriesArr[pos].arm,
-      // neck: this.state.weeklyEntriesArr[pos].neck,
+      week: this.state.weeklyEntriesArr[pos].week || '',
+      date: this.state.weeklyEntriesArr[pos].date || '',
+      weight: this.state.weeklyEntriesArr[pos].weight || '',
+      chest: this.state.weeklyEntriesArr[pos].chest || '',
+      middle: this.state.weeklyEntriesArr[pos].middle || '',
+      bum: this.state.weeklyEntriesArr[pos].bum || '',
+      legUp: this.state.weeklyEntriesArr[pos].legUp || '',
+      legLow: this.state.weeklyEntriesArr[pos].legLow || '',
+      arm: this.state.weeklyEntriesArr[pos].arm || '',
+      otherInfo: this.state.weeklyEntriesArr[pos].otherInfo || '',
       // ankle: this.state.weeklyEntriesArr[pos].ankle,
     });
   }
@@ -182,7 +182,7 @@ export default class ClientWeightInfoComp extends Component {
       legUp: '',
       legLow: '',
       arm: '',
-      // neck: '',
+      otherInfo: '',
       // ankle: '',
     });
   }
@@ -204,7 +204,7 @@ export default class ClientWeightInfoComp extends Component {
       legUp: this.state.legUp,
       legLow: this.state.legLow,
       arm: this.state.arm,
-      // neck: this.state.neck,
+      otherInfo: this.state.otherInfo,
       // ankle: this.state.ankle,
     };
     console.log('clientWeightInfoObj:', clientWeightInfoObj)
@@ -258,7 +258,7 @@ export default class ClientWeightInfoComp extends Component {
           <Form>
             <Grid>
               <Row className="show-grid display-block">
-                <Col smOffset={1} sm={1}>
+                <Col sm={1}>
                   <ControlLabel>Week</ControlLabel>
                 </Col>
                 <Col className="text-align-center" sm={2}>
@@ -285,15 +285,15 @@ export default class ClientWeightInfoComp extends Component {
                 <Col sm={1}>
                   <ControlLabel>Arm</ControlLabel>
                 </Col>
-                {/* <Col sm={1}>
-                  <ControlLabel>Neck:</ControlLabel>
+                <Col sm={2}>
+                  <ControlLabel>Other Info:</ControlLabel>
                 </Col>
-                <Col sm={1}>
+                {/* <Col sm={1}>
                   <ControlLabel>Ankle</ControlLabel>
                 </Col> */}
               </Row>
               <Row className="display-block display-block">
-                <Col smOffset={1} sm={1}>
+                <Col sm={1}>
                   <FormControl
                     type="text"
                     placeholder="Week"
@@ -375,16 +375,16 @@ export default class ClientWeightInfoComp extends Component {
                     disabled={inputDisabledFlag}
                   />
                 </Col>
-                {/* <Col sm={1}>
+                <Col sm={2}>
                   <FormControl
                     type="text"
-                    placeholder="Neck"
-                    value={this.state.neck}
-                    onChange={this.handleNeckChange}
+                    placeholder="Other Info"
+                    value={this.state.otherInfo}
+                    onChange={this.handleOtherInfoChange}
                     disabled={inputDisabledFlag}
                   />
                 </Col>
-                <Col sm={1}>
+                {/* <Col sm={1}>
                   <FormControl
                     type="text"
                     placeholder="Ankle"
@@ -422,35 +422,44 @@ export default class ClientWeightInfoComp extends Component {
         <div className="bottom-tier-area">
           <Grid>
             <Row className="show-grid display-block">
-              <Col sm={1}>
-                <ControlLabel>Week</ControlLabel>
+              <Col className="col-no-padding" sm={3} >
+                <Col sm={2}>
+                  <ControlLabel>Week</ControlLabel>
+                </Col>
+                <Col className="text-align-center" sm={6}>
+                  <ControlLabel>Date</ControlLabel>
+                </Col>
+                <Col sm={4}>
+                  <ControlLabel>Weight</ControlLabel>
+                </Col>
               </Col>
-              <Col className="text-align-center" sm={2}>
-                <ControlLabel>Date</ControlLabel>
+              <Col className="col-no-padding text-align-center" sm={5} >
+                <Col sm={2}>
+                  <ControlLabel>Chest</ControlLabel>
+                </Col>
+                <Col sm={2}>
+                  <ControlLabel>Middle</ControlLabel>
+                </Col>
+                <Col sm={2}>
+                  <ControlLabel>Bum</ControlLabel>
+                </Col>
+                <Col sm={2}>
+                  <ControlLabel>Leg(U)</ControlLabel>
+                </Col>
+                <Col sm={2}>
+                  <ControlLabel>Leg(L)</ControlLabel>
+                </Col>
+                <Col sm={2}>
+                  <ControlLabel>Arm</ControlLabel>
+                </Col>
               </Col>
-              <Col sm={1}>
-                <ControlLabel>Weight</ControlLabel>
-              </Col>
-              <Col sm={1}>
-                <ControlLabel>Chest</ControlLabel>
-              </Col>
-              <Col sm={1}>
-                <ControlLabel>Middle</ControlLabel>
-              </Col>
-              <Col sm={1}>
-                <ControlLabel>Bum</ControlLabel>
-              </Col>
-              <Col sm={1}>
-                <ControlLabel>Leg(U)</ControlLabel>
-              </Col>
-              <Col sm={1}>
-                <ControlLabel>Leg(L)</ControlLabel>
-              </Col>
-              <Col sm={1}>
-                <ControlLabel>Arm</ControlLabel>
-              </Col>
-              <Col sm={1}>
-                <ControlLabel>Updated</ControlLabel>
+              <Col className="col-no-padding text-align-center" sm={4} >
+                <Col sm={6}>
+                  <ControlLabel>Other Info</ControlLabel>
+                </Col>
+                <Col sm={6}>
+                  <ControlLabel>Updated</ControlLabel>
+                </Col>
               </Col>
               {/* <Col sm={1}>
                 <ControlLabel>By</ControlLabel>
@@ -464,43 +473,49 @@ export default class ClientWeightInfoComp extends Component {
                     onClick={e => this.handleSelect(i, e)}
                     className={(i % 2 === 0) ? 'uneven-entries display-block' : 'even-entries display-block'}
                   >
-                    <Col sm={1} >
-                      <div className="div-entries" key={entry.week}>{entry.week}.</div>
+                    <Col className="col-no-padding" sm={3} >
+                      <Col sm={2} >
+                        <div className="div-entries" key={entry.week}>{entry.week}.</div>
+                      </Col>
+                      <Col sm={6}>
+                        <div className="div-entries" key={entry.week}>{moment(entry.date).format('DD-MM-YYYY')}</div>
+                      </Col>
+                      <Col sm={4}>
+                        <div className="div-entries" key={entry.week}>{entry.weight || '-'}</div>
+                      </Col>
                     </Col>
-                    <Col sm={2}>
-                      <div className="div-entries" key={entry.week}>{moment(entry.date).format('DD-MM-YYYY')}</div>
+                    <Col className="col-no-padding" sm={5} >
+                      <Col sm={2}>
+                        <div className="div-entries" key={entry.week}>{entry.chest || '-'}</div>
+                      </Col>
+                      <Col sm={2}>
+                        <div className="div-entries" key={entry.week}>{entry.middle || '-'}</div>
+                      </Col>
+                      <Col sm={2}>
+                        <div className="div-entries" key={entry.week}>{entry.bum || '-'}</div>
+                      </Col>
+                      <Col sm={2}>
+                        <div className="div-entries" key={entry.week}>{entry.legUp || '-'}</div>
+                      </Col>
+                      <Col sm={2}>
+                        <div className="div-entries" key={entry.week}>{entry.legLow || '-'}</div>
+                      </Col>
+                      <Col sm={2}>
+                        <div className="div-entries" key={entry.week}>{entry.arm || '-'}</div>
+                      </Col>
                     </Col>
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.weight || '-'}</div>
+                    <Col className="col-no-padding" sm={4}>
+                      <Col sm={7}>
+                        <div className="div-entries" key={entry.week}>{entry.otherInfo || '-'}</div>
+                      </Col>
+                      <Col sm={5}>
+                        <div
+                          className="div-entries"
+                          key={entry.week}
+                        >{`${moment(entry.updatedAt).format('DD-MM-YYYY')} (${entry.updatedByUsername})` || '-'}
+                        </div>
+                      </Col>
                     </Col>
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.chest || '-'}</div>
-                    </Col>
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.middle || '-'}</div>
-                    </Col>
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.bum || '-'}</div>
-                    </Col>
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.legUp || '-'}</div>
-                    </Col>
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.legLow || '-'}</div>
-                    </Col>
-                    <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.arm || '-'}</div>
-                    </Col>
-                    <Col sm={2}>
-                      <div
-                        className="div-entries div-left-align"
-                        key={entry.week}
-                      >{`${moment(entry.updatedAt).format('DD-MM-YYYY')} (${entry.updatedByUsername})` || '-'}
-                      </div>
-                    </Col>
-                    {/* <Col sm={1}>
-                      <div className="div-entries" key={entry.week}>{entry.updatedByUsername || '-'}</div>
-                    </Col> */}
                   </Row>
                 )
               })}

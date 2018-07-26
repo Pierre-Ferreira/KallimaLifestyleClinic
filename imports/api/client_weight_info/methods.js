@@ -28,7 +28,7 @@ Meteor.methods({
       legUp: String,
       legLow: String,
       arm: String,
-      // neck: String,
+      otherInfo: String,
       // ankle: String,
     });
     if (clientID.length === 0) throw new Meteor.Error(403, 'clientID is required');

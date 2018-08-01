@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import AuthFeedbackMessageComp from './AuthFeedbackMessageComp';
-import './AuthModals.less';
+import './LoginComp.less';
+// import './AuthModals.less';
 
 export default class LoginComp extends Component {
   constructor(props) {
@@ -79,62 +80,64 @@ export default class LoginComp extends Component {
   render() {
     const { feedbackMessage, feedbackMessageType, resendVerificationMessages } = this.state;
     return (
-      <div className="modal show">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <Button color="danger" className="pull-right" size="lg" onClick={this.close}>X</Button>
-            <div className="modal-header">
-              <h1 className="text-center">Please enter your details.</h1>
+      <div id="login-comp">
+        <div className="modal show">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <Button color="danger" className="pull-right" size="lg" onClick={this.close}>X</Button>
+              <div className="modal-header">
+                <h1 className="text-center">Please enter your details.</h1>
+              </div>
+              <div className="modal-body">
+                <AuthFeedbackMessageComp
+                  feedbackMessageType={feedbackMessageType}
+                  feedbackMessage={feedbackMessage}
+                  resendVerificationEmailFN={this.resendVerificationEmail}
+                  resendVerificationMessages={resendVerificationMessages}
+                />
+                <form
+                  id="login-form"
+                  className="form col-md-12 center-block"
+                  onSubmit={this.handleSubmit}
+                >
+                  <div className="form-group">
+                    <input
+                      type="email"
+                      id="login-email"
+                      className="form-control input-lg"
+                      placeholder="email"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      id="login-password"
+                      className="form-control input-lg"
+                      placeholder="password"
+                    />
+                  </div>
+                  <div className="form-group text-center">
+                    <p className="text-left">
+                      <Link to="/auth/forgot_password">Forgot Password?</Link>
+                    </p>
+                  </div>
+                  <div className="form-group text-center">
+                    <input
+                      type="submit"
+                      id="login-button"
+                      className="btn btn-lg btn-block"
+                      value="Login"
+                    />
+                  </div>
+                  {/* <div className="form-group text-center">
+                    <p className="text-center">
+                      Don't have an account? Register <Link to="/auth/signup">here</Link>
+                    </p>
+                  </div> */}
+                </form>
+              </div>
+              <div className="modal-footer" style={{ borderTop: 0 }} />
             </div>
-            <div className="modal-body">
-              <AuthFeedbackMessageComp
-                feedbackMessageType={feedbackMessageType}
-                feedbackMessage={feedbackMessage}
-                resendVerificationEmailFN={this.resendVerificationEmail}
-                resendVerificationMessages={resendVerificationMessages}
-              />
-              <form
-                id="login-form"
-                className="form col-md-12 center-block"
-                onSubmit={this.handleSubmit}
-              >
-                <div className="form-group">
-                  <input
-                    type="email"
-                    id="login-email"
-                    className="form-control input-lg"
-                    placeholder="email"
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    id="login-password"
-                    className="form-control input-lg"
-                    placeholder="password"
-                  />
-                </div>
-                <div className="form-group text-center">
-                  <p className="text-left">
-                    <Link to="/auth/forgot_password">Forgot Password?</Link>
-                  </p>
-                </div>
-                <div className="form-group text-center">
-                  <input
-                    type="submit"
-                    id="login-button"
-                    className="btn btn-lg btn-block"
-                    value="Login"
-                  />
-                </div>
-                {/* <div className="form-group text-center">
-                  <p className="text-center">
-                    Don't have an account? Register <Link to="/auth/signup">here</Link>
-                  </p>
-                </div> */}
-              </form>
-            </div>
-            <div className="modal-footer" style={{ borderTop: 0 }} />
           </div>
         </div>
       </div>

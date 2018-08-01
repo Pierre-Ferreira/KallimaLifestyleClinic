@@ -16,6 +16,7 @@ import {
 } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 import moment from 'moment/moment'
+import ClientWeightChartModalComp from '../Modals/ClientWeightChartModalComp';
 import './ClientWeightInfoComp.less';
 
 export default class ClientWeightInfoComp extends Component {
@@ -396,7 +397,7 @@ export default class ClientWeightInfoComp extends Component {
               </Row>
             </Grid>
             <ButtonToolbar>
-              <Col sm={6}>
+              <Col sm={4}>
                 <Button
                   // bsStyle="primary"
                   bsSize="large"
@@ -406,7 +407,7 @@ export default class ClientWeightInfoComp extends Component {
                   Save
                 </Button>
               </Col>
-              <Col sm={6}>
+              <Col sm={4}>
                 <Button
                   // bsStyle="warning"
                   bsSize="large"
@@ -416,7 +417,10 @@ export default class ClientWeightInfoComp extends Component {
                   New
                 </Button>
               </Col>
-              </ButtonToolbar>
+              <Col sm={4}>
+                <ClientWeightChartModalComp />
+              </Col>
+            </ButtonToolbar>
           </Form>
         </div>
         <div className="bottom-tier-area">

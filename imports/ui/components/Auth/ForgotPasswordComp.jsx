@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
 import AuthFeedbackMessageComp from './AuthFeedbackMessageComp';
+import './ForgotPasswordComp.less';
 
 export default class ForgotPasswordComp extends Component {
   constructor(props) {
@@ -37,55 +38,57 @@ export default class ForgotPasswordComp extends Component {
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
     return (
-      <div className="modal show">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="text-center">Forgot Password</h1>
+      <div id="forgot-password-comp">
+        <div className="modal show">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="text-center">Forgot Password</h1>
+              </div>
+              <div className="modal-body">
+                <AuthFeedbackMessageComp
+                  feedbackMessageType={feedbackMessageType}
+                  feedbackMessage={feedbackMessage}
+                />
+                <form
+                  id="login-form"
+                  className="form col-md-12 center-block"
+                  onSubmit={this.handleSubmit}
+                >
+                  {/* <div className="form-group">
+                    <input type="text" id="signup-name"
+                          className="form-control input-lg" placeholder="name"/>
+                  </div> */}
+                  <div className="form-group">
+                    <input
+                      type="email"
+                      id="signup-email"
+                      className="form-control input-lg"
+                      placeholder="email"
+                    />
+                  </div>
+                  {/* <div className="form-group">
+                    <input type="password" id="signup-password"
+                          className="form-control input-lg"
+                          placeholder="password"/>
+                  </div> */}
+                  <div className="form-group">
+                    <input
+                      type="submit"
+                      id="login-button"
+                      className="btn btn-lg btn-block"
+                      value="Reset password"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <p className="text-center">
+                      <Link to="/auth/login">Login</Link>
+                    </p>
+                  </div>
+                </form>
+              </div>
+              <div className="modal-footer" style={{ borderTop: 0 }} />
             </div>
-            <div className="modal-body">
-              <AuthFeedbackMessageComp
-                feedbackMessageType={feedbackMessageType}
-                feedbackMessage={feedbackMessage}
-              />
-              <form
-                id="login-form"
-                className="form col-md-12 center-block"
-                onSubmit={this.handleSubmit}
-              >
-                {/* <div className="form-group">
-                  <input type="text" id="signup-name"
-                        className="form-control input-lg" placeholder="name"/>
-                </div> */}
-                <div className="form-group">
-                  <input
-                    type="email"
-                    id="signup-email"
-                    className="form-control input-lg"
-                    placeholder="email"
-                  />
-                </div>
-                {/* <div className="form-group">
-                  <input type="password" id="signup-password"
-                        className="form-control input-lg"
-                        placeholder="password"/>
-                </div> */}
-                <div className="form-group">
-                  <input
-                    type="submit"
-                    id="login-button"
-                    className="btn btn-lg btn-block"
-                    value="Reset password"
-                  />
-                </div>
-                <div className="form-group">
-                  <p className="text-center">
-                    <Link to="/auth/login">Login</Link>
-                  </p>
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer" style={{ borderTop: 0 }} />
           </div>
         </div>
       </div>

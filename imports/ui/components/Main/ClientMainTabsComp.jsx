@@ -6,7 +6,8 @@ import ClientHealthInfoContainer from '../../containers/Tabs/ClientHealthInfoCon
 import ClientWeightInfoContainer from '../../containers/Tabs/ClientWeightInfoContainer';
 import ClientPaymentInfoContainer from '../../containers/Tabs/ClientPaymentInfoContainer';
 import ClientConsentContainer from '../../containers/Tabs/ClientConsentContainer';
-import ClientPicsComp from '../Tabs/ClientPicsComp';
+// import ClientPicsComp from '../Tabs/ClientPicsComp';
+import ClientWeightChartContainer from '../../containers/Modals/ClientWeightChartContainer';
 
 const ClientMainTabsComp = (props) => {
   const disableTabsFlag = (props.clientID === '' || props.clientID === 'new');
@@ -48,10 +49,10 @@ const ClientMainTabsComp = (props) => {
       </Tab>
       <Tab
         eventKey={6}
-        title="Pics"
+        title="Chart"
         // disabled
       >
-        <ClientPicsComp clientID={props.clientID} />
+        <ClientWeightChartContainer clientID={props.clientID} />
       </Tab>
     </Tabs>
   );

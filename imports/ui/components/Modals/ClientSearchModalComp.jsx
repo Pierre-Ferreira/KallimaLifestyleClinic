@@ -101,7 +101,7 @@ export default class ClientSearchModalComp extends Component {
             <Modal.Title>Client Search</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="modal-body">
+            {/* <div className="modal-body"> */}
               {(feedbackMessage) ?
                 <Alert bsStyle={feedbackMessageType}>
                   {feedbackMessage}
@@ -140,7 +140,7 @@ export default class ClientSearchModalComp extends Component {
                   </ul>
                 </div>
               </form>
-            </div>
+            {/* </div> */}
           </Modal.Body>
           <Modal.Footer>
             <Button

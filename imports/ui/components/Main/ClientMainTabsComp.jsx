@@ -47,13 +47,13 @@ const ClientMainTabsComp = (props) => {
       >
         <ClientPaymentInfoContainer clientID={props.clientID} />
       </Tab>
-      <Tab
+      {/* <Tab
         eventKey={6}
         title="Chart"
         // disabled
       >
         <ClientWeightChartContainer clientID={props.clientID} />
-      </Tab>
+      </Tab> */}
     </Tabs>
   );
 };

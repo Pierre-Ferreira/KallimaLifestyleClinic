@@ -15,12 +15,13 @@ if (process.env.S3) {
 }
 
 const s3Conf = Meteor.settings.s3 || {};
-const bound = Meteor.bindEnvironment((callback) => {
+const bound  = Meteor.bindEnvironment((callback) => {
   return callback();
 });
 
 /* Check settings existence in `Meteor.settings` */
 /* This is the best practice for app security */
+let UserFiles = '';
 if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
   // Create a new S3 object
   const s3 = new S3({
@@ -33,20 +34,23 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
       agent: false
     }
   });
-
+console.log('IN HERE1')
   // Declare the Meteor file collection on the Server
-  const UserFiles = new FilesCollection({
+  UserFiles = new FilesCollection({
     debug: false, // Change to `true` for debugging
-    storagePath: 'assets/app/uploads/uploadedFiles',
-    collectionName: 'userFiles',
+    storagePath: 'assets/app/uploads/Images',
+    // assets/app/uploads/Images
+    collectionName: 'Images',
     // Disallow Client to execute remove, use the Meteor.method
     allowClientCode: false,
 
     // Start moving files to AWS:S3
     // after fully received by the Meteor server
     onAfterUpload(fileRef) {
+      console.log('IN HERE2')
       // Run through each of the uploaded file
       _.each(fileRef.versions, (vRef, version) => {
+          console.log('IN HERE3')
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering on the AWS client
         const filePath = 'files/' + (Random.id()) + '-' + version + '.' + fileRef.extension;
@@ -113,19 +117,19 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
         };
 
         if (http.request.headers.range) {
-          const vRef = fileRef.versions[version];
-          let range = _.clone(http.request.headers.range);
+          const vRef  = fileRef.versions[version];
+          let range   = _.clone(http.request.headers.range);
           const array = range.split(/bytes=([0-9]*)-([0-9]*)/);
           const start = parseInt(array[1]);
-          let end = parseInt(array[2]);
+          let end     = parseInt(array[2]);
           if (isNaN(end)) {
             // Request data from AWS:S3 by small chunks
-            end = (start + this.chunkSize) - 1;
+            end       = (start + this.chunkSize) - 1;
             if (end >= vRef.size) {
-              end = vRef.size - 1;
+              end     = vRef.size - 1;
             }
           }
-          opts.Range = `bytes=${start}-${end}`;
+          opts.Range   = `bytes=${start}-${end}`;
           http.request.headers.range = `bytes=${start}-${end}`;
         }
 
@@ -155,7 +159,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
       return false;
     }
   });
-
+  // console.log('UserFiles:', UserFiles)
   // Intercept FilesCollection's remove method to remove file from AWS:S3
   const _origRemove = UserFiles.remove;
   UserFiles.remove = function (search) {
@@ -184,3 +188,4 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
 } else {
   throw new Meteor.Error(401, 'Missing Meteor file settings');
 }
+export default UserFiles;

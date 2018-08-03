@@ -8,6 +8,7 @@ import ClientPaymentInfoContainer from '../../containers/Tabs/ClientPaymentInfoC
 import ClientConsentContainer from '../../containers/Tabs/ClientConsentContainer';
 // import ClientPicsComp from '../Tabs/ClientPicsComp';
 import ClientWeightChartContainer from '../../containers/Modals/ClientWeightChartContainer';
+import FileUploadComponent from '../Tabs/FileUpload';
 
 const ClientMainTabsComp = (props) => {
   const disableTabsFlag = (props.clientID === '' || props.clientID === 'new');
@@ -47,13 +48,13 @@ const ClientMainTabsComp = (props) => {
       >
         <ClientPaymentInfoContainer clientID={props.clientID} />
       </Tab>
-      {/* <Tab
+      <Tab
         eventKey={6}
-        title="Chart"
+        title="Pics"
         // disabled
       >
-        <ClientWeightChartContainer clientID={props.clientID} />
-      </Tab> */}
+        <FileUploadComponent clientID={props.clientID} />
+      </Tab>
     </Tabs>
   );
 };

@@ -17,6 +17,7 @@ es5-shim@4.7.0                # ECMAScript 5 compatibility for older browsers
 ecmascript@0.10.6              # Enable ECMAScript2015+ syntax in app code
 shell-server@0.3.1            # Server-side component of the `meteor shell` command
 
+ostrio:files
 accounts-base@1.4.2
 accounts-password@1.5.0
 aldeed:collection2
@@ -31,4 +32,4 @@ browser-policy@1.1.0
 cfs:standard-packages
 cfs:gridfs
 underscore@1.0.10
-ostrio:files
+ostrio:meteor-root

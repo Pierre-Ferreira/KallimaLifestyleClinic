@@ -21,7 +21,7 @@ const bound  = Meteor.bindEnvironment((callback) => {
 
 /* Check settings existence in `Meteor.settings` */
 /* This is the best practice for app security */
-let UserFiles = '';
+let ClientBefAftPictures = '';
 if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
   // Create a new S3 object
   const s3 = new S3({
@@ -36,11 +36,11 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
   });
 console.log('IN HERE1')
   // Declare the Meteor file collection on the Server
-  UserFiles = new FilesCollection({
+  ClientBefAftPictures = new FilesCollection({
     debug: false, // Change to `true` for debugging
-    storagePath: 'assets/app/uploads/Images',
+    storagePath: 'assets/app/uploads/tester',
     // assets/app/uploads/Images
-    collectionName: 'Images',
+    collectionName: 'client_bef_aft_pictures',
     // Disallow Client to execute remove, use the Meteor.method
     allowClientCode: false,
 
@@ -159,10 +159,10 @@ console.log('IN HERE1')
       return false;
     }
   });
-  // console.log('UserFiles:', UserFiles)
+  // console.log('ClientBefAftPictures:', ClientBefAftPictures)
   // Intercept FilesCollection's remove method to remove file from AWS:S3
-  const _origRemove = UserFiles.remove;
-  UserFiles.remove = function (search) {
+  const _origRemove = ClientBefAftPictures.remove;
+  ClientBefAftPictures.remove = function (search) {
     const cursor = this.collection.find(search);
     cursor.forEach((fileRef) => {
       _.each(fileRef.versions, (vRef) => {
@@ -188,4 +188,4 @@ console.log('IN HERE1')
 } else {
   throw new Meteor.Error(401, 'Missing Meteor file settings');
 }
-export default UserFiles;
+export default ClientBefAftPictures;

@@ -2,10 +2,9 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 
-const Images = new FilesCollection({ collectionName: 'Images' });
-export default Images;
+const ClientBefAftPictures = new FilesCollection({
+  collectionName: 'client_bef_aft_pictures',
+  // storagePath: 'assets/app/uploads/client_bef_aft_pictures',
+});
 
-//
-// const ClientConsent = new Mongo.Collection('client_consent');
-//
-// export default ClientConsent;
+export default ClientBefAftPictures;

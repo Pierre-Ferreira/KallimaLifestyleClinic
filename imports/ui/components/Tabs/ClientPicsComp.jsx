@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Popover, Tooltip, Button, Modal, OverlayTrigger, Alert } from 'react-bootstrap';
 import moment from 'moment/moment';
-import PicsDropzoneComp from './PicsDropzoneComp';
+import PicsDropzoneContainer from '../../containers/Tabs/PicsDropzoneContainer';
 import './ClientConsentComp.less';
 
 export default class ClientPicsComp extends Component {
@@ -39,7 +39,7 @@ export default class ClientPicsComp extends Component {
           : null }
         </div>
         <div className="lower-tier-area">
-          <PicsDropzoneComp picType="before" />
+          <PicsDropzoneContainer picType="before" />
         </div>
       </div>
     );

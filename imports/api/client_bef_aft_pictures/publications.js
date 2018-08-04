@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import UserFiles from './s3_picture_storage';
+import ClientBefAftPictures from './s3_picture_storage';
 
-  console.log('ON THE SERVER YO!')
-  Meteor.publish('files.images.all', () => {
-    return UserFiles.collection.find({});
-  });
+Meteor.publish('client_bef_aft_pictures.all', () => {
+  return ClientBefAftPictures.collection.find({});
+});

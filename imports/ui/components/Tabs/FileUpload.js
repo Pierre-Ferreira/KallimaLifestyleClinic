@@ -2,7 +2,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Images from '../../../api/client_bef_aft_pictures/collection';
+import ClientBefAftPictures from '../../../api/client_bef_aft_pictures/collection';
 
 import IndividualFile from './FileIndividualFile.js';
 
@@ -32,11 +32,13 @@ class FileUploadComponent extends Component {
       var file = e.currentTarget.files[0];
 
       if (file) {
-        let uploadInstance = Images.insert({
+        let uploadInstance = ClientBefAftPictures.insert({
           file: file,
           meta: {
             locator: self.props.fileLocator,
-            userId: Meteor.userId() // Optional, used to check on server for file tampering
+            userId: Meteor.userId(), // Optional, used to check on server for file tampering
+            clientID: this.props.clientID,
+            weightPicType: 'before',
           },
           streams: 'dynamic',
           chunkSize: 'dynamic',
@@ -120,7 +122,7 @@ class FileUploadComponent extends Component {
       // (make sure the subscription only sends files owned by this user)
       let display = fileCursors.map((aFile, key) => {
         // console.log('A file: ', aFile.link(), aFile.get('name'))
-        let link = Images.findOne({_id: aFile._id}).link();  //The "view/download" link
+        let link = ClientBefAftPictures.findOne({_id: aFile._id}).link();  //The "view/download" link
 
         // Send out components that show details of each file
         return <div key={'file' + key}>
@@ -165,9 +167,9 @@ class FileUploadComponent extends Component {
 // in a separate file to provide separation of concerns.
 //
 export default withTracker( ( props ) => {
-  const filesHandle = Meteor.subscribe('files.images.all');
+  const filesHandle = Meteor.subscribe('client_bef_aft_pictures.all');
   const docsReadyYet = filesHandle.ready();
-  const files = Images.find({}, {sort: {name: 1}}).fetch();
+  const files = ClientBefAftPictures.find({}, {sort: {name: 1}}).fetch();
 
   return {
     docsReadyYet,

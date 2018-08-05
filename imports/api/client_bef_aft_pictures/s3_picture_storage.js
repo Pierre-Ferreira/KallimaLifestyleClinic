@@ -38,7 +38,7 @@ console.log('IN HERE1')
   // Declare the Meteor file collection on the Server
   ClientBefAftPictures = new FilesCollection({
     debug: false, // Change to `true` for debugging
-    storagePath: 'assets/app/uploads/tester',
+    storagePath: 'assets/app/uploads/client_bef_aft_pictures',
     // assets/app/uploads/Images
     collectionName: 'client_bef_aft_pictures',
     // Disallow Client to execute remove, use the Meteor.method

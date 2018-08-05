@@ -39,7 +39,12 @@ export default class ClientPicsComp extends Component {
           : null }
         </div>
         <div className="lower-tier-area">
-          <PicsDropzoneContainer picType="before" />
+          <Col sm={6}>
+            <PicsDropzoneContainer picType="before" clientID={this.props.clientID} />
+          </Col>
+          <Col sm={6}>
+            <PicsDropzoneContainer picType="after" clientID={this.props.clientID} />
+          </Col>
         </div>
       </div>
     );

@@ -50,7 +50,7 @@ const ClientMainTabsComp = (props) => {
       <Tab
         eventKey={6}
         title="Pics"
-        // disabled
+        disabled={disableTabsFlag}
       >
         <ClientPicsComp clientID={props.clientID} />
       </Tab>

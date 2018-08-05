@@ -6,26 +6,28 @@ import ClientBefAftPictures from '../../../api/client_bef_aft_pictures/collectio
 
 const mapTrackerToProps = (state, props) => {
   const allBefAftPicturesHandle = Meteor.subscribe('client_bef_aft_pictures.all');
-  const docsReadyYet = allBefAftPicturesHandle.ready();
-  const clientBeforePicturesFile = ClientBefAftPictures.findOne({$and: [{"meta.clientID" : props.clientID},{"meta.weightPicType" : props.picType}]}, {sort: {name: 1}});
-  console.log('clientBeforePicturesFile:', clientBeforePicturesFile)
-  let clientBeforePicPath = '';
-  let clientBeforePicName = '';
-  if (docsReadyYet) {
-    console.log('clientBeforePicturesFile.link()', clientBeforePicturesFile.link())
-    clientBeforePicPath = clientBeforePicturesFile.link();
-    clientBeforePicName = clientBeforePicturesFile.name;
-  }
-  return {
-    docsReadyYet,
-    clientBeforePicturesFile,
-    clientBeforePicPath,
-    clientBeforePicName,
-  };
+  // const docsReadyYet = allBefAftPicturesHandle.ready();
+  // const allPictures = ClientBefAftPictures.find();
+  // console.log('allPictures:', allPictures);
+  // const clientBeforePicturesFile = ClientBefAftPictures.findOne({$and: [{"meta.clientID" : props.clientID},{"meta.weightPicType" : props.picType}]});
+  // console.log('clientBeforePicturesFile:', clientBeforePicturesFile)
+  // let clientBeforePicPath = '';
+  // let clientBeforePicName = '';
+  // if (docsReadyYet && clientBeforePicturesFile) {
+  //   console.log('clientBeforePicturesFile.link()', clientBeforePicturesFile.link() || '')
+  //   clientBeforePicPath = clientBeforePicturesFile.link() || '';
+  //   clientBeforePicName = clientBeforePicturesFile.name;
+  // }
+  // return {
+  //   docsReadyYet,
+  //   clientBeforePicturesFile,
+  //   clientBeforePicPath,
+  //   clientBeforePicName,
+  // };
 };
 
 function mapStateToProps(state) {
-  console.log('REDUX STATE6:', state)
+  console.log('REDUX STATE7:', state)
   return {
     clientName: state.clientPersonalInfo.name,
     clientSurname: state.clientPersonalInfo.surname,

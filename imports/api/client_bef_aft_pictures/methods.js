@@ -1,8 +1,24 @@
 import { Meteor } from 'meteor/meteor';
-// import ClientConsent from './collection';
+import ClientBefAftPictures from './collection';
 // import './hooks';
 //
-// Meteor.methods({
+Meteor.methods({
+  'client_picture.fetch': (clientID, picType) => {
+    check(clientID, String)
+    check(picType, String)
+    if (clientID.length === 0) throw new Meteor.Error(403, 'client ID is required');
+    if (picType.length === 0) throw new Meteor.Error(403, 'Picture Type is required');
+    if (!Meteor.userId()) {
+      throw new Meteor.Error(403, "Client's Picture not fetched. User not logged in.");
+    } else {
+      console.log('clientID:', clientID);
+      console.log('picType:', picType);
+      const clientPicturesFile = ClientBefAftPictures.findOne({ $and: [{ 'meta.clientID': clientID }, { 'meta.weightPicType': picType }] });
+      console.log('client_picture.fetch:', clientPicturesFile);
+      return clientPicturesFile;
+    }
+  },
+});
 //   'client_consent.fetch': (clientID) => {
 //     check(clientID, String)
 //     if (clientID.length === 0) throw new Meteor.Error(403, 'client ID is required');

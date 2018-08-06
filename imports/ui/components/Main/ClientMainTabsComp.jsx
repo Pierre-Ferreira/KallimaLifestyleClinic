@@ -6,8 +6,8 @@ import ClientHealthInfoContainer from '../../containers/Tabs/ClientHealthInfoCon
 import ClientWeightInfoContainer from '../../containers/Tabs/ClientWeightInfoContainer';
 import ClientPaymentInfoContainer from '../../containers/Tabs/ClientPaymentInfoContainer';
 import ClientConsentContainer from '../../containers/Tabs/ClientConsentContainer';
-import ClientPicsComp from '../Tabs/ClientPicsComp';
-import FileUploadComponent from '../Tabs/FileUpload';
+import ClientPicsContainer from '../../containers/Tabs/ClientPicsContainer';
+// import FileUploadComponent from '../Tabs/FileUpload';
 
 const ClientMainTabsComp = (props) => {
   const disableTabsFlag = (props.clientID === '' || props.clientID === 'new');
@@ -52,7 +52,7 @@ const ClientMainTabsComp = (props) => {
         title="Pics"
         disabled={disableTabsFlag}
       >
-        <ClientPicsComp clientID={props.clientID} />
+        <ClientPicsContainer clientID={props.clientID} />
       </Tab>
     </Tabs>
   );

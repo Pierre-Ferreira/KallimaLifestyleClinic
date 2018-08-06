@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import ClientBefAftPictures from './collection';
+import ClientBefAftPictures from './s3_picture_storage';
 // import './hooks';
 //
 Meteor.methods({
-  'client_picture.fetch': (clientID, picType) => {
+  'client_bef_aft_pictures_picture.fetch': (clientID, picType) => {
     check(clientID, String)
     check(picType, String)
     if (clientID.length === 0) throw new Meteor.Error(403, 'client ID is required');
@@ -16,6 +16,32 @@ Meteor.methods({
       const clientPicturesFile = ClientBefAftPictures.findOne({ $and: [{ 'meta.clientID': clientID }, { 'meta.weightPicType': picType }] });
       console.log('client_picture.fetch:', clientPicturesFile);
       return clientPicturesFile;
+    }
+  },
+  'client_bef_aft_pictures_picture.remove': (clientID, picType) => {
+    check(clientID, String)
+    check(picType, String)
+    if (clientID.length === 0) throw new Meteor.Error(403, 'client ID is required');
+    if (picType.length === 0) throw new Meteor.Error(403, 'Picture Type is required');
+    if (!Meteor.userId()) {
+      throw new Meteor.Error(403, "Client's Picture not fetched. User not logged in.");
+    } else {
+      console.log('clientID:', clientID);
+      console.log('picType:', picType);
+      const clientPicturesFile = ClientBefAftPictures.findOne({ $and: [{ 'meta.clientID': clientID }, { 'meta.weightPicType': picType }] });
+      if (clientPicturesFile) {
+        ClientBefAftPictures.remove({_id: clientPicturesFile._id}, (error) => {
+          if (error) {
+            console.error(`File wasn't removed, error:  ${error.reason}`);
+            throw new Meteor.Error(403, `Picture remove Error: ${error.reason}`)
+          } else {
+            console.info('File successfully removed');
+            return `Removed: ${clientPicturesFile._id}`;
+          }
+        });
+      } else {
+        throw new Meteor.Error(403, `No '${picType}' picture found to remove for clientID: ${clientID}`);
+      }
     }
   },
 });

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
 import ClientBefAftPictures from '../../../api/client_bef_aft_pictures/collection';
 import './PicsDropzoneComp.less';
@@ -16,8 +17,14 @@ export default class ClientPicsComp extends Component {
       imageDisplay: '',
       inProgress: false,
       newPictureUploaded: false,
+      oldPictureDeleted: false,
+      deletePictureFlag: false,
+      pictureID: '',
     };
     this.handleDrop = this.handleDrop.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleConfirmDelete = this.handleConfirmDelete.bind(this);
+    this.handleRejectDelete = this.handleRejectDelete.bind(this);
   }
 
   // componentDidUpdate(prevProps, prevState, snapshot) {
@@ -43,7 +50,8 @@ export default class ClientPicsComp extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (
       this.props.clientID !== prevProps.clientID ||
-      this.state.newPictureUploaded !== prevState.newPictureUploaded
+      this.state.newPictureUploaded !== prevState.newPictureUploaded ||
+      this.state.oldPictureDeleted !== prevState.oldPictureDeleted
     ) {
       const clientPicturesFile = ClientBefAftPictures.findOne({ $and: [{ 'meta.clientID': this.props.clientID }, { 'meta.weightPicType': this.props.picType }] });
       console.log('clientPicturesFile:', clientPicturesFile)
@@ -52,12 +60,18 @@ export default class ClientPicsComp extends Component {
           clientBeforePicPath: clientPicturesFile.link(),
           clientBeforePicName: clientPicturesFile.name,
           newPictureUploaded: false,
+          oldPictureDeleted: false,
+          pictureID: clientPicturesFile._id,
+          deletePictureFlag: false,
         });
       } else {
         this.setState({
           clientBeforePicPath: '',
           clientBeforePicName: '',
           newPictureUploaded: false,
+          oldPictureDeleted: false,
+          pictureID: '',
+          deletePictureFlag: false,
         });
       }
     }
@@ -90,6 +104,7 @@ export default class ClientPicsComp extends Component {
           chunkSize: 'dynamic',
           allowWebWorkers: true // If you see issues with uploads, change this to false
         }, false)
+        console.log('uploadInstance:', uploadInstance);
 
         self.setState({
           uploading: uploadInstance, // Keep track of this instance to use below
@@ -135,6 +150,32 @@ export default class ClientPicsComp extends Component {
     }
   }
 
+  handleDelete() {
+    this.setState({
+      deletePictureFlag: true,
+    });
+  }
+
+  handleConfirmDelete() {
+    console.log('handleDelete this.state.pictureID:', this.state.pictureID)
+    Meteor.call('client_bef_aft_pictures_picture.remove', this.props.clientID, this.props.picType, (err, result) => {
+      if (err) {
+        console.log('Picture Remove Error:', err);
+      } else {
+        console.log('Picture Remove Successfull:', result);
+        this.setState({
+          oldPictureDeleted: true,
+        });
+      }
+    });
+  }
+
+  handleRejectDelete() {
+    this.setState({
+      deletePictureFlag: false,
+    });
+  }
+
   render() {
     let dropzoneHeader = '';
     const dropzoneText = 'Click to select photo or drop here.';
@@ -147,7 +188,7 @@ export default class ClientPicsComp extends Component {
       <div id="pics-dropzone-comp">
         <section>
           <div className="dropzone">
-            <h2>{dropzoneHeader}</h2>
+            <div className="dropzone-header">{dropzoneHeader}</div>
             {this.state.clientBeforePicPath ?
               <span className="clientPicturesImgWrapper">
                 <img
@@ -155,6 +196,15 @@ export default class ClientPicsComp extends Component {
                   src={this.state.clientBeforePicPath}
                   alt={this.state.clientBeforePicName}
                 />
+                {this.state.deletePictureFlag ?
+                  <div className='confirm-remove'>
+                    <span className='confirm-remove-text'>Are you sure?</span>
+                    <Button bsStyle="danger" bsSize="large" onClick={this.handleConfirmDelete}>Yes</Button>
+                    <Button bsStyle="success" bsSize="large"  onClick={this.handleRejectDelete}>No</Button>
+                  </div>
+                  :
+                  <Button onClick={this.handleDelete}>REMOVE</Button>
+                }
               </span>
                :
               <Dropzone

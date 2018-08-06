@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Col, Popover, Tooltip, Button, Modal, OverlayTrigger, Alert } from 'react-bootstrap';
 import moment from 'moment/moment';
 import PicsDropzoneContainer from '../../containers/Tabs/PicsDropzoneContainer';
-import './ClientConsentComp.less';
+import './ClientPicsComp.less';
 
 export default class ClientPicsComp extends Component {
   constructor(props, context) {
@@ -29,7 +29,7 @@ export default class ClientPicsComp extends Component {
     return (
       <div id="client-consent-comp">
         <div className="top-tier-area">
-          {/* <div className="client-details">{this.props.clientName} {this.props.clientSurname}</div> */}
+          <div className="client-details">{this.props.clientName} {this.props.clientSurname}</div>
           {/* <div className="capture-info">{(this.props.createdAt) ? `Created on ${moment(this.props.createdAt).format('DD-MM-YYYY (HH:mm)')} by ${this.props.createdByUsername}` : null}</div> */}
           {/* <div className="clientid">ClientID: {this.props.clientID}</div> */}
           {(feedbackMessage) ?

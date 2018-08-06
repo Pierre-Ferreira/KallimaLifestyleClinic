@@ -34,7 +34,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
       agent: false
     }
   });
-console.log('IN HERE1')
+  console.log('S3 Setup.')
   // Declare the Meteor file collection on the Server
   ClientBefAftPictures = new FilesCollection({
     debug: false, // Change to `true` for debugging
@@ -47,14 +47,13 @@ console.log('IN HERE1')
     // Start moving files to AWS:S3
     // after fully received by the Meteor server
     onAfterUpload(fileRef) {
-      console.log('IN HERE2')
+      console.log(`Uploading to S3 Picture:'${fileRef._id}`);
       // Run through each of the uploaded file
       _.each(fileRef.versions, (vRef, version) => {
-          console.log('IN HERE3')
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering on the AWS client
-        const filePath = 'files/' + (Random.id()) + '-' + version + '.' + fileRef.extension;
-
+        const filePath = `Bef_After_Pictures/${fileRef._id}-${version}.${fileRef.extension}`;
+        console.log(`filePath to S3 Picture:'${filePath}`);
         // Create the AWS:S3 object.
         // Feel free to change the storage class from, see the documentation,
         // `STANDARD_IA` is the best deal for low access files.
@@ -70,7 +69,7 @@ console.log('IN HERE1')
         }, (error) => {
           bound(() => {
             if (error) {
-              console.error(error);
+              console.error(`S3 upload Error1:${error}`);
             } else {
               // Update FilesCollection with link to the file at AWS
               const upd = { $set: {} };
@@ -80,9 +79,10 @@ console.log('IN HERE1')
                 _id: fileRef._id
               }, upd, (updError) => {
                 if (updError) {
-                  console.error(updError);
+                  console.error(`S3 upload Error2:${updError}`);
                 } else {
                   // Unlink original files from FS after successful upload to AWS:S3
+                  console.log(`Unlinking fileRef:${fileRef}`);
                   this.unlink(this.collection.findOne(fileRef._id), version);
                 }
               });
@@ -164,6 +164,7 @@ console.log('IN HERE1')
   const _origRemove = ClientBefAftPictures.remove;
   ClientBefAftPictures.remove = function (search) {
     const cursor = this.collection.find(search);
+    console.log('REMOVE INTERCEPTION.')
     cursor.forEach((fileRef) => {
       _.each(fileRef.versions, (vRef) => {
         if (vRef && vRef.meta && vRef.meta.pipePath) {

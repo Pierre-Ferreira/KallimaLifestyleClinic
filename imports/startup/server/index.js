@@ -7,4 +7,4 @@ import '../../api/client_consent/methods';
 import '../../api/users/publications';
 import '../../api/client_bef_aft_pictures/s3_picture_storage';
 import '../../api/client_bef_aft_pictures/publications';
-// import '../../api/client_bef_aft_pictures/methods';
+import '../../api/client_bef_aft_pictures/methods';

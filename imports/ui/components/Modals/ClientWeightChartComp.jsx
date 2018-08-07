@@ -20,10 +20,19 @@ export default class ClientWeightChartComp extends Component {
 
   render() {
     console.log('this.props.clientWeightInfoArr:', this.props.clientWeightInfoArr);
-    const chartData = this.props.clientWeightInfoArr.map(x => ({
-      week: Number(x.week),
-      weight: Number(x.weight),
-    }));
+    let minWeight = 10000;
+    const chartData = this.props.clientWeightInfoArr.map(x => {
+      // Check which weight is the smallest weight.
+      console.log('x.weight < minWeight:',Number(x.weight) < Number(minWeight))
+      console.log('minWeight:',minWeight)
+      console.log('x.weight:',x.weight)
+      minWeight = (Number(x.weight) < Number(minWeight)) ? Number(x.weight) : Number(minWeight);
+      return {
+        week: Number(x.week),
+        weight: Number(x.weight),
+      }
+    });
+    console.log('minWeight:', minWeight)
     const tickValuesX = this.props.clientWeightInfoArr.map(x => (
       Number(x.week)
     ));
@@ -40,13 +49,13 @@ export default class ClientWeightChartComp extends Component {
               duration: 2000,
               onLoad: { duration: 1000 },
             }}
-            minDomain={{ y: 0 }}
+            minDomain={{ y: minWeight - 2  }}
             width={700}
             height={400}
           >
             <VictoryLine
               style={{
-                data: { stroke: '#000000' },
+                data: { stroke: 'red' },
                 parent: { border: '1px solid #ccc' },
               }}
               data={chartData}

@@ -397,7 +397,7 @@ export default class ClientWeightInfoComp extends Component {
               </Row>
             </Grid>
             <ButtonToolbar>
-              <Col sm={6}>
+              <Col sm={4}>
                 <Button
                   // bsStyle="primary"
                   bsSize="large"
@@ -407,7 +407,7 @@ export default class ClientWeightInfoComp extends Component {
                   Save
                 </Button>
               </Col>
-              <Col sm={6}>
+              <Col sm={4}>
                 <Button
                   // bsStyle="warning"
                   bsSize="large"
@@ -417,9 +417,9 @@ export default class ClientWeightInfoComp extends Component {
                   New
                 </Button>
               </Col>
-              {/* <Col sm={4}>
+              <Col sm={4}>
                 <ClientWeightChartModalComp />
-              </Col> */}
+              </Col>
             </ButtonToolbar>
           </Form>
         </div>
@@ -521,7 +521,7 @@ export default class ClientWeightInfoComp extends Component {
                       </Col>
                     </Col>
                   </Row>
-                )
+                );
               })}
             </div>
           </Grid>

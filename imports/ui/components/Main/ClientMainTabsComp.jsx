@@ -6,6 +6,7 @@ import ClientHealthInfoContainer from '../../containers/Tabs/ClientHealthInfoCon
 import ClientWeightInfoContainer from '../../containers/Tabs/ClientWeightInfoContainer';
 import ClientPaymentInfoContainer from '../../containers/Tabs/ClientPaymentInfoContainer';
 import ClientConsentContainer from '../../containers/Tabs/ClientConsentContainer';
+import ClientTreatmentInfoContainer from '../../containers/Tabs/ClientTreatmentInfoContainer';
 // import ClientPicsComp from '../Tabs/ClientPicsComp';
 import ClientWeightChartContainer from '../../containers/Modals/ClientWeightChartContainer';
 
@@ -21,7 +22,7 @@ const ClientMainTabsComp = (props) => {
       </Tab>
       <Tab
         eventKey={2}
-        title="Client Health"
+        title="Health"
         disabled={disableTabsFlag}
       >
         <ClientHealthInfoContainer clientID={props.clientID} />
@@ -35,7 +36,7 @@ const ClientMainTabsComp = (props) => {
       </Tab>
       <Tab
         eventKey={4}
-        title="Weight Info"
+        title="Weight"
         disabled={disableTabsFlag}
       >
         <ClientWeightInfoContainer clientID={props.clientID} />
@@ -47,13 +48,13 @@ const ClientMainTabsComp = (props) => {
       >
         <ClientPaymentInfoContainer clientID={props.clientID} />
       </Tab>
-      {/* <Tab
+      <Tab
         eventKey={6}
-        title="Chart"
-        // disabled
+        title="Treatments"
+        disabled={disableTabsFlag}
       >
-        <ClientWeightChartContainer clientID={props.clientID} />
-      </Tab> */}
+        <ClientTreatmentInfoContainer clientID={props.clientID} />
+      </Tab>
     </Tabs>
   );
 };

@@ -4,6 +4,7 @@ import clientPersonalInfo from './ClientPersonalInfo';
 import clientHealthInfo from './ClientHealthInfo';
 import clientWeightInfo from './ClientWeightInfo';
 import clientPaymentInfo from './ClientPaymentInfo';
+import clientTreatmentInfo from './ClientTreatmentInfo';
 import clientConsent from './ClientConsent';
 
 const clientInfo = combineReducers({
@@ -11,6 +12,7 @@ const clientInfo = combineReducers({
   clientHealthInfo,
   clientWeightInfo,
   clientPaymentInfo,
+  clientTreatmentInfo,
   clientConsent,
   routing: routerReducer,
 });

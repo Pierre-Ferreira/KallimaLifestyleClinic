@@ -53,6 +53,7 @@ export default class ClientWeightInfoComp extends Component {
     // this.handleAnkleChange = this.handleAnkleChange.bind(this);
     this.handleNew = this.handleNew.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleSendEmail = this.handleSendEmail.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -241,6 +242,32 @@ export default class ClientWeightInfoComp extends Component {
     }
   }
 
+  handleSendEmail() {
+    const { clientID, weeklyEntriesArrRedux } = this.props;
+    Meteor.call('client_weight_info.email', clientID, weeklyEntriesArrRedux, (err, result) => {
+      if (err) {
+        this.setState({
+          feedbackMessage: `ERROR: ${err.reason}`,
+          feedbackMessageType: 'danger',
+        });
+      } else {
+        this.setState({
+          feedbackMessage: 'Client Info Emailed!',
+          feedbackMessageType: 'success',
+        });
+        // // clientWeightInfoObj.clientID = clientID;
+        // this.props.saveClientWeightInfo(clientID, result);
+        // console.log('client_weight_info.update RESULT:', result)
+        // setTimeout(() => {
+        //   this.setState({
+        //     feedbackMessage: '',
+        //     feedbackMessageType: '',
+        //   });
+        // }, 3000);
+      }
+    });
+  }
+
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
     const inputDisabledFlag = (this.state.week) ? false : true;
@@ -397,7 +424,7 @@ export default class ClientWeightInfoComp extends Component {
               </Row>
             </Grid>
             <ButtonToolbar>
-              <Col sm={4}>
+              <Col sm={3}>
                 <Button
                   // bsStyle="primary"
                   bsSize="large"
@@ -407,7 +434,7 @@ export default class ClientWeightInfoComp extends Component {
                   Save
                 </Button>
               </Col>
-              <Col sm={4}>
+              <Col sm={3}>
                 <Button
                   // bsStyle="warning"
                   bsSize="large"
@@ -417,8 +444,18 @@ export default class ClientWeightInfoComp extends Component {
                   New
                 </Button>
               </Col>
-              <Col sm={4}>
+              <Col sm={3}>
                 <ClientWeightChartModalComp />
+              </Col>
+              <Col sm={3}>
+                <Button
+                  // bsStyle="warning"
+                  bsSize="large"
+                  block
+                  onClick={this.handleSendEmail}
+                >
+                  Email
+                </Button>
               </Col>
             </ButtonToolbar>
           </Form>

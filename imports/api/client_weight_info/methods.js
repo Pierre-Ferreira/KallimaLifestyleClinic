@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import generateComponentAsPDF from '../../modules/server/generatePDFFromComp';
+import ClientWeightInfoChartEmailTemplate from '../../ui/components/Templates/ClientWeightInfoChartEmailTemplate';
 import ClientWeightInfo from './collection';
 import './hooks';
 
@@ -82,6 +84,24 @@ Meteor.methods({
         console.log('Insert client_weight_info: ', ClientWeightInfo.findOne({ clientID }));
       }
       return ClientWeightInfo.findOne({ clientID }).client_weight_info;
+    }
+  },
+  'client_weight_info.email': (clientID, weightWeeklyEntriesArr) => {
+    check(clientID, String)
+    check(weightWeeklyEntriesArr, Array)
+    if (clientID.length === 0) throw new Meteor.Error(403, 'client ID is required');
+    if (!Meteor.userId()) {
+      throw new Meteor.Error(403, "Client's Weight Info not fetched. User not logged in.");
+    } else {
+      console.log('weightWeeklyEntriesArr:', weightWeeklyEntriesArr)
+      const fileName = `document_${clientID}.pdf`;
+      return generateComponentAsPDF({
+        component: ClientWeightInfoChartEmailTemplate,
+        props: { weightWeeklyEntriesArr },
+        fileName,
+      })
+        .then((result) => result)
+        .catch((error) => { throw new Meteor.Error('500', 'HERE'+error); });
     }
   },
 });

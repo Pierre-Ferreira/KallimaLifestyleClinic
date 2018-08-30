@@ -15,7 +15,7 @@ import {
   ControlLabel,
 } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
-import moment from 'moment/moment'
+import moment from 'moment/moment';
 import ClientWeightChartModalComp from '../Modals/ClientWeightChartModalComp';
 import './ClientWeightInfoComp.less';
 
@@ -243,6 +243,10 @@ export default class ClientWeightInfoComp extends Component {
   }
 
   handleSendEmail() {
+    this.setState({
+      feedbackMessage: 'Busy...',
+      feedbackMessageType: 'success',
+    });
     const { clientID, weeklyEntriesArrRedux } = this.props;
     Meteor.call('client_weight_info.email', clientID, weeklyEntriesArrRedux, (err, result) => {
       if (err) {
@@ -255,22 +259,19 @@ export default class ClientWeightInfoComp extends Component {
           feedbackMessage: 'Client Info Emailed!',
           feedbackMessageType: 'success',
         });
-        // // clientWeightInfoObj.clientID = clientID;
-        // this.props.saveClientWeightInfo(clientID, result);
-        // console.log('client_weight_info.update RESULT:', result)
-        // setTimeout(() => {
-        //   this.setState({
-        //     feedbackMessage: '',
-        //     feedbackMessageType: '',
-        //   });
-        // }, 3000);
+        setTimeout(() => {
+          this.setState({
+            feedbackMessage: '',
+            feedbackMessageType: '',
+          });
+        }, 3000);
       }
     });
   }
 
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
-    const inputDisabledFlag = (this.state.week) ? false : true;
+    const inputDisabledFlag = (!this.state.week);
     return (
       <div id="client-weight-info-comp">
         <div className="top-tier-area">
@@ -412,15 +413,6 @@ export default class ClientWeightInfoComp extends Component {
                     disabled={inputDisabledFlag}
                   />
                 </Col>
-                {/* <Col sm={1}>
-                  <FormControl
-                    type="text"
-                    placeholder="Ankle"
-                    value={this.state.ankle}
-                    onChange={this.handleAnkleChange}
-                    disabled={inputDisabledFlag}
-                  />
-                </Col> */}
               </Row>
             </Grid>
             <ButtonToolbar>

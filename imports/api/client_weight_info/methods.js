@@ -95,12 +95,12 @@ Meteor.methods({
     } else {
       console.log('weightWeeklyEntriesArr:', weightWeeklyEntriesArr)
       const fileName = `document_${clientID}.pdf`;
-      return generateComponentAsPDF({
+      generateComponentAsPDF({
         component: ClientWeightInfoChartEmailTemplate,
         props: { weightWeeklyEntriesArr },
         fileName,
       })
-        .then((result) => result)
+        .then((result) => { return result })
         .catch((error) => { throw new Meteor.Error('500', 'HERE'+error); });
     }
   },

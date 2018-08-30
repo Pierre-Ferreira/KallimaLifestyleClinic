@@ -2,6 +2,7 @@ import ReactDOMServer from 'react-dom/server';
 import pdf from 'html-pdf';
 import fs from 'fs';
 import moment from 'moment/moment';
+import { Email } from 'meteor/email';
 
 let locModule;
 
@@ -13,6 +14,30 @@ let locModule;
 //     locModule.reject(exception);
 //   }
 // };
+
+const sendEmail = (path) => {
+  console.log("INSIDE sendEmail.")
+  try {
+      console.log("INSIDE try sendEmail.")
+    // const file = fs.readFileSync(path);
+    // return new Buffer(file).toString('base64');
+    result = Meteor.wrapAsync(Email.send({
+      to: 'pierre@tektite.biz',
+      from: 'Ryan Glover <ryan.glover@themeteorchef.com>',
+      replyTo: 'Ryan Glover <ryan.glover@themeteorchef.com>',
+      subject: 'Sending some flapjacks!',
+      html: '<strong>Look at that stack of cakes!</strong>',
+      attachments: [{
+        filename: 'flapjacks.pdf',
+        filepath: path,
+        contentType: 'pdf',
+      }],
+    }));
+  } catch (exception) {
+    console.log("INSIDE catch sendEmail:", exception)
+    locModule.reject(exception);
+  }
+};
 
 const generatePDF = (html, fileName, clientName) => {
   console.log('html:', html)
@@ -47,7 +72,8 @@ const generatePDF = (html, fileName, clientName) => {
       if (error) {
         locModule.reject(error);
       } else {
-        // locModule.resolve({ fileName, base64: getBase64String(response.filename) });
+        // sendEmail(response.filename);
+        locModule.resolve({ response });
         // fs.unlink(response.filename);
       }
     });

@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import { Email } from 'meteor/email';
+import moment from 'moment/moment';
 import generateComponentAsPDF from '../../modules/server/generatePDFFromComp';
 import ClientWeightInfoChartEmailTemplate from '../../ui/components/Templates/ClientWeightInfoChartEmailTemplate';
 import ClientWeightInfo from './collection';
@@ -104,8 +106,35 @@ Meteor.methods({
         fileName,
         clientName,
       })
-        .then((result) => { return result })
-        .catch((error) => { throw new Meteor.Error('500', 'HERE'+error); });
+        .then((result) => {
+          console.log('client_weight_info.email RESULT: ', result);
+          try {
+            console.log("INSIDE try sendEmail.")
+            // const file = fs.readFileSync(path);
+            // return new Buffer(file).toString('base64');
+            const filePath = `${Meteor.rootPath}/tmp/${fileName}`;
+            console.log('filePath:', filePath);
+            const filePath2 = `${Meteor.absolutePath}/tmp/${fileName}`;
+            console.log('filePath2:', filePath2);
+            Email.send({
+              to: 'pierre@tektite.biz',
+              from: 'Hannah <therapyroom24@gmail.com>',
+              replyTo: 'Hannah <therapyroom24@gmail.com>',
+              subject: 'Kallima Weight Progress.',
+              html: '<strong>Hi, attached is your up to date weight progress info!</strong>',
+              attachments: [{
+                filename: `Weight Info - ${moment(new Date()).format('DD-MM-YYYY')}.pdf`,
+                path: filePath,
+                contentType: 'pdf',
+              }],
+            });
+            return result;
+          } catch (exception) {
+            console.log("INSIDE catch sendEmail:", exception);
+            throw new Meteor.Error(403, exception);
+          }
+        })
+        .catch((error) => { throw new Meteor.Error(403, error); });
     }
   },
 });

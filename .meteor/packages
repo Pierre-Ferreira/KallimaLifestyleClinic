@@ -32,3 +32,4 @@ cfs:standard-packages
 cfs:gridfs
 underscore@1.0.10
 ostrio:files
+ostrio:meteor-root

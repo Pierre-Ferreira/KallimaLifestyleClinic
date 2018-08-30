@@ -14,6 +14,7 @@ function mapStateToProps(state) {
     weeklyEntriesArrRedux: state.clientWeightInfo.weeklyEntriesArr,
     clientName: state.clientPersonalInfo.name,
     clientSurname: state.clientPersonalInfo.surname,
+    clientEmail: state.clientPersonalInfo.email,
   };
 }
 

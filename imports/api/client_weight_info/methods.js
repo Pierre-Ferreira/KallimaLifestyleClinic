@@ -88,13 +88,15 @@ Meteor.methods({
       return ClientWeightInfo.findOne({ clientID }).client_weight_info;
     }
   },
-  'client_weight_info.email': (clientID, weightWeeklyEntriesArr, clientName) => {
+  'client_weight_info.email': (clientID, weightWeeklyEntriesArr, clientName, clientEmail) => {
     check(clientID, String)
     check(weightWeeklyEntriesArr, Array)
     check(clientName, String)
+    check(clientEmail, String)
     if (clientID.length === 0) throw new Meteor.Error(403, 'client ID is required');
     if (weightWeeklyEntriesArr.length === 0) throw new Meteor.Error(403, 'client weight info is required');
     if (clientName.length === 0) throw new Meteor.Error(403, 'client Name is required');
+    if (clientEmail.length === 0) throw new Meteor.Error(403, 'client Email is required (check \'Client Info\' email field!)');
     if (!Meteor.userId()) {
       throw new Meteor.Error(403, "Client's Weight Info not fetched. User not logged in.");
     } else {
@@ -114,13 +116,11 @@ Meteor.methods({
             // return new Buffer(file).toString('base64');
             const filePath = `${Meteor.rootPath}/tmp/${fileName}`;
             console.log('filePath:', filePath);
-            const filePath2 = `${Meteor.absolutePath}/tmp/${fileName}`;
-            console.log('filePath2:', filePath2);
             Email.send({
-              to: 'pierre@tektite.biz',
+              to: clientEmail,
               from: 'Hannah <therapyroom24@gmail.com>',
               replyTo: 'Hannah <therapyroom24@gmail.com>',
-              subject: 'Kallima Weight Progress.',
+              subject: `Kallima Weight Progress (${moment(new Date()).format('DD-MM-YYYY')}).`,
               html: '<strong>Hi, attached is your up to date weight progress info!</strong>',
               attachments: [{
                 filename: `Weight Info - ${moment(new Date()).format('DD-MM-YYYY')}.pdf`,

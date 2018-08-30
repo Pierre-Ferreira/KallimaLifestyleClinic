@@ -6,15 +6,6 @@ import { Email } from 'meteor/email';
 
 let locModule;
 
-// const getBase64String = (path) => {
-//   try {
-//     const file = fs.readFileSync(path);
-//     return new Buffer(file).toString('base64');
-//   } catch (exception) {
-//     locModule.reject(exception);
-//   }
-// };
-
 const sendEmail = (path) => {
   console.log("INSIDE sendEmail.")
   try {

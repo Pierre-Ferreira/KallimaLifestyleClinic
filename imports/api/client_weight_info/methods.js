@@ -86,10 +86,13 @@ Meteor.methods({
       return ClientWeightInfo.findOne({ clientID }).client_weight_info;
     }
   },
-  'client_weight_info.email': (clientID, weightWeeklyEntriesArr) => {
+  'client_weight_info.email': (clientID, weightWeeklyEntriesArr, clientName) => {
     check(clientID, String)
     check(weightWeeklyEntriesArr, Array)
+    check(clientName, String)
     if (clientID.length === 0) throw new Meteor.Error(403, 'client ID is required');
+    if (weightWeeklyEntriesArr.length === 0) throw new Meteor.Error(403, 'client weight info is required');
+    if (clientName.length === 0) throw new Meteor.Error(403, 'client Name is required');
     if (!Meteor.userId()) {
       throw new Meteor.Error(403, "Client's Weight Info not fetched. User not logged in.");
     } else {
@@ -99,6 +102,7 @@ Meteor.methods({
         component: ClientWeightInfoChartEmailTemplate,
         props: { weightWeeklyEntriesArr },
         fileName,
+        clientName,
       })
         .then((result) => { return result })
         .catch((error) => { throw new Meteor.Error('500', 'HERE'+error); });

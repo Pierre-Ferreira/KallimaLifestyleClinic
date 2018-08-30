@@ -248,7 +248,8 @@ export default class ClientWeightInfoComp extends Component {
       feedbackMessageType: 'success',
     });
     const { clientID, weeklyEntriesArrRedux } = this.props;
-    Meteor.call('client_weight_info.email', clientID, weeklyEntriesArrRedux, (err, result) => {
+    const clientName = `${this.props.clientName} ${this.props.clientSurname}`;
+    Meteor.call('client_weight_info.email', clientID, weeklyEntriesArrRedux, clientName, (err) => {
       if (err) {
         this.setState({
           feedbackMessage: `ERROR: ${err.reason}`,

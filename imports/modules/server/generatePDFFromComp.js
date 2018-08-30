@@ -1,6 +1,7 @@
 import ReactDOMServer from 'react-dom/server';
 import pdf from 'html-pdf';
 import fs from 'fs';
+import moment from 'moment/moment';
 
 let locModule;
 
@@ -13,13 +14,33 @@ let locModule;
 //   }
 // };
 
-const generatePDF = (html, fileName) => {
+const generatePDF = (html, fileName, clientName) => {
   console.log('html:', html)
   console.log('fileName:', fileName)
   try {
     pdf.create(html, {
       format: 'letter',
-      border: { top: '0.6in', right: '0.6in', bottom: '0.6in', left: '0.6in' },
+      border: {
+        top: '0.6in',
+        right: '0.6in',
+        bottom: '0.6in',
+        left: '0.6in',
+      },
+      paginationOffset: 1, // Override the initial pagination number
+      header: {
+        height: '25mm',
+        contents: `
+                    <div style="text-align: center; font-size: 25px; font-weight: 600">Kallima Lifestyle Clinic</div>
+                    <div style="text-align: center;">Client Weight Info: ${clientName}</div>
+                    <div style="text-align: center;">As on ${moment(new Date()).format('DD-MM-YYYY')}</div>
+                  `,
+      },
+      footer: {
+        height: '15mm',
+        contents: {
+          default: '<div style="text-align: center;"><span style="color: #444;">{{page}}</span>/<span>{{pages}}</span></div>', // fallback value
+        },
+      },
     }).toFile(`./tmp/${fileName}`, (error, response) => {
       console.log('error:',error)
       console.log('response:',response)
@@ -46,14 +67,14 @@ const getComponentAsHTML = (component, props) => {
   }
 };
 
-const handler = ({ component, props, fileName }, promise) => {
+const handler = ({ component, props, fileName, clientName }, promise) => {
   // To make sure we can call our Promise's resolve and reject methods from
   // anywhere in our file, we assign them to a file-scoped variable locModule
   // up top. This means that when we need to, we can call locModule.resolve() or
   // locModule.reject() from anywhere in this file.
   locModule = promise;
   const html = getComponentAsHTML(component, props);
-  if (html && fileName) generatePDF(html, fileName);
+  if (html && fileName) generatePDF(html, fileName, clientName);
 };
 
 const generateComponentAsPDF = (options) => {

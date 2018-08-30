@@ -1,6 +1,6 @@
 import React from 'react';
 import InlineCss from 'react-inline-css';
-import { Col, Grid, Row, ControlLabel } from 'react-bootstrap';
+// import { Col, Grid, Row, ControlLabel } from 'react-bootstrap';
 import {
   VictoryChart,
   VictoryTheme,
@@ -12,7 +12,6 @@ import moment from 'moment/moment';
 // import './ClientWeightChartComp.less';
 
 const ClientWeightInfoChartEmailTemplate = (props) => {
-  console.log('props.weightWeeklyEntriesArr:', props);
   let minWeight = 10000;
   const chartData = props.weightWeeklyEntriesArr.map((x) => {
     // Check which weight is the smallest weight.
@@ -22,7 +21,6 @@ const ClientWeightInfoChartEmailTemplate = (props) => {
       weight: Number(x.weight),
     };
   });
-  console.log('minWeight:', minWeight);
   const tickValuesX = props.weightWeeklyEntriesArr.map(x => (
     Number(x.week)
   ));
@@ -40,12 +38,9 @@ const ClientWeightInfoChartEmailTemplate = (props) => {
         .center-item {
           margin: auto auto;
         }
-        #client-weight-info-chart-email-template{
-          background-color: #EEE7DB;
-        }
         table.redTable {
           border: 2px solid #A40808;
-          background-color: #EEE7DB;
+          background-color: #EBDFC8;
           width: 100%;
           text-align: center;
           border-collapse: collapse;
@@ -103,104 +98,89 @@ const ClientWeightInfoChartEmailTemplate = (props) => {
           max-width: 90%;
         }
         .footer-spacing {
-          height: 50px;
+          height: 20px;
         }
       }
-    `}>
-    <div id="client-weight-info-chart-email-template">
-      <h1 className="underline center-item">Kallima Weight Info</h1>
-      <h2 className="center-item">{moment(new Date).format('DD-MM-YYYY')}</h2>
-      <table className="redTable">
-        <thead>
-          <tr>
-            <th>Week</th>
-            <th>Date</th>
-            <th>Weight</th>
-            <th>Chest</th>
-            <th>Middle</th>
-            <th>Bum</th>
-            <th>Leg(U)</th>
-            <th>Leg(L)</th>
-            <th>Arm</th>
-          </tr>
-        </thead>
-        {/* <tfoot>
-          <tr>
-            <td colspan="9">
-              <div className="links"><a href="#">&laquo;</a> <a className="active" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">&raquo;</a></div>
-            </td>
-          </tr>
-        </tfoot> */}
-        <tbody>
-          {props.weightWeeklyEntriesArr.map((entry, i) => {
-            console.log('entry.week:', entry.week)
-            console.log('entry.weight:', entry.weight)
-            return (
-              <tr key={entry.week}>
-                <td>{entry.week}.</td>
-                <td>{moment(entry.date).format('DD-MM-YYYY')}</td>
-                <td>{entry.weight || '-'}</td>
-                <td>{entry.chest || '-'}</td>
-                <td>{entry.middle || '-'}</td>
-                <td>{entry.bum || '-'}</td>
-                <td>{entry.legUp || '-'}</td>
-                <td>{entry.legLow || '-'}</td>
-                <td>{entry.arm || '-'}</td>
-              </tr>
-            );
-          })
-        }
-        </tbody>
-      </table>
-      <div className="client-weight-chart-comp">
-        <h1 className="underline center-item">Weight Graph</h1>
-        <div></div>
-        <VictoryChart
-          theme={VictoryTheme.material}
-          minDomain={{ y: minWeight - 2 }}
-          width={700}
-          height={400}
-          style={{
-            parent: {
-              border: "2px solid #ccc",
-              // padding: "0px",
-              // margin: "0px",
-              background: "#EBDFC8",
-              maxHeight: "300px",
-            }
-          }}
-        >
-          <VictoryLine
+  `}>
+      <div id="client-weight-info-chart-email-template">
+        <table className="redTable">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Date</th>
+              <th>Weight</th>
+              <th>Chest</th>
+              <th>Middle</th>
+              <th>Bum</th>
+              <th>Leg(U)</th>
+              <th>Leg(L)</th>
+              <th>Arm</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.weightWeeklyEntriesArr.map((entry) => {
+              return (
+                <tr key={entry.week}>
+                  <td>{entry.week}.</td>
+                  <td>{moment(entry.date).format('DD-MM-YYYY')}</td>
+                  <td>{entry.weight || '-'}</td>
+                  <td>{entry.chest || '-'}</td>
+                  <td>{entry.middle || '-'}</td>
+                  <td>{entry.bum || '-'}</td>
+                  <td>{entry.legUp || '-'}</td>
+                  <td>{entry.legLow || '-'}</td>
+                  <td>{entry.arm || '-'}</td>
+                </tr>
+              );
+            })
+          }
+          </tbody>
+        </table>
+        <div className="client-weight-chart-comp">
+          <VictoryChart
+            theme={VictoryTheme.material}
+            minDomain={{ y: minWeight - 2 }}
+            width={700}
+            height={400}
             style={{
-              data: { stroke: 'red' },
-              // parent: { border: '1px solid #ccc' },
+              parent: {
+                border: '2px solid #ccc',
+                background: '#EBDFC8',
+                maxHeight: '300px',
+              },
             }}
-            data={chartData}
-            y="weight"
-            x="week"
-          />
-          <VictoryScatter
-            style={{ data: { fill: '#c43a31' } }}
-            size={4}
-            data={chartData}
-            labels={datum => datum.weight}
-            y="weight"
-            x="week"
-          />
-          <VictoryAxis
-            label="Weeks"
-            tickValues={tickValuesX}
-            style={{ axisLabel: { fontSize: 20, padding: 30 } }}
-          />
-          <VictoryAxis
-            dependentAxis
-            label="Weight"
-            style={{ axisLabel: { fontSize: 20, padding: 30 } }}
-          />
-        </VictoryChart>
+          >
+            <VictoryLine
+              style={{
+                data: { stroke: 'red' },
+                // parent: { border: '1px solid #ccc' },
+              }}
+              data={chartData}
+              y="weight"
+              x="week"
+            />
+            <VictoryScatter
+              style={{ data: { fill: '#c43a31' } }}
+              size={4}
+              data={chartData}
+              labels={datum => datum.weight}
+              y="weight"
+              x="week"
+            />
+            <VictoryAxis
+              label="Weeks"
+              tickValues={tickValuesX}
+              style={{ axisLabel: { fontSize: 20, padding: 30 } }}
+            />
+            <VictoryAxis
+              dependentAxis
+              label="Weight"
+              style={{ axisLabel: { fontSize: 20, padding: 30 } }}
+            />
+          </VictoryChart>
+        </div>
+        {/* <div className="footer-spacing"></div> */}
       </div>
-      <div className="footer-spacing"></div>
-    </div>
     </InlineCss>
   );
 };

@@ -114,10 +114,14 @@ Meteor.methods({
             console.log("INSIDE try sendEmail.")
             // const file = fs.readFileSync(path);
             // return new Buffer(file).toString('base64');
+            const emailRecipients = [
+              ...Meteor.settings.weight_info_email.recipients,
+              clientEmail.trim(),
+            ];
             const filePath = `${Meteor.rootPath}/tmp/${fileName}`;
             console.log('filePath:', filePath);
             Email.send({
-              to: clientEmail,
+              to: emailRecipients,
               from: 'Hannah <therapyroom24@gmail.com>',
               replyTo: 'Hannah <therapyroom24@gmail.com>',
               subject: `Kallima Weight Progress (${moment(new Date()).format('DD-MM-YYYY')}).`,

@@ -457,7 +457,11 @@ export default class ClientWeightInfoComp extends Component {
                 <ClientWeightChartModalComp />
               </Col>
               <Col sm={3}>
-                <OverlayTrigger trigger="focus" placement="bottom" overlay={emailConfirmPopover}>
+                <OverlayTrigger
+                  trigger={['click', 'hover', 'focus']}
+                  placement="bottom"
+                  overlay={emailConfirmPopover}
+                >
                   <Button
                     bsSize="large"
                     block

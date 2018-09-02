@@ -13,6 +13,8 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
+  Popover,
+  OverlayTrigger,
 } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 import moment from 'moment/moment';
@@ -273,6 +275,20 @@ export default class ClientWeightInfoComp extends Component {
   render() {
     const { feedbackMessage, feedbackMessageType } = this.state;
     const inputDisabledFlag = (!this.state.week);
+    const emailConfirmPopover = (
+      // <div style={{ height: 120 }}>
+      <Popover
+        id="popover-basic"
+        placement="bottom"
+        positionLeft={200}
+        positionTop={50}
+        title="Send email?"
+      >
+        <Button bsStyle="primary" bsSize="large" block onClick={this.handleSendEmail}>SEND</Button>
+        {/* <Button bsSize="large" block >CANCEL</Button> */}
+      </Popover>
+      // </div>
+    );
     return (
       <div id="client-weight-info-comp">
         <div className="top-tier-area">
@@ -441,14 +457,22 @@ export default class ClientWeightInfoComp extends Component {
                 <ClientWeightChartModalComp />
               </Col>
               <Col sm={3}>
-                <Button
+                <OverlayTrigger trigger="focus" placement="bottom" overlay={emailConfirmPopover}>
+                  <Button
+                    bsSize="large"
+                    block
+                  >
+                    Email
+                  </Button>
+                </OverlayTrigger>
+                {/* <Button
                   // bsStyle="warning"
                   bsSize="large"
                   block
                   onClick={this.handleSendEmail}
                 >
                   Email
-                </Button>
+                </Button> */}
               </Col>
             </ButtonToolbar>
           </Form>

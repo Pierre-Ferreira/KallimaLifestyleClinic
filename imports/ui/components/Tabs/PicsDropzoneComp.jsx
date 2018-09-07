@@ -197,13 +197,13 @@ export default class ClientPicsComp extends Component {
                   alt={this.state.clientBeforePicName}
                 />
                 {this.state.deletePictureFlag ?
-                  <div className='confirm-remove'>
-                    <span className='confirm-remove-text'>Are you sure?</span>
+                  <div className="confirm-remove">
+                    <span className="confirm-remove-text">Are you sure?</span>
                     <Button bsStyle="danger" bsSize="large" onClick={this.handleConfirmDelete}>Yes</Button>
-                    <Button bsStyle="success" bsSize="large"  onClick={this.handleRejectDelete}>No</Button>
+                    <Button bsStyle="success" bsSize="large" onClick={this.handleRejectDelete}>No</Button>
                   </div>
                   :
-                  <Button onClick={this.handleDelete}>REMOVE</Button>
+                  <Button className="remove-btn" onClick={this.handleDelete}>x</Button>
                 }
               </span>
                :

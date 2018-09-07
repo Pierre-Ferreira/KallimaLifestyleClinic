@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
+import ImageCompressor from 'image-compressor.js';
 import ClientBefAftPictures from '../../../api/client_bef_aft_pictures/collection';
 import './PicsDropzoneComp.less';
 
@@ -54,7 +55,7 @@ export default class ClientPicsComp extends Component {
       this.state.oldPictureDeleted !== prevState.oldPictureDeleted
     ) {
       const clientPicturesFile = ClientBefAftPictures.findOne({ $and: [{ 'meta.clientID': this.props.clientID }, { 'meta.weightPicType': this.props.picType }] });
-      console.log('clientPicturesFile:', clientPicturesFile)
+      console.log('clientPicturesFile:', clientPicturesFile);
       if (clientPicturesFile) {
         this.setState({
           clientBeforePicPath: clientPicturesFile.link(),
@@ -84,68 +85,77 @@ export default class ClientPicsComp extends Component {
       accepted,
       rejected,
     });
-    let self = this;
+    const self = this;
 
     if (accepted && accepted[0]) {
       // We upload only one file, in case
       // there was multiple files selected
-      var file = accepted[0];
+      const file = accepted[0];
 
       if (file) {
-        let uploadInstance = ClientBefAftPictures.insert({
-          file: file,
-          meta: {
-            locator: self.props.fileLocator,
-            userId: Meteor.userId(), // Optional, used to check on server for file tampering
-            clientID: self.props.clientID,
-            weightPicType: self.props.picType,
+        // const imageCompressorObj = new ImageCompressor();
+        new ImageCompressor(file, {
+          quality: 0.4,
+          success(result) {
+            const uploadInstance = ClientBefAftPictures.insert({
+              file: result,
+              meta: {
+                locator: self.props.fileLocator,
+                userId: Meteor.userId(), // Optional, used to check on server for file tampering
+                clientID: self.props.clientID,
+                weightPicType: self.props.picType,
+              },
+              streams: 'dynamic',
+              chunkSize: 'dynamic',
+              allowWebWorkers: true, // If you see issues with uploads, change this to false
+            }, false);
+            console.log('uploadInstance:', uploadInstance);
+
+            self.setState({
+              uploading: uploadInstance, // Keep track of this instance to use below
+              inProgress: true, // Show the progress bar now
+            });
+
+            // These are the event functions, don't need most of them,
+            // it shows where we are in the process
+            uploadInstance.on('start', () => {
+              console.log('Starting');
+            });
+
+            uploadInstance.on('end', (error, fileObj) => {
+              console.log('On end File Object: ', fileObj);
+            });
+
+            uploadInstance.on('uploaded', (error, fileObj) => {
+              console.log('uploaded: ', fileObj);
+
+              // Reset our state for the next file
+              self.setState({
+                uploading: [],
+                progress: 0,
+                inProgress: false,
+                newPictureUploaded: true,
+              });
+            });
+
+            uploadInstance.on('error', (error, fileObj) => {
+              console.log(`Error during upload: ${  error}`);
+            });
+
+            uploadInstance.on('progress', (progress, fileObj) => {
+              console.log(`Upload Percentage: ${progress}`);
+              // Update our progress bar
+              self.setState({
+                progress,
+              });
+            });
+
+            uploadInstance.start(); // Must manually start the upload
           },
-          streams: 'dynamic',
-          chunkSize: 'dynamic',
-          allowWebWorkers: true // If you see issues with uploads, change this to false
-        }, false)
-        console.log('uploadInstance:', uploadInstance);
-
-        self.setState({
-          uploading: uploadInstance, // Keep track of this instance to use below
-          inProgress: true // Show the progress bar now
+          error(e) {
+            console.log(e.message);
+          },
         });
-
-        // These are the event functions, don't need most of them,
-        // it shows where we are in the process
-        uploadInstance.on('start', () => {
-          console.log('Starting');
-        })
-
-        uploadInstance.on('end', (error, fileObj) => {
-          console.log('On end File Object: ', fileObj);
-        })
-
-        uploadInstance.on('uploaded', (error, fileObj) => {
-          console.log('uploaded: ', fileObj);
-
-          // Reset our state for the next file
-          self.setState({
-            uploading: [],
-            progress: 0,
-            inProgress: false,
-            newPictureUploaded: true,
-          });
-        })
-
-        uploadInstance.on('error', (error, fileObj) => {
-          console.log('Error during upload: ' + error)
-        });
-
-        uploadInstance.on('progress', (progress, fileObj) => {
-          console.log('Upload Percentage: ' + progress)
-          // Update our progress bar
-          self.setState({
-            progress: progress
-          });
-        });
-
-        uploadInstance.start(); // Must manually start the upload
       }
     }
   }
@@ -157,7 +167,7 @@ export default class ClientPicsComp extends Component {
   }
 
   handleConfirmDelete() {
-    console.log('handleDelete this.state.pictureID:', this.state.pictureID)
+    console.log('handleDelete this.state.pictureID:', this.state.pictureID);
     Meteor.call('client_bef_aft_pictures_picture.remove', this.props.clientID, this.props.picType, (err, result) => {
       if (err) {
         console.log('Picture Remove Error:', err);
@@ -203,7 +213,12 @@ export default class ClientPicsComp extends Component {
                     <Button bsStyle="success" bsSize="large" onClick={this.handleRejectDelete}>No</Button>
                   </div>
                   :
-                  <Button className="remove-btn" onClick={this.handleDelete}>x</Button>
+                  <div>
+                    <Button className="remove-btn" onClick={this.handleDelete}>x</Button>
+                    <div className="download-img">
+                      <a href={this.state.clientBeforePicPath} download><Glyphicon glyph="download-alt" /></a>
+                    </div>
+                  </div>
                 }
               </span>
                :

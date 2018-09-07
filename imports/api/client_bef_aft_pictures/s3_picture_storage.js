@@ -31,7 +31,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
     // sslEnabled: true, // optional
     httpOptions: {
       timeout: 6000,
-      agent: false,
+      agent: false
     }
   });
   console.log('S3 Setup.')

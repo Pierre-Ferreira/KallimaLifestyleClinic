@@ -253,7 +253,6 @@ export default class ClientPersonalInfoComp extends Component {
     for (let x = 1; x <= 10; x += 1) {
       childrenArr.push(x);
     }
-    console.log('yearsArr:', yearsArr);
     return (
       <div id="client-personal-info-comp">
         <div className="top-tier-area">

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Popover, Tooltip, Button, Modal, OverlayTrigger, Alert } from 'react-bootstrap';
 import moment from 'moment/moment';
-import PicsDropzoneComp from './PicsDropzoneComp';
-import './ClientConsentComp.less';
+import PicsDropzoneContainer from '../../containers/Tabs/PicsDropzoneContainer';
+import './ClientPicsComp.less';
 
 export default class ClientPicsComp extends Component {
   constructor(props, context) {
@@ -29,7 +29,7 @@ export default class ClientPicsComp extends Component {
     return (
       <div id="client-consent-comp">
         <div className="top-tier-area">
-          {/* <div className="client-details">{this.props.clientName} {this.props.clientSurname}</div> */}
+          <div className="client-details">{this.props.clientName} {this.props.clientSurname}</div>
           {/* <div className="capture-info">{(this.props.createdAt) ? `Created on ${moment(this.props.createdAt).format('DD-MM-YYYY (HH:mm)')} by ${this.props.createdByUsername}` : null}</div> */}
           {/* <div className="clientid">ClientID: {this.props.clientID}</div> */}
           {(feedbackMessage) ?
@@ -39,7 +39,12 @@ export default class ClientPicsComp extends Component {
           : null }
         </div>
         <div className="lower-tier-area">
-          <PicsDropzoneComp picType="before" />
+          <Col sm={6}>
+            <PicsDropzoneContainer picType="before" clientID={this.props.clientID} />
+          </Col>
+          <Col sm={6}>
+            <PicsDropzoneContainer picType="after" clientID={this.props.clientID} />
+          </Col>
         </div>
       </div>
     );

@@ -15,12 +15,13 @@ if (process.env.S3) {
 }
 
 const s3Conf = Meteor.settings.s3 || {};
-const bound = Meteor.bindEnvironment((callback) => {
+const bound  = Meteor.bindEnvironment((callback) => {
   return callback();
 });
 
 /* Check settings existence in `Meteor.settings` */
 /* This is the best practice for app security */
+let ClientBefAftPictures = '';
 if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
   // Create a new S3 object
   const s3 = new S3({
@@ -33,24 +34,26 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
       agent: false
     }
   });
-
+  console.log('S3 Setup.')
   // Declare the Meteor file collection on the Server
-  const UserFiles = new FilesCollection({
+  ClientBefAftPictures = new FilesCollection({
     debug: false, // Change to `true` for debugging
-    storagePath: 'assets/app/uploads/uploadedFiles',
-    collectionName: 'userFiles',
+    storagePath: 'assets/app/uploads/client_bef_aft_pictures',
+    // assets/app/uploads/Images
+    collectionName: 'client_bef_aft_pictures',
     // Disallow Client to execute remove, use the Meteor.method
     allowClientCode: false,
 
     // Start moving files to AWS:S3
     // after fully received by the Meteor server
     onAfterUpload(fileRef) {
+      console.log(`Uploading to S3 Picture:'${fileRef._id}`);
       // Run through each of the uploaded file
       _.each(fileRef.versions, (vRef, version) => {
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering on the AWS client
-        const filePath = 'files/' + (Random.id()) + '-' + version + '.' + fileRef.extension;
-
+        const filePath = `Bef_After_Pictures/${fileRef._id}-${version}.${fileRef.extension}`;
+        console.log(`filePath to S3 Picture:'${filePath}`);
         // Create the AWS:S3 object.
         // Feel free to change the storage class from, see the documentation,
         // `STANDARD_IA` is the best deal for low access files.
@@ -66,7 +69,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
         }, (error) => {
           bound(() => {
             if (error) {
-              console.error(error);
+              console.error(`S3 upload Error1:${error}`);
             } else {
               // Update FilesCollection with link to the file at AWS
               const upd = { $set: {} };
@@ -76,9 +79,10 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
                 _id: fileRef._id
               }, upd, (updError) => {
                 if (updError) {
-                  console.error(updError);
+                  console.error(`S3 upload Error2:${updError}`);
                 } else {
                   // Unlink original files from FS after successful upload to AWS:S3
+                  console.log(`Unlinking fileRef:${fileRef}`);
                   this.unlink(this.collection.findOne(fileRef._id), version);
                 }
               });
@@ -113,19 +117,19 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
         };
 
         if (http.request.headers.range) {
-          const vRef = fileRef.versions[version];
-          let range = _.clone(http.request.headers.range);
+          const vRef  = fileRef.versions[version];
+          let range   = _.clone(http.request.headers.range);
           const array = range.split(/bytes=([0-9]*)-([0-9]*)/);
           const start = parseInt(array[1]);
-          let end = parseInt(array[2]);
+          let end     = parseInt(array[2]);
           if (isNaN(end)) {
             // Request data from AWS:S3 by small chunks
-            end = (start + this.chunkSize) - 1;
+            end       = (start + this.chunkSize) - 1;
             if (end >= vRef.size) {
-              end = vRef.size - 1;
+              end     = vRef.size - 1;
             }
           }
-          opts.Range = `bytes=${start}-${end}`;
+          opts.Range   = `bytes=${start}-${end}`;
           http.request.headers.range = `bytes=${start}-${end}`;
         }
 
@@ -155,11 +159,12 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
       return false;
     }
   });
-
+  // console.log('ClientBefAftPictures:', ClientBefAftPictures)
   // Intercept FilesCollection's remove method to remove file from AWS:S3
-  const _origRemove = UserFiles.remove;
-  UserFiles.remove = function (search) {
+  const _origRemove = ClientBefAftPictures.remove;
+  ClientBefAftPictures.remove = function (search) {
     const cursor = this.collection.find(search);
+    console.log('REMOVE INTERCEPTION.')
     cursor.forEach((fileRef) => {
       _.each(fileRef.versions, (vRef) => {
         if (vRef && vRef.meta && vRef.meta.pipePath) {
@@ -184,3 +189,4 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
 } else {
   throw new Meteor.Error(401, 'Missing Meteor file settings');
 }
+export default ClientBefAftPictures;

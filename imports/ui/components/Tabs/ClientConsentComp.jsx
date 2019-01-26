@@ -103,6 +103,9 @@ export default class ClientConsentComp extends Component {
           <div className="consent-text">
             I , <span className="consent-name-text">{`${this.props.clientName} ${this.props.clientSurname}`}</span>,
             hereby give consent for Herbal Heel Injections by Mrs. JW Venter or Mrs. S van Zyl.
+            <div className="session-text">Please take note:</div>
+            <div className="session-text">1) Four sessions in four weeks.</div>
+            <div className="session-text">2) Sessions are not transferable.</div>
           </div>
           {trimmedDataURL
             ?

@@ -14,7 +14,7 @@ if (process.env.S3) {
   Meteor.settings.s3 = JSON.parse(process.env.S3).s3;
 }
 
-const s3Conf = Meteor.settings.s3 || {};
+const pictures_s3_conf = Meteor.settings.s3 || {};
 const bound  = Meteor.bindEnvironment((callback) => {
   return callback();
 });
@@ -22,12 +22,19 @@ const bound  = Meteor.bindEnvironment((callback) => {
 /* Check settings existence in `Meteor.settings` */
 /* This is the best practice for app security */
 let ClientBefAftPictures = '';
-if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
+console.log("pictures_s3_conf:",pictures_s3_conf)
+console.log("pictures_s3_conf.key:",pictures_s3_conf.key)
+console.log("pictures_s3_conf.secret:",pictures_s3_conf.secret)
+console.log("pictures_s3_conf.bucket:",pictures_s3_conf.bucket)
+console.log("pictures_s3_conf.region:",pictures_s3_conf.region)
+console.log("Meteor.settings:",Meteor.settings)
+
+if (pictures_s3_conf && pictures_s3_conf.key && pictures_s3_conf.secret && pictures_s3_conf.bucket && pictures_s3_conf.region) {
   // Create a new S3 object
   const s3 = new S3({
-    secretAccessKey: s3Conf.secret,
-    accessKeyId: s3Conf.key,
-    region: s3Conf.region,
+    secretAccessKey: pictures_s3_conf.secret,
+    accessKeyId: pictures_s3_conf.key,
+    region: pictures_s3_conf.region,
     // sslEnabled: true, // optional
     httpOptions: {
       timeout: 6000,
@@ -62,7 +69,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
         s3.putObject({
           // ServerSideEncryption: 'AES256', // Optional
           StorageClass: 'STANDARD',
-          Bucket: s3Conf.bucket,
+          Bucket: pictures_s3_conf.bucket,
           Key: filePath,
           Body: fs.createReadStream(vRef.path),
           ContentType: vRef.type,
@@ -112,7 +119,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
         // content-disposition, chunked "streaming" and cache-control
         // we're using low-level .serve() method
         const opts = {
-          Bucket: s3Conf.bucket,
+          Bucket: pictures_s3_conf.bucket,
           Key: path
         };
 
@@ -170,7 +177,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region) {
         if (vRef && vRef.meta && vRef.meta.pipePath) {
           // Remove the object from AWS:S3 first, then we will call the original FilesCollection remove
           s3.deleteObject({
-            Bucket: s3Conf.bucket,
+            Bucket: pictures_s3_conf.bucket,
             Key: vRef.meta.pipePath,
           }, (error) => {
             bound(() => {

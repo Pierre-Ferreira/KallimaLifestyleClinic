@@ -13,7 +13,7 @@
     "babel-runtime": "^6.20.0",
     "bcrypt": "^1.0.3",
     "bootstrap": "4.0.0",
-    "csv-parse": "^2.5.0",
+    "csv-parse": "^4.4.6",
     "fuse.js": "^3.6.1",
     "history": "^4.7.2",
     "html-pdf": "^2.2.0",

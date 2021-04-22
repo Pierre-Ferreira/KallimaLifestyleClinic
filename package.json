@@ -11,7 +11,7 @@
     "aws-sdk": "^2.879.0",
     "axios": "^0.18.0",
     "babel-runtime": "^6.20.0",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^5.0.0",
     "bootstrap": "4.0.0",
     "csv-parse": "^2.5.0",
     "fuse.js": "^3.6.1",
